@@ -1,0 +1,3523 @@
+{
+ "site": {
+  "domain": "https://blackcomputing.art",
+  "title": [
+   "Arkady Kukin — Black Computing",
+   "Arkady Kukin — Black Computing"
+  ],
+  "description": [
+   "Аркадий Кукин — геймдизайнер и интерактивный художник. Игры, инсталляции, медиаискусство.",
+   "Arkady Kukin — game designer and interactive artist. Games, installations, media art."
+  ]
+ },
+ "bio": {
+  "text": [
+   "Аркадий Кукин (род. 2003, Москва) — геймдизайнер и интерактивный художник. Делает игры и интерактивные инсталляции на Arduino и TouchDesigner, с трекингом камерой и LiDAR. Работы показывались в ММОМА, Фонде «Екатерина», Яндекс Музее и галерее Redhills. Учится в магистратуре ArtTECH НИТУ МИСИС.",
+   "Arkady Kukin (b. 2003, Moscow) is a game designer and interactive artist. He makes games and interactive installations using Arduino, TouchDesigner, camera tracking and LiDAR. His work has been shown at MMOMA, the Ekaterina Cultural Foundation, Yandex.Museum and Redhills Gallery. He is studying for an MA in ArtTECH at NUST MISIS."
+  ],
+  "general": [
+   [
+    "Я геймдизайнер и интерактивный художник. Занимаюсь любыми видами игр, от танцевальных ритуалов до терапевтических видеоигр.",
+    "I am a game designer and interactive artist. I work with all kinds of games, from dance rituals to therapeutic video games."
+   ],
+   [
+    "Привношу в искусство опыт осмысленного и тактильного взаимодействия и игривого притворства",
+    "I bring to art the experience of mindful and tactile interaction and playful pretending"
+   ]
+  ],
+  "edu": [
+   [
+    [
+     "2025–2027",
+     "2025–2027"
+    ],
+    [
+     "Магистратура, ArtTECH, НИТУ МИСИС",
+     "MA, ArtTECH, NUST MISIS"
+    ]
+   ],
+   [
+    [
+     "2022–2025",
+     "2022–2025"
+    ],
+    [
+     "Бакалавриат, «Геймдизайн и виртуальная реальность», Школа дизайна НИУ ВШЭ",
+     "BA, Game Design and Virtual Reality, HSE Art and Design School"
+    ]
+   ]
+  ],
+  "now": [
+   [
+    [
+     "2026 —",
+     "2026 —"
+    ],
+    [
+     "Гостевой преподаватель, НИУ ВШЭ",
+     "Visiting Lecturer, HSE University"
+    ]
+   ],
+   [
+    [
+     "2026",
+     "2026"
+    ],
+    [
+     "Резиденция Y.Art, Яндекс: ментор (игровые автоматы, схемотехника)",
+     "Y.Art Residency, Yandex: mentor (arcade machines, circuit basics)"
+    ]
+   ]
+  ],
+  "contacts": [
+   {
+    "kind": "email",
+    "text": "kukin.arkady@gmail.com"
+   },
+   {
+    "kind": "telegram",
+    "text": "t.me/BlackComputing",
+    "url": "https://t.me/BlackComputing"
+   },
+   {
+    "kind": "linkedin",
+    "text": "www.linkedin.com/in/arkady-kukin",
+    "url": "https://www.linkedin.com/in/arkady-kukin-8273b024a/?isSelfProfile=true"
+   }
+  ]
+ },
+ "exhibitions": {
+  "years": [
+   [
+    "2026",
+    [
+     [
+      "Галерея Краснохолмская — Завтра и Послезавтра",
+      "Redhills Gallery — Tomorrow and the Day After Tomorrow"
+     ]
+    ]
+   ],
+   [
+    "2025",
+    [
+     [
+      "Фонд Культуры “Екатерина” — Великий Беспорядок",
+      "Ekaterina Cultural Foundation — The Great Disorder"
+     ],
+     [
+      "Omelchenko Gallery — RESPAWN PROTOCOL",
+      "Omelchenko Gallery — RESPAWN PROTOCOL"
+     ],
+     [
+      "Штубниц и медиаискусство Петербурга — Digital rain",
+      "Shtubnits and St. Petersburg Media Art — Digital Rain"
+     ],
+     [
+      "Руководство по полному умиранию",
+      "Guide for Complete Dying"
+     ],
+     [
+      "HSE ART AND DESIGN — Game Future",
+      "HSE ART AND DESIGN — Game Future"
+     ],
+     [
+      "Яндекс.Музей — Игры и технологии",
+      "Yandex.Museum — Games and Technologies"
+     ]
+    ]
+   ],
+   [
+    "2024",
+    [
+     [
+      "MMOMA — НИИ Филаретова. Осознанный сон.",
+      "MMOMA — NII Filaretova. Lucid Dream."
+     ],
+     [
+      "ЦТИ “Фабрика” — Мешать деревьям стоять на месте",
+      "CCI \"Fabrika\" — Preventing Trees from Standing Still"
+     ]
+    ]
+   ]
+  ],
+  "pub": [
+   [
+    "Публикации",
+    "Publications"
+   ],
+   [
+    "Взаимодействие между Генеративным искусством и Видеоиграми",
+    "Interaction between Generative art and videogames (In russian)"
+   ],
+   "https://hsedesign.ru/project/696875c8d3154609b6e6588ac6856c2f"
+  ],
+  "covers": [
+   {
+    "img": "ex-tomorrow",
+    "title": [
+     "Завтра и Послезавтра",
+     "Tomorrow and the Day After Tomorrow"
+    ],
+    "place": [
+     "Галерея Краснохолмская, 2026",
+     "Redhills Gallery, 2026"
+    ],
+    "url": "https://kholmy.vzmoscow.ru/tomorrow"
+   },
+   {
+    "img": "ex-disorder",
+    "title": [
+     "Великий Беспорядок",
+     "The Great Disorder"
+    ],
+    "place": [
+     "Фонд Культуры «Екатерина», 2025",
+     "Ekaterina Cultural Foundation, 2025"
+    ],
+    "url": "https://art.hse.ru/gallery/chaos#venues"
+   },
+   {
+    "img": "ex-yandex",
+    "title": [
+     "Игры и технологии",
+     "Games and Technologies"
+    ],
+    "place": [
+     "Яндекс Музей, 2025",
+     "Yandex.Museum, 2025"
+    ],
+    "url": "https://vkvideo.ru/video-226429084_456239048?list=ln-pd4YwRFzRmURPNA3d5"
+   }
+  ]
+ },
+ "sections": [
+  {
+   "id": "exhibitions",
+   "title": [
+    "Выставки",
+    "Exhibitions"
+   ],
+   "cover": null
+  },
+  {
+   "id": "installations",
+   "title": [
+    "Инсталляции",
+    "Installations"
+   ],
+   "cover": "cover-inst"
+  },
+  {
+   "id": "breath",
+   "title": [
+    "Дыхание",
+    "Breath"
+   ],
+   "cover": "cover-breath"
+  },
+  {
+   "id": "games",
+   "title": [
+    "Видеоигры и цифровые работы",
+    "Videogames and Digital Works"
+   ],
+   "cover": "cover-games"
+  },
+  {
+   "id": "gamedesign",
+   "title": [
+    "Геймдизайн",
+    "Game Design"
+   ],
+   "cover": null
+  },
+  {
+   "id": "objects",
+   "title": [
+    "Объекты",
+    "Objects"
+   ],
+   "cover": "cover-obj"
+  },
+  {
+   "id": "practice",
+   "title": [
+    "Практика",
+    "Practice"
+   ],
+   "cover": "cover-prac"
+  },
+  {
+   "id": "contacts",
+   "title": [
+    "Контакты",
+    "Contacts"
+   ],
+   "cover": null
+  }
+ ],
+ "projects": [
+  {
+   "id": "god",
+   "sec": "installations",
+   "title": [
+    "Бог забытого НИИ",
+    "The God of the forgotten RI"
+   ],
+   "tag": [
+    "Arduino и свет",
+    "Arduino and light"
+   ],
+   "exh": [
+    "Галерея Краснохолмская — Завтра и Послезавтра",
+    "Redhills Gallery — Tomorrow and the Day After Tomorrow"
+   ],
+   "lead": [
+    "Игровая инсталляция на LED лентах, фоторезисторах и Arduino",
+    "Game installation with LED lights, photoresistors and Arduino"
+   ],
+   "blocks": [
+    [
+     [
+      "Светотехника",
+      "Lightart"
+     ],
+     {
+      "p": [
+       [
+        "Я занимался программированием микроконтроллера и созданием системы древ поведений для ввода символов и показа произведения",
+        "I was engaged in microcontroller programming and creating a behavior tree system for recognizing player symbols and displaying a literary work."
+       ]
+      ],
+      "ul": []
+     }
+    ],
+    [
+     [
+      "Книги",
+      "Books"
+     ],
+     {
+      "p": [
+       [
+        "Инсталляция через человека связывает 2 книги — “400 вопросов и ответов о вере, Церкви и христианской жизни” и “Хокку.Японские трёхстишья”. Машина задаёт вопрос, человек собирает ответ из ключевых слов, а потом получает хокку, соответствующее его набору ключевых слов.",
+        "The installation uses a players mind to connect two books: \"400 Questions and Answers on Faith, the Church, and Christian Life\" and \"Haiku: Japanese Three-Line Verses.\" The machine asks a question, the person assembles an answer from keywords, and then receives a haiku corresponding to their set of keywords."
+       ]
+      ],
+      "ul": []
+     }
+    ]
+   ],
+   "credits": [
+    [
+     "Связывайте мудрость",
+     "Connect wisdom"
+    ],
+    [
+     "Аркадий Кукин, Тимофей Петренко",
+     "Arkady Kukin, Timofey Petrenko"
+    ]
+   ],
+   "video": [
+    "CAZ3YDpKpu4",
+    11
+   ],
+   "links": [],
+   "imgs": [
+    "god-1",
+    "god-2",
+    "god-3"
+   ]
+  },
+  {
+   "id": "cuisine",
+   "sec": "installations",
+   "title": [
+    "Кулинарная целостность",
+    "Cuisine Collective"
+   ],
+   "tag": [
+    "Touchdesigner",
+    "Touchdesigner"
+   ],
+   "exh": [
+    "Галерея Краснохолмская — Завтра и Послезавтра",
+    "Redhills Gallery — Tomorrow and the Day After Tomorrow"
+   ],
+   "lead": [
+    "Игровая инсталляция на Touchdesigner",
+    "Game installation on Touchdesigner"
+   ],
+   "tagline": [
+    "Помирите черпаки!",
+    "Reconcile the ladles"
+   ],
+   "blocks": [
+    [
+     [
+      "Сказка о быте",
+      "A Household Tale"
+     ],
+     {
+      "p": [
+       [
+        "Успокойте и уладьте отношения между черпаком, ложкой и венчиком. Двигайте их по столу, сближайте и разделяйте. Игра поможет разобраться в хитросплетениях и направит вас.",
+        "Calm and reconcile the relationships between a ladle, a spoon, and a whisk. Move them around the table, bring them together or separate them. The game will help you unravel the complexities and guide you."
+       ]
+      ],
+      "ul": []
+     }
+    ],
+    [
+     [
+      "Система",
+      "System"
+     ],
+     {
+      "p": [
+       [
+        "Камера отслеживает положения девайсов через цвет. В зависимости от расстояния между ними высчитываются их отношения и настроения: Хорошие отношения при сближении улучшают настроение Плохие отношения при сближении ухудшают настроение При хорошем настроении между приборами их отношения улучшаются.",
+        "A camera tracks the positions of the cutlery by color. Depending on the distance between them, their relationships and moods are calculated: Good relationships improve moods when they are brought closer. Poor relationships worsen moods when they are brought closer. When the cutlery are in a good mood, their relationship improves."
+       ]
+      ],
+      "ul": []
+     }
+    ]
+   ],
+   "credits": null,
+   "video": [
+    "aff_hraxk8Y",
+    2
+   ],
+   "links": [],
+   "imgs": [
+    "cu-1",
+    "cu-2",
+    "cu-3"
+   ]
+  },
+  {
+   "id": "mid",
+   "sec": "installations",
+   "title": [
+    "Коммуникация на миде",
+    "Mid communication"
+   ],
+   "tag": [
+    "Dota 2 · планшеты",
+    "Dota 2 · tablets"
+   ],
+   "exh": [
+    "Для выставки Respawn Protocol",
+    "For Respawn Protocol exhibition"
+   ],
+   "lead": [
+    "Интерактивная инсталляция к событию Betboom Premium The International",
+    "Interactive installation for Betboom Premium The International"
+   ],
+   "blocks": [
+    [
+     [
+      "Конструкция",
+      "Structure"
+     ],
+     {
+      "p": [
+       [
+        "Это 2 стойки с планшетами, на каждый из которых установлена игра. Каждая стойка оформлена в стиле персонажей из игры Dota 2 и соответствует роли в игре.",
+        "Project consists of two stands with tablets, each installed with a game. Each stand is designed in the style of characters from Dota 2 and corresponds to a specific in-game role."
+       ]
+      ],
+      "ul": []
+     }
+    ],
+    [
+     [
+      "Игра",
+      "Game"
+     ],
+     {
+      "p": [
+       [
+        "Игра представляет из себя чат, в котором первый игрок должен объяснить второму слово, используя только нецензурную лексику. Второй участник же может использовать только обычную лексику. Такая разница в лексиконе подталкивает к поиску новых смыслов и способов вербализации",
+        "The game is a chat: first player must explain a word to the second using only profanity. The second participant, however, can only use ordinary vocabulary. This difference in lexicon encourages the search for new meanings and ways of verbalization."
+       ]
+      ],
+      "ul": []
+     }
+    ]
+   ],
+   "credits": [
+    null,
+    [
+     "Аркадий Кукин, Тимофей Петренко, Дмитрий Дарвин, Кристина Юрьева",
+     "Arkady Kukin, Timofey Petrenko, Dmitriy Darvin, Kristina Yurieva"
+    ]
+   ],
+   "video": null,
+   "links": [
+    [
+     "doc",
+     "https://docs.google.com/document/d/1dH2PAHYVjSB57dorUr8Sq4kbvity-hmpS-hPKcnfz2s/edit?usp=sharing"
+    ]
+   ],
+   "imgs": [
+    "mid-2",
+    "mid-1",
+    "mid-3"
+   ]
+  },
+  {
+   "id": "lucid",
+   "sec": "installations",
+   "title": [
+    "НИИ Филаретова. Осознанный сон.",
+    "NII Filaretova. Lucid Dream."
+   ],
+   "tag": [
+    "Камера и тени",
+    "Camera and shadows"
+   ],
+   "exh": [
+    "ММОМА, 2024",
+    "MMOMA, 2024"
+   ],
+   "lead": [
+    "Тотальная коллаборация в MMOMA",
+    "Total Collaboration in MMOMA"
+   ],
+   "blocks": [
+    [
+     [
+      "Магическое управление",
+      "Magical control"
+     ],
+     {
+      "p": [
+       [
+        "Медленно двигаете руки перед камерой, чтобы управлять фигурами на экране.",
+        "Slowly move your hands in front of the camera to control the figures on the screen."
+       ]
+      ],
+      "ul": []
+     }
+    ],
+    [
+     [
+      "Коллективность",
+      "Collectivity"
+     ],
+     {
+      "p": [
+       [
+        "Нет ограничения на количество игроков. Собирайтесь вместе и комбинируйте фигуры. Кивните и результат сфотографируется.",
+        "There is no limit to the number of players. Gather together and combine the figures. Nod, and the result will be photographed."
+       ]
+      ],
+      "ul": []
+     }
+    ],
+    [
+     [
+      "Перформанс",
+      "Performance"
+     ],
+     {
+      "p": [
+       [
+        "Вокруг вас играют тени, они будут реагировать на движения фигур и взаимодействовать с вами",
+        "Shadows play around you, they will react to the movements of the figures and interact with you."
+       ]
+      ],
+      "ul": []
+     }
+    ]
+   ],
+   "credits": [
+    null,
+    [
+     "Аркадий Кукин, Тимофей Петренко, Алина Антимонова, Екатерина Избрехт",
+     "Arkady Kukin, Timofey Petrenko, Alina Antimonova, Ekaterina Izbreht"
+    ]
+   ],
+   "video": [
+    "GrwNcmgGgi4",
+    0
+   ],
+   "links": [
+    [
+     "play",
+     "https://pibono.itch.io/lucid-dream"
+    ],
+    [
+     "exhibition",
+     "https://mmoma.ru/know/archive/elena_filaretova/description"
+    ]
+   ],
+   "imgs": [
+    "ld-1",
+    "ld-3",
+    "lucid-1",
+    "ld-2",
+    "lucid-2",
+    "ld-4"
+   ]
+  },
+  {
+   "id": "neurocave",
+   "sec": "installations",
+   "title": [
+    "Нейропещера",
+    "Neurocave"
+   ],
+   "tag": [
+    "Unity, Python и LM Studio",
+    "Unity, Python and LM Studio"
+   ],
+   "exh": null,
+   "lead": [
+    "6 ИИ агентов смотрят на тень предмета и пытаются его угадать. Вы убиваете их пока не дойдёте до истины.",
+    "6 AI agents look at the shadow of an object and try to guess it. You kill them off until you reach the truth."
+   ],
+   "blocks": [
+    [
+     [
+      "Платоновская пещера",
+      "Plato's cave"
+     ],
+     {
+      "p": [
+       [
+        "Мы опираемся на нейросети как источники правды, но они не могут увидеть истину — им доступна только её “тень”. В инсталляции от вас скрыт объект. Но его тень видят и описывают сразу 6 ИИ персонажей. Ваша задача — понять что там спрятано.",
+        "We rely on neural networks as sources of truth, but they cannot see the truth — they only have access to its “shadow”. In the installation, an object is hidden from you. But 6 AI characters see its shadow and describe it. Your task is to figure out what is hidden."
+       ]
+      ],
+      "ul": []
+     }
+    ],
+    [
+     [
+      "Алгоритм",
+      "Algorithm"
+     ],
+     {
+      "p": [
+       [
+        "Игра делится на раунды, и в начале каждого раунда персонажи присылают вам свои размышления.",
+        "The game is divided into rounds, and at the start of each round the characters send you their reasoning."
+       ],
+       [
+        "А вы выбираете, кому меньше всего доверяете, и «убиваете» его, чтобы и он больше не думал, и другие не пытались думать так же, как он.",
+        "You choose the one you trust least and “kill” them, so they stop thinking and the others don't try to think like them."
+       ],
+       [
+        "И так до тех пор, пока не останется последний.",
+        "And so on until only one is left."
+       ]
+      ],
+      "ul": []
+     }
+    ]
+   ],
+   "credits": [
+    [
+     "Связывайте мудрость",
+     "Connect wisdom"
+    ],
+    [
+     "Тимофей Петренко, Аркадий Кукин",
+     "Timofey Petrenko, Arkady Kukin"
+    ]
+   ],
+   "video": [
+    "J_kq-GaC2qY",
+    0
+   ],
+   "links": [],
+   "imgs": [
+    "nc-2",
+    "nc-3",
+    "nc-1",
+    "nc-4",
+    "nc-5"
+   ]
+  },
+  {
+   "id": "perfect",
+   "sec": "installations",
+   "title": [
+    "Идеальная точность",
+    "Perfect Accuracy"
+   ],
+   "tag": [
+    "Grasshopper и робо-рука",
+    "Grasshopper and robotic arm"
+   ],
+   "exh": null,
+   "lead": [
+    "Готовы ли вы доверить своё тело технологиям?",
+    "Are you ready to trust your body to technology?"
+   ],
+   "blocks": [
+    [
+     [
+      "Концепция",
+      "Concept"
+     ],
+     {
+      "p": [
+       [
+        "Готовы ли вы доверить своё тело технологиям? Если да, то можете проверить свою решимость в классической игре в ножички. С робо-рукой.",
+        "Are you ready to trust your body to technology? If so, you can test your resolve in the classic game of mumblety-peg. With a robotic arm."
+       ]
+      ],
+      "ul": []
+     }
+    ],
+    [
+     null,
+     {
+      "p": [
+       [
+        "Мы создали алгоритм обхода пальцев в Grasshopper и прикрепили к робо-руке нож. В целях “безопасности” при записи пришлось использовать деревянного дублёра Тимофея.",
+        "We created a finger-avoidance algorithm in Grasshopper and attached a knife to the robotic arm. For “safety” reasons, we had to use a wooden stand-in for Timofey during filming."
+       ]
+      ],
+      "ul": []
+     }
+    ]
+   ],
+   "credits": [
+    [
+     "Связывайте мудрость",
+     "Connect wisdom"
+    ],
+    [
+     "Тимофей Петренко, Аркадий Кукин",
+     "Timofey Petrenko, Arkady Kukin"
+    ]
+   ],
+   "video": [
+    "sRjzNoUAXrs",
+    0
+   ],
+   "links": [],
+   "imgs": [
+    "pa-1",
+    "pa-2",
+    "pa-3"
+   ]
+  },
+  {
+   "id": "lecture",
+   "sec": "breath",
+   "title": [
+    "Лекция в Яндекс Музее",
+    "Lecture at Yandex Museum"
+   ],
+   "tag": [
+    "Лекция",
+    "Lecture"
+   ],
+   "exh": [
+    "Яндекс.Музей — Игры и технологии",
+    "Yandex.Museum — Games and Technologies"
+   ],
+   "lead": [
+    "Лекция «Генеративное искусство и видеоигры» и первый плейтест The Ordinate.",
+    "The lecture “Generative Art and Videogames” and the first playtest of The Ordinate."
+   ],
+   "blocks": [
+    [
+     [
+      "Лекция",
+      "Lecture"
+     ],
+     {
+      "p": [
+       [
+        "Лекция на тему “Генеративное искусство и Видеоигры” была посвящена осмыслению “гибридизации” этих медиумов",
+        "The lecture “Generative Art and Videogames” was dedicated to understanding the “hybridization” of these media"
+       ]
+      ],
+      "ul": []
+     }
+    ],
+    [
+     [
+      "Игра",
+      "Game"
+     ],
+     {
+      "p": [
+       [
+        "Первый плейтест The Ordinate — моей новой игры с инновационным управлением",
+        "The first playtest of The Ordinate — my new game with innovative controls"
+       ]
+      ],
+      "ul": []
+     }
+    ]
+   ],
+   "credits": null,
+   "video": null,
+   "links": [
+    [
+     "trailer",
+     "https://vkvideo.ru/video-226429084_456239048?list=ln-pd4YwRFzRmURPNA3d5"
+    ],
+    [
+     "research",
+     "https://hsedesign.ru/project/696875c8d3154609b6e6588ac6856c2f"
+    ]
+   ],
+   "imgs": [
+    "yq-1",
+    "yq-2",
+    "lecture-1"
+   ]
+  },
+  {
+   "id": "b343",
+   "sec": "breath",
+   "title": [
+    "3-4-3",
+    "3-4-3"
+   ],
+   "tag": [
+    "Датчик давления и светодиод",
+    "Pressure sensor and LED"
+   ],
+   "exh": null,
+   "lead": null,
+   "intro": [
+    [
+     "В напряженной ситуации всегда трудно вернуть самообладание и сконцентрироваться на потоках воздуха.",
+     "In a stressful situation, it is always hard to regain composure and focus on your breathing."
+    ],
+    [
+     "Поэтому мы сделали устройство, которое поможет соориентироваться в критический момент",
+     "So we made a device that helps you get your bearings at a critical moment"
+    ]
+   ],
+   "blocks": [
+    [
+     [
+      "Всегда с собой",
+      "Always with you"
+     ],
+     {
+      "p": [
+       [
+        "Благодаря носимому девайсу “3-4-3” бос терапия может быть вместе с тобой в любой момент времени! Это устройство следит за твоим темпом дыхания и в случае сбитого дыхания выводит таймер дыхания прямо на твою руку",
+        "Thanks to the wearable “3-4-3” device, breathing therapy can be with you at any moment! The device monitors your breathing rate and, if your breathing gets disrupted, shows a breathing timer right on your wrist"
+       ]
+      ],
+      "ul": []
+     }
+    ],
+    [
+     [
+      "3-4-3",
+      "3-4-3"
+     ],
+     {
+      "p": [
+       [
+        "Датчик давления обнаруживает нарушения в темпе дыхания и начинает с помощью светодиода показывать ритм 3-4-3. Если человек попадает в него, светодиод загорается зелёным",
+        "A pressure sensor detects disruptions in breathing rhythm and uses an LED to show the 3-4-3 rhythm. If the person matches it, the LED turns green"
+       ]
+      ],
+      "ul": []
+     }
+    ]
+   ],
+   "credits": [
+    [
+     "Связывайте мудрость",
+     "Connect wisdom"
+    ],
+    [
+     "Аркадий Кукин, Тимофей Петренко",
+     "Arkady Kukin, Timofey Petrenko"
+    ]
+   ],
+   "video": [
+    "LggGc-Jxc9o",
+    0
+   ],
+   "links": [],
+   "imgs": [
+    "b3-2",
+    "b3-1",
+    "b3-3"
+   ]
+  },
+  {
+   "id": "holotropic",
+   "sec": "breath",
+   "title": [
+    "Holotropic",
+    "Holotropic"
+   ],
+   "tag": [
+    "Плагин для Cursor и датчик",
+    "Cursor plugin and sensor"
+   ],
+   "exh": null,
+   "lead": [
+    "Плагин для Cursor для авто-вайбкодинга.",
+    "A Cursor plugin for auto-vibecoding."
+   ],
+   "blocks": [
+    [
+     [
+      "Принцип",
+      "Principle"
+     ],
+     {
+      "p": [
+       [
+        "Выдыхая, ты наполняешь прогресс бар. Пока он выше 50%, агент работает.",
+        "By exhaling, you fill a progress bar. While it stays above 50%, the agent works."
+       ]
+      ],
+      "ul": []
+     }
+    ],
+    [
+     [
+      "Закрепление датчика",
+      "Sensor placement"
+     ],
+     {
+      "p": [
+       [
+        "Датчик прикреплён к очкам и располагается под носом.",
+        "The sensor is attached to glasses and sits under the nose."
+       ]
+      ],
+      "ul": []
+     }
+    ],
+    [
+     [
+      "Дыхание",
+      "Breath"
+     ],
+     {
+      "p": [
+       [
+        "Плагин поддерживает вас в режиме холотропного дыхания, эффект которого сравнивают с приёмом галлюциногенов.",
+        "The plugin keeps you in holotropic breathing mode, whose effect is compared to taking hallucinogens."
+       ]
+      ],
+      "ul": []
+     }
+    ]
+   ],
+   "credits": [
+    [
+     "Связывайте мудрость",
+     "Connect wisdom"
+    ],
+    [
+     "Аркадий Кукин, Тимофей Петренко",
+     "Arkady Kukin, Timofey Petrenko"
+    ]
+   ],
+   "video": null,
+   "links": [],
+   "imgs": [
+    "ht-2",
+    "ht-1",
+    "ht-3",
+    "ht-4",
+    "ht-5"
+   ]
+  },
+  {
+   "id": "dirbonsai",
+   "sec": "games",
+   "title": [
+    "DirBonSai",
+    "DirBonSai"
+   ],
+   "tag": [
+    "DataART",
+    "DataART"
+   ],
+   "exh": [
+    "Галерея Краснохолмская — Завтра и Послезавтра",
+    "Redhills Gallery — Tomorrow and the Day After Tomorrow"
+   ],
+   "lead": [
+    "Познайте Дзен среди своих данных",
+    "Achieve Zen around your data"
+   ],
+   "blocks": [
+    [
+     [
+      "Ваши файлы",
+      "Your files"
+     ],
+     {
+      "p": [
+       [
+        "DirBonSai может проанализировать любую папку на вашем компьютере. Можете выбрать рабочий проект, папку с детскими фотографиями или случайную программу",
+        "DirBonSai can analyze any folder on your computer. You can choose a work project, a folder of childhood photos, or a random program."
+       ]
+      ],
+      "ul": []
+     }
+    ],
+    [
+     [
+      "Культивируйте красоту",
+      "Cultivating beauty"
+     ],
+     {
+      "p": [
+       [
+        "Приложение создаёт красивое дерево на основе вашей структуры папок. Вы можете отрезать от него ветки, при этом удаляя сопутствующие папки.",
+        "App creates a tree based on your folder structure. You can trim its branches, thereby deleting the corresponding folders."
+       ]
+      ],
+      "ul": []
+     }
+    ]
+   ],
+   "credits": [
+    null,
+    [
+     "Аркадий Кукин, Тимофей Петренко",
+     "Arkady Kukin, Timofey Petrenko"
+    ]
+   ],
+   "video": [
+    "gbV_8NNEdUU",
+    0
+   ],
+   "links": [
+    [
+     "download",
+     "https://pionc.itch.io/dirbonsai"
+    ]
+   ],
+   "imgs": [
+    "db-1"
+   ]
+  },
+  {
+   "id": "memfrgt",
+   "sec": "games",
+   "title": [
+    "MEM_FRGT",
+    "MEM_FRGT"
+   ],
+   "tag": [
+    "LiDAR",
+    "LiDAR"
+   ],
+   "exh": [
+    "Фонд Культуры “Екатерина” — Великий Беспорядок",
+    "Ekaterina Cultural Foundation — The Great Disorder"
+   ],
+   "lead": [
+    "Запись. Анализ. Удаление",
+    "Record. Analyze. Delete."
+   ],
+   "blocks": [
+    [
+     [
+      "LiDAR",
+      "LiDAR"
+     ],
+     {
+      "p": [
+       [
+        "Вы можете видеть только точки, которые создаёт ваш сканер. Вы напрямую ощущаете ту работу, которую проделывает ваша зрительная кора.",
+        "You can only see the dots created by your scanner. You directly perceive the work performed by your visual cortex."
+       ]
+      ],
+      "ul": []
+     }
+    ],
+    [
+     [
+      "Память",
+      "Memory"
+     ],
+     {
+      "p": [
+       [
+        "MEM_FRGT остраняет память, иллюстрируя как мы запоминаем объекты, как они деформируются у нас в памяти и как пропадает то, на что мы не обращаем внимания",
+        "MEM_FRGT defamiliarizes memory, illustrating how we remember objects, how they become distorted in our memory, and how things out of our attention fade away."
+       ]
+      ],
+      "ul": []
+     }
+    ]
+   ],
+   "credits": null,
+   "video": [
+    "aqPTOuOSeKw",
+    0
+   ],
+   "links": [
+    [
+     "play",
+     "https://funtul.itch.io/mem-frgt"
+    ],
+    [
+     "presentation",
+     "https://portfolio.hse.ru/Project/200516"
+    ]
+   ],
+   "imgs": [
+    "mf-1",
+    "mf-2",
+    "mf-3"
+   ]
+  },
+  {
+   "id": "guide",
+   "sec": "games",
+   "title": [
+    "Руководство по полному умиранию",
+    "Guide for Complete Dying"
+   ],
+   "tag": [
+    "Web-выставка",
+    "Web-exhibition"
+   ],
+   "exh": null,
+   "lead": [
+    "Онлайн выставка прямо к премьере фильма",
+    "Online Exhibitions right for premiere"
+   ],
+   "blocks": [],
+   "credits": [
+    null,
+    [
+     "Аркадий Кукин, Тимофей Петренко, Алина Антимонова, Екатерина Избрехт",
+     "Arkady Kukin, Timofey Petrenko, Alina Antimonova, Ekaterina Izbreht"
+    ]
+   ],
+   "video": null,
+   "links": [
+    [
+     "play-archive",
+     "https://pionc.itch.io/the-hitchhikers-guide-to-the-death"
+    ],
+    [
+     "premiere",
+     "https://hsedesign.com/project/6956e7e05ef846cea753b0714d978a75"
+    ]
+   ],
+   "imgs": [
+    "gd-1"
+   ]
+  },
+  {
+   "id": "shtubnits",
+   "sec": "practice",
+   "title": [
+    "Штубниц и медиаискусство Петербурга",
+    "Shtubnits and St. Petersburg Media Art"
+   ],
+   "tag": [
+    "AR интерактивный объект",
+    "AR Interactive object"
+   ],
+   "exh": null,
+   "lead": [
+    "Медиа-археология",
+    "Media-Archeology"
+   ],
+   "blocks": [
+    [
+     [
+      "Исследование",
+      "Research"
+     ],
+     {
+      "p": [
+       [
+        "Целью OpenCall было создание маршрута по знаковым местам для панков, художников и философов Петерубурга 90-х. Пройти его можно самостоятельно с помощью приложения NewStageXR, в нём же можно посмотреть мои AR Объекты, или дождаться фестиваля Digital Rain в конце сентября, чтобы пройти его с гидом-экспертом. \n",
+        "The goal of OpenCall was to create a route through landmark places for punks, artists, and philosophers of 1990s St. Petersburg. You can walk it on your own with the NewStageXR app, which also lets you view my AR objects, or wait for the Digital Rain festival at the end of September and walk it with an expert guide."
+       ]
+      ],
+      "ul": []
+     }
+    ],
+    [
+     [
+      "Objects",
+      "Objects"
+     ],
+     {
+      "p": [
+       [
+        "Для приложения я сделал 2 инсталяции: ",
+        "For the app, I made two installations:"
+       ]
+      ],
+      "ul": [
+       [
+        "Про Пиратское телевидение — абстрактную и панковскую версию советского телевидения. Здесь вам придётся вжится в роль оператора и снять репортаж на случайную и очень странную тему,",
+        "About Pirate Television: an abstract, punk version of Soviet television. Here you have to step into the role of a camera operator and shoot a report on a random and very strange topic."
+       ],
+       [
+        "Про Ольгу Тобрелутс — пионера цифрового коллажа и диву \"новой академии\". В инсталляции вокруг вас будет появляться и исчезать цифровой мираж, пытаящийся вписаться в реальный мир.",
+        "About Olga Tobreluts: a pioneer of digital collage and a diva of the “new academy.” In this installation, a digital mirage appears and disappears around you, trying to fit into the real world."
+       ]
+      ]
+     }
+    ]
+   ],
+   "credits": null,
+   "video": null,
+   "links": [
+    [
+     "more",
+     "https://www.newstagemedialab.com/stubnitz"
+    ]
+   ],
+   "imgs": [
+    "sh-1",
+    "shtubnits-1",
+    "shtubnits-2",
+    "shtubnits-3"
+   ]
+  },
+  {
+   "id": "biovoodoo",
+   "sec": "objects",
+   "title": [
+    "Биовуду",
+    "Biovoodoo"
+   ],
+   "tag": [
+    "Выращивание клеток",
+    "Cell culture"
+   ],
+   "exh": null,
+   "lead": [
+    "Биовуду — микро-человек с образцами ваших тканей, готовых пройти через огонь и воду ради вашей безопасности и любознательности!",
+    "Biovoodoo is a micro-human made of your tissue samples, ready to go through fire and water for your safety and curiosity!"
+   ],
+   "blocks": [
+    [
+     [
+      "Концепция",
+      "Concept"
+     ],
+     {
+      "p": [
+       [
+        "Все мы иногда хотим сделать что-то опасное:",
+        "We all sometimes want to do something dangerous:"
+       ]
+      ],
+      "ul": [
+       [
+        "Прыгнуть со 2 этажа, съесть кусок мыла, погладить дикую крысу, насладиться ванной в гуталине...",
+        "Jump from the 2nd floor, eat a bar of soap, pet a wild rat, enjoy a bath in shoe polish..."
+       ],
+       [
+        "Теперь вы можете это проверить!",
+        "Now you can test it!"
+       ],
+       [
+        "Биовуду — микро-человек с образцами ваших тканей, готовых пройти через огонь и воду ради вашей безопасности и любознательности!",
+        "Biovoodoo is a micro-human made of your tissue samples, ready to go through fire and water for your safety and curiosity!"
+       ]
+      ]
+     }
+    ],
+    [
+     [
+      "Микро Мы",
+      "Micro Us"
+     ],
+     {
+      "p": [
+       [
+        "Наши клетки — маленькая репрезентация нас. Мы сильно связываем их с собой, но при этом нам не жалко ими жертвовать ради своего блага.",
+        "Our cells are a small representation of us. We feel strongly connected to them, yet we don't mind sacrificing them for our own good."
+       ],
+       [
+        "Мы создали “живых” людей, только в очень маленьком формате. Их можно жалеть, ненавидеть, обесценивать или любить. Они являются зеркалом того, как мы относимся к жизни внутри себя.",
+        "We created “living” people, only in a very small format. You can pity them, hate them, devalue them or love them. They are a mirror of how we treat the life inside ourselves."
+       ]
+      ],
+      "ul": []
+     }
+    ]
+   ],
+   "cells": [
+    [
+     "Раковые клетки мозга (U251)",
+     "Brain cancer cells (U251)"
+    ],
+    [
+     "Фибробласты лёгочной ткани (MRC-5)",
+     "Lung tissue fibroblasts (MRC-5)"
+    ],
+    [
+     "Мышечные фибробласты (L6)",
+     "Muscle fibroblasts (L6)"
+    ],
+    [
+     "Раковые клетки поджелудочной железы (PANC-1)",
+     "Pancreatic cancer cells (PANC-1)"
+    ],
+    [
+     "Клетки печени (HepG2)",
+     "Liver cells (HepG2)"
+    ],
+    [
+     "Клетки почек (HEK-293)",
+     "Kidney cells (HEK-293)"
+    ]
+   ],
+   "credits": [
+    [
+     "Связывайте мудрость",
+     "Connect wisdom"
+    ],
+    [
+     "Тимофей Петренко, Аркадий Кукин, Анна Ходыкина",
+     "Timofey Petrenko, Arkady Kukin, Anna Khodykina"
+    ]
+   ],
+   "video": [
+    "Jy08hsm9Hpo",
+    0
+   ],
+   "links": [],
+   "imgs": [
+    "bv-1",
+    "bv-2",
+    "bv-3"
+   ]
+  },
+  {
+   "id": "elite",
+   "sec": "objects",
+   "title": [
+    "Elite",
+    "Elite"
+   ],
+   "tag": [
+    "Blender, 3D-печать и покраска акрилом",
+    "Blender, 3D printing and acrylic painting"
+   ],
+   "exh": null,
+   "lead": [
+    "«Elite» — это ракета-матрёшка, которая ставит перед детьми и взрослыми вопрос: «Кого отправить в космос?» — и учит основам капиталистического общества.",
+    "“Elite” is a matryoshka rocket that asks children and adults the question: “Who should be sent into space?” — and teaches the basics of capitalist society."
+   ],
+   "blocks": [
+    [
+     [
+      "Матрёшка",
+      "Matryoshka"
+     ],
+     {
+      "p": [
+       [
+        "Мы решили взять за основу советскую матрёшку-ракету — символ прогресса и мечт о лучшем будущем. И осовременили её под новые реалии, где важно обучить законам капитализма и представить две ролевые модели: рабочего и бизнесмена, — чтобы ребёнок научился выбирать свой жизненный путь правильно.",
+        "We decided to base it on the Soviet matryoshka rocket — a symbol of progress and dreams of a better future. And we modernized it for new realities, where it is important to teach the laws of capitalism and present two role models: the worker and the businessman — so that the child learns to choose their life path correctly."
+       ]
+      ],
+      "ul": []
+     }
+    ],
+    [
+     [
+      "Несостыковка",
+      "Mismatch"
+     ],
+     {
+      "p": [
+       [
+        "Но проблема в том, что рабочий не поместится в ракету из-за слишком большой каски. Поэтому в любом случае полетит бизнесмен.",
+        "But the problem is that the worker won't fit in the rocket because of his oversized hard hat. So in any case, the businessman will be the one to fly."
+       ]
+      ],
+      "ul": []
+     }
+    ]
+   ],
+   "credits": [
+    [
+     "Связывайте мудрость",
+     "Connect wisdom"
+    ],
+    [
+     "Аркадий Кукин, Тимофей Петренко",
+     "Arkady Kukin, Timofey Petrenko"
+    ]
+   ],
+   "video": [
+    "n5OJxoES-uk",
+    0
+   ],
+   "links": [],
+   "imgs": [
+    "el-2",
+    "el-1",
+    "el-3",
+    "el-4",
+    "el-5",
+    "el-6",
+    "el-7"
+   ]
+  },
+  {
+   "id": "arcade",
+   "sec": "practice",
+   "title": [
+    "Выставка Аркадных автоматов ЦФЫВ",
+    "Arcade Machines Exhibition TsFYV"
+   ],
+   "tag": [
+    "Участие в организации + Лекция",
+    "Helped organize + Lecture"
+   ],
+   "exh": null,
+   "lead": null,
+   "blocks": [
+    [
+     [
+      "Летсплей",
+      "Let's play"
+     ],
+     {
+      "p": [
+       [
+        "Подышали в The Ordinate и обсудили влияние дыхания на игру и сознание.",
+        "We breathed along in The Ordinate and discussed the influence of breathing on play and consciousness."
+       ]
+      ],
+      "ul": []
+     }
+    ],
+    [
+     [
+      "Про дыхание",
+      "About breathing"
+     ],
+     {
+      "p": [
+       [
+        "Презентовал следующие выводы из плейтестов The Ordinate:",
+        "Presented the following conclusions from The Ordinate playtests:"
+       ]
+      ],
+      "ul": [
+       [
+        "Фокусировка на дыхании вытесняет 80% внимания, знаки меньше чем весь экран не воспринимаются",
+        "Focusing on breathing displaces 80% of attention; signs smaller than the full screen go unnoticed"
+       ],
+       [
+        "Постоянный контроль дыхания создаёт особое состояние сознания",
+        "Constant breath control creates a special state of consciousness"
+       ],
+       [
+        "Состояние повышает вовлечённость и толерантность к провалам, но люди перестают искать альтернативные решения",
+        "This state increases engagement and tolerance for failure, but people stop looking for alternative solutions"
+       ]
+      ]
+     }
+    ]
+   ],
+   "credits": [
+    [
+     "Группа Кавардак",
+     "Kavardak group"
+    ],
+    [
+     "Аркадий Кукин, Тимофей Петренко",
+     "Arkady Kukin, Timofey Petrenko"
+    ]
+   ],
+   "video": null,
+   "links": [],
+   "imgs": [
+    "ar-1",
+    "ar-2",
+    "ar-3",
+    "ar-4"
+   ]
+  },
+  {
+   "id": "yart",
+   "sec": "practice",
+   "title": [
+    "Y.Art Резиденция",
+    "Y.Art Residency"
+   ],
+   "tag": [
+    "Схемотехника и игровые автоматы",
+    "Circuit design and arcade machines"
+   ],
+   "exh": null,
+   "lead": [
+    "Изучали искусство игровых автоматов вместе с Яндексоидами",
+    "We studied the art of arcade machines together with the Yandex team"
+   ],
+   "blocks": [
+    [
+     [
+      "Схемотехника",
+      "Circuit design"
+     ],
+     {
+      "p": [
+       [
+        "Проводили пары по основам схемотехники и сборки своего контроллера для игрового автомата.",
+        "We taught classes on the basics of circuit design and building your own controller for an arcade machine."
+       ]
+      ],
+      "ul": []
+     }
+    ],
+    [
+     [
+      "Игры",
+      "Games"
+     ],
+     {
+      "p": [
+       [
+        "Каждый придумал свою игру с необычным управлением — датчики расстояния, динамо-машина, рычаги и кнопки.",
+        "Everyone came up with their own game with unusual controls — distance sensors, a dynamo, levers and buttons."
+       ]
+      ],
+      "ul": []
+     }
+    ]
+   ],
+   "credits": [
+    [
+     "Связывайте мудрость",
+     "Connect wisdom"
+    ],
+    [
+     "Аркадий Кукин, Тимофей Петренко",
+     "Arkady Kukin, Timofey Petrenko"
+    ]
+   ],
+   "video": null,
+   "links": [],
+   "imgs": [
+    "ya-1",
+    "ya-3",
+    "ya-2",
+    "ya-4",
+    "ya-5"
+   ]
+  },
+  {
+   "id": "ordinate",
+   "sec": "games",
+   "title": [
+    "The Ordinate",
+    "The Ordinate"
+   ],
+   "tag": [
+    "Игра с управлением дыханием",
+    "Breath-controlled game"
+   ],
+   "exh": null,
+   "lead": [
+    "Экспериментальная игра с управлением через дыхание, разрабатываемая как инструмент психологической терапии.",
+    "An experimental breath-controlled game, being developed as a tool for psychological therapy."
+   ],
+   "blocks": [],
+   "credits": null,
+   "video": [
+    "LLOpDqs4Uck",
+    0
+   ],
+   "links": [
+    [
+     "play",
+     "https://funtul.itch.io/the-ordinate"
+    ]
+   ],
+   "imgs": [
+    "ord-1",
+    "ord-2",
+    "ord-3",
+    "ord-4"
+   ]
+  },
+  {
+   "id": "nomad",
+   "sec": "games",
+   "title": [
+    "NOMAD",
+    "NOMAD"
+   ],
+   "tag": [
+    "Метаверс-проект",
+    "Metaverse project"
+   ],
+   "exh": [
+    "HSE METAVERS LABS",
+    "HSE METAVERS LABS"
+   ],
+   "lead": [
+    "Кооперативный метаверс-проект для выставки студенческих работ.",
+    "A cooperative metaverse project for a student work exhibition."
+   ],
+   "blocks": [
+    [
+     [
+      "Метаверс",
+      "Metaverse"
+     ],
+     {
+      "p": [
+       [
+        "Игра создана как пространство для выставления других студенческих работ в метаверсе HSE. Оно кажется абсолютно пустым, пока не подойдёшь поближе.\n",
+        "The game is built as a space for exhibiting other student works in the HSE metaverse. It seems completely empty until you come closer.\n"
+       ]
+      ],
+      "ul": []
+     }
+    ],
+    [
+     [
+      "Кооператив",
+      "Cooperative"
+     ],
+     {
+      "p": [
+       [
+        "Метаверс позволяет сразу нескольким людям исследовать это пространство. Чтобы зайти в некоторые закоулки NOMAD понадобиться друг и несколько лестниц с мостами.",
+        "The metaverse lets several people explore this space at once. To get into some of NOMAD’s nooks, you’ll need a friend and a few ladders with bridges."
+       ]
+      ],
+      "ul": []
+     }
+    ]
+   ],
+   "credits": null,
+   "video": [
+    "DYXVU2QnLY0",
+    0
+   ],
+   "links": [
+    [
+     "more",
+     "https://gl.burgdev.ru/"
+    ]
+   ],
+   "imgs": [
+    "nom-1",
+    "nomad-1",
+    "nomad-2"
+   ]
+  },
+  {
+   "id": "upadenok",
+   "sec": "games",
+   "title": [
+    "UPADENOK",
+    "UPADENOK"
+   ],
+   "tag": [
+    "Дзен-игра",
+    "Zen game"
+   ],
+   "exh": null,
+   "lead": [
+    "Дзен-игра о контроле над падением, основанная на физике и планировании.",
+    "A zen game about controlling a fall, based on physics and planning."
+   ],
+   "blocks": [],
+   "credits": null,
+   "video": [
+    "0Tgrtg1Toks",
+    0
+   ],
+   "links": [
+    [
+     "itch",
+     "https://funtul.itch.io/upadenok"
+    ]
+   ],
+   "imgs": [
+    "upa-1",
+    "upa-2",
+    "upa-3",
+    "upa-4"
+   ]
+  },
+  {
+   "id": "pongu",
+   "sec": "games",
+   "title": [
+    "PongU",
+    "PongU"
+   ],
+   "tag": [
+    "Экологическая версия Pong",
+    "Ecological Pong"
+   ],
+   "exh": null,
+   "lead": [
+    "Экологическая версия Pong, где деревья растут и меняют игровое поле.",
+    "An ecological version of Pong where trees grow and change the playing field."
+   ],
+   "blocks": [],
+   "credits": null,
+   "video": [
+    "CH_JoD5JaF0",
+    0
+   ],
+   "links": [
+    [
+     "play",
+     "https://funtul.itch.io/pongu"
+    ]
+   ],
+   "imgs": [
+    "pongu-1",
+    "pon-2",
+    "pon-3",
+    "pon-4",
+    "pon-5",
+    "pon-6"
+   ]
+  },
+  {
+   "id": "urc",
+   "sec": "games",
+   "title": [
+    "Untitled Robot Controller",
+    "Untitled Robot Controller"
+   ],
+   "tag": [
+    "Raspberry Pi / Видеоигра",
+    "Raspberry Pi / Videogame"
+   ],
+   "exh": null,
+   "lead": [
+    "Контролируйте странного робота на другой планете с помощью своих рук и ног.",
+    "Control a strange robot on another planet with your hands and feet."
+   ],
+   "blocks": [
+    [
+     [
+      "Контроллер",
+      "Controller"
+     ],
+     {
+      "p": [
+       [
+        "Контроллер собран с помощью Raspbery Pi, 4 энкодеров и 4 катушек с верёвками для крепления бейджиков",
+        "The controller is built with a Raspberry Pi, 4 encoders, and 4 spools of cord for attaching name badges."
+       ]
+      ],
+      "ul": []
+     }
+    ],
+    [
+     [
+      "Управление",
+      "Controls"
+     ],
+     {
+      "p": [
+       [
+        "Каждая ниточка из катушки крепится к части тела. Игроку предстоит управлять прыгающим роботом на необитаемой планете.  Контроллер остраняет управление, создавая ощущение управления “не своим” телом.",
+        "Each thread on the spool is attached to a part of the body. The player has to control a hopping robot on an uninhabited planet. The controller defamiliarizes the controls, creating the feeling of moving a body that doesn’t feel like your own."
+       ]
+      ],
+      "ul": []
+     }
+    ]
+   ],
+   "credits": null,
+   "video": [
+    "2pwCNGrx-bg",
+    0
+   ],
+   "links": [],
+   "imgs": [
+    "urc-2",
+    "urc-3",
+    "urc-4",
+    "urc-5"
+   ]
+  },
+  {
+   "id": "razvidet",
+   "sec": "games",
+   "title": [
+    "Развидеть",
+    "Razvidet"
+   ],
+   "tag": [
+    "Игра о восприятии",
+    "Perception game"
+   ],
+   "exh": null,
+   "lead": [
+    "Игра, исследующая слуховое и визуальное восприятие в условиях шума.",
+    "A game exploring auditory and visual perception under noise."
+   ],
+   "blocks": [],
+   "credits": null,
+   "video": [
+    "A3hLa0gil58",
+    0
+   ],
+   "links": [
+    [
+     "itch",
+     "https://funtul.itch.io/razvidet"
+    ]
+   ],
+   "imgs": [
+    "razvidet-1",
+    "raz-1",
+    "raz-2",
+    "raz-3",
+    "raz-4",
+    "raz-5",
+    "raz-6",
+    "raz-7"
+   ]
+  },
+  {
+   "id": "homegeon",
+   "sec": "games",
+   "title": [
+    "Homegeon",
+    "Homegeon"
+   ],
+   "tag": [
+    "Игра · Mini Jam 136",
+    "Game · Mini Jam 136"
+   ],
+   "exh": null,
+   "lead": [
+    "Приключение про бездомного мага, попавшего в древнее подземелье: каждое заклинание одноразовое.",
+    "An adventure about an unlucky homeless mage who ends up in an ancient dungeon: every spell can be cast only once."
+   ],
+   "blocks": [],
+   "credits": [
+    null,
+    [
+     "Yaffi: 3D, 2D, UI, концепт, левел-дизайн; Аркадий Кукин: программирование, концепт; anarchiccoffee: VFX, анимации, левел-дизайн; ykcyc",
+     "Yaffi: 3D, 2D, UI, concept, level design; Arkady Kukin: programming, concept; anarchiccoffee: VFX, animations, level design; ykcyc"
+    ]
+   ],
+   "video": null,
+   "links": [
+    [
+     "itch",
+     "https://funtul.itch.io/homegeon"
+    ]
+   ],
+   "imgs": [
+    "hom-1",
+    "hom-2",
+    "hom-3",
+    "hom-4",
+    "hom-5"
+   ]
+  },
+  {
+   "id": "jarnvid",
+   "sec": "games",
+   "title": [
+    "Jarnvid",
+    "Jarnvid"
+   ],
+   "tag": [
+    "Survival horror · в разработке",
+    "Survival horror · in development"
+   ],
+   "exh": null,
+   "lead": [
+    "Тёмная игра на выживание о мёртвом мальчике в волшебном лесу: пройти сквозь темноту, победить зверя и повзрослеть.",
+    "A dark survival game about a dead boy in a magical forest: travel through the darkness, defeat a beast and grow up."
+   ],
+   "blocks": [],
+   "credits": [
+    null,
+    [
+     "Haruki; Аркадий Кукин: программист и геймдизайнер",
+     "Haruki; Arkady Kukin: programmer and game designer"
+    ]
+   ],
+   "video": null,
+   "links": [
+    [
+     "itch",
+     "https://haruki-game.itch.io/jarnvid"
+    ]
+   ],
+   "imgs": [
+    "jar-1",
+    "jar-2",
+    "jar-3",
+    "jar-4",
+    "jar-5",
+    "jar-6"
+   ]
+  },
+  {
+   "id": "mecubes",
+   "sec": "games",
+   "title": [
+    "Me and My Cubes",
+    "Me and My Cubes"
+   ],
+   "tag": [
+    "Головоломка от первого лица",
+    "First-person puzzle"
+   ],
+   "exh": null,
+   "lead": [
+    "Головоломка от первого лица: поднимите куб и управляйте временем.",
+    "A first-person puzzle: pick up a cube and manipulate time."
+   ],
+   "blocks": [],
+   "credits": null,
+   "video": [
+    "3fpg7ipls4U",
+    0
+   ],
+   "links": [
+    [
+     "play",
+     "https://funtul.itch.io/me-and-my-cubes"
+    ]
+   ],
+   "imgs": [
+    "mcu-1",
+    "mcu-2",
+    "mcu-3",
+    "mcu-4",
+    "mcu-5",
+    "mcu-6",
+    "mcu-7"
+   ]
+  },
+  {
+   "id": "spacejunker",
+   "sec": "games",
+   "title": [
+    "SpaceJunker",
+    "SpaceJunker"
+   ],
+   "tag": [
+    "Action · Unreal Engine",
+    "Action · Unreal Engine"
+   ],
+   "exh": null,
+   "lead": [
+    "Вы — космический старьёвщик: садитесь в свою космическую развалюху и летите на задания.",
+    "You are a Space Junker: hop on your space rattletrap and do some missions."
+   ],
+   "blocks": [],
+   "credits": null,
+   "video": [
+    "2pwCNGrx-bg",
+    0
+   ],
+   "links": [
+    [
+     "itch",
+     "https://funtul.itch.io/spacejunker"
+    ]
+   ],
+   "imgs": [
+    "spacejunker-4",
+    "spj-1",
+    "spacejunker-1",
+    "spacejunker-2",
+    "spacejunker-3"
+   ]
+  },
+  {
+   "id": "ultraspeeed",
+   "sec": "games",
+   "title": [
+    "ULTRASPEEED",
+    "ULTRASPEEED"
+   ],
+   "tag": [
+    "Платформер от первого лица",
+    "First-person platformer"
+   ],
+   "exh": null,
+   "lead": [
+    "FPS-платформер, где скорость — ваш ресурс. Разгоняйтесь как можно сильнее.",
+    "An FPS platformer where speed is your resource. Accelerate as much as you can."
+   ],
+   "blocks": [],
+   "credits": null,
+   "video": null,
+   "links": [
+    [
+     "itch",
+     "https://funtul.itch.io/ultraspeeed"
+    ]
+   ],
+   "imgs": [
+    "ultraspeeed-1",
+    "ult-1",
+    "ult-2",
+    "ult-3",
+    "ult-4",
+    "ult-5"
+   ]
+  },
+  {
+   "id": "grav",
+   "sec": "games",
+   "title": [
+    "GRAV",
+    "GRAV"
+   ],
+   "tag": [
+    "Минималистичный платформер",
+    "Minimalist platformer"
+   ],
+   "exh": null,
+   "lead": [
+    "Минималистичный платформер, где единственный способ взаимодействия с игровым миром — это изменение направления гравитации.",
+    "A minimalist platformer where the only way to interact with the game world is to change the direction of gravity."
+   ],
+   "blocks": [],
+   "credits": null,
+   "video": [
+    "IzDtFOXCkwc",
+    0
+   ],
+   "links": [
+    [
+     "itch",
+     "https://funtul.itch.io/grav"
+    ]
+   ],
+   "imgs": [
+    "grv-1",
+    "grv-2",
+    "grv-3",
+    "grv-4",
+    "grv-5",
+    "grv-6"
+   ]
+  }
+ ],
+ "games": [
+  {
+   "name": "DirBonSai",
+   "year": [
+    "2025",
+    "2025"
+   ],
+   "desc": [
+    "Программа про культивирование своих файлов через удаление.",
+    "A program about cultivating your files through deletion."
+   ],
+   "url": "https://pionc.itch.io/dirbonsai"
+  },
+  {
+   "name": "The Ordinate",
+   "year": [
+    "2025",
+    "2025"
+   ],
+   "desc": [
+    "Экспериментальная игра с управлением через дыхание, разрабатываемая как инструмент психологической терапии.",
+    "An experimental breath-controlled game, being developed as a tool for psychological therapy."
+   ],
+   "url": "https://funtul.itch.io/the-ordinate"
+  },
+  {
+   "name": "NOMAD",
+   "year": [
+    "2024",
+    "2024"
+   ],
+   "desc": [
+    "Кооперативный метаверс-проект для выставки студенческих работ.",
+    "A cooperative metaverse project for a student work exhibition."
+   ],
+   "url": "https://gl.burgdev.ru/"
+  },
+  {
+   "name": "UPADENOK",
+   "year": [
+    "2023",
+    "2023"
+   ],
+   "desc": [
+    "Дзен-игра о контроле над падением, основанная на физике и планировании.",
+    "A zen game about controlling a fall, based on physics and planning."
+   ],
+   "url": "https://funtul.itch.io/upadenok"
+  },
+  {
+   "name": "PongU",
+   "year": [
+    "2023",
+    "2023"
+   ],
+   "desc": [
+    "Экологическая версия Pong, где деревья растут и меняют игровое поле.",
+    "An ecological version of Pong where trees grow and change the playing field."
+   ],
+   "url": "https://funtul.itch.io/pongu"
+  },
+  {
+   "name": "Untitled Robot Controller",
+   "year": [
+    "2023",
+    "2023"
+   ],
+   "desc": [
+    "Контролируйте странного робота на другой планете с помощью своих рук и ног",
+    "Control a strange robot on another planet with your hands and feet"
+   ],
+   "url": "https://youtu.be/2pwCNGrx-bg"
+  },
+  {
+   "name": "MEM_FRGT",
+   "year": [
+    "2023",
+    "2023"
+   ],
+   "desc": [
+    "Игра, использующая LiDAR для визуализации процессов памяти и забывания.",
+    "A game that uses LiDAR to visualize the processes of remembering and forgetting."
+   ],
+   "url": "https://funtul.itch.io/mem-frgt"
+  },
+  {
+   "name": "Razvidet",
+   "year": [
+    "2022",
+    "2022"
+   ],
+   "desc": [
+    "Игра, исследующая слуховое и визуальное восприятие в условиях шума.",
+    "A game exploring auditory and visual perception under noise."
+   ],
+   "url": "https://funtul.itch.io/razvidet"
+  },
+  {
+   "name": "Homegeon",
+   "year": [
+    "2023",
+    "2023"
+   ],
+   "desc": [
+    "Приключение про бездомного мага, попавшего в древнее подземелье: каждое заклинание одноразовое.",
+    "An adventure about an unlucky homeless mage who ends up in an ancient dungeon: every spell can be cast only once."
+   ],
+   "url": "https://funtul.itch.io/homegeon"
+  },
+  {
+   "name": "Jarnvid",
+   "year": [
+    "2023",
+    "2023"
+   ],
+   "desc": [
+    "Тёмная игра на выживание о мёртвом мальчике в волшебном лесу: пройти сквозь темноту, победить зверя и повзрослеть.",
+    "A dark survival game about a dead boy in a magical forest: travel through the darkness, defeat a beast and grow up."
+   ],
+   "url": "https://haruki-game.itch.io/jarnvid"
+  },
+  {
+   "name": "Me and My Cubes",
+   "year": [
+    "2023",
+    "2023"
+   ],
+   "desc": [
+    "Головоломка от первого лица: поднимите куб и управляйте временем.",
+    "A first-person puzzle: pick up a cube and manipulate time."
+   ],
+   "url": "https://funtul.itch.io/me-and-my-cubes"
+  },
+  {
+   "name": "SpaceJunker",
+   "year": [
+    "2023",
+    "2023"
+   ],
+   "desc": [
+    "Вы — космический старьёвщик: садитесь в свою космическую развалюху и летите на задания.",
+    "You are a Space Junker: hop on your space rattletrap and do some missions."
+   ],
+   "url": "https://funtul.itch.io/spacejunker"
+  },
+  {
+   "name": "ULTRASPEEED",
+   "year": [
+    "2023",
+    "2023"
+   ],
+   "desc": [
+    "FPS-платформер, где скорость — ваш ресурс. Разгоняйтесь как можно сильнее.",
+    "An FPS platformer where speed is your resource. Accelerate as much as you can."
+   ],
+   "url": "https://funtul.itch.io/ultraspeeed"
+  },
+  {
+   "name": "GRAV",
+   "year": [
+    "2021",
+    "2021"
+   ],
+   "desc": [
+    "Минималистичный платформер, где единственный способ взаимодействия с игровым миром — это изменение направления гравитации.",
+    "A minimalist platformer where the only way to interact with the game world is to change the direction of gravity."
+   ],
+   "url": "https://funtul.itch.io/grav"
+  }
+ ],
+ "layout": {
+  "top": [
+   {
+    "id": "hello",
+    "pos": [
+     1,
+     7,
+     1,
+     4,
+     6,
+     4
+    ]
+   },
+   {
+    "id": "cvC",
+    "pos": [
+     9,
+     4,
+     1,
+     4,
+     6,
+     4
+    ]
+   },
+   {
+    "id": "cvA",
+    "pos": [
+     1,
+     7,
+     6,
+     2,
+     6,
+     2
+    ]
+   },
+   {
+    "id": "cvB",
+    "pos": [
+     9,
+     4,
+     6,
+     1,
+     6,
+     1
+    ]
+   }
+  ],
+  "bio": [],
+  "portfolio": [
+   {
+    "id": "portrait",
+    "pos": [
+     1,
+     5,
+     1,
+     10,
+     6,
+     10
+    ]
+   },
+   {
+    "id": "toc",
+    "pos": [
+     6,
+     7,
+     1,
+     8,
+     6,
+     8
+    ]
+   }
+  ],
+  "exhibitions": [
+   {
+    "id": "exlist",
+    "pos": [
+     1,
+     6,
+     1,
+     8,
+     6,
+     8
+    ]
+   }
+  ],
+  "installations": [
+   {
+    "id": "god",
+    "pos": [
+     1,
+     3,
+     1,
+     6,
+     3,
+     6
+    ]
+   },
+   {
+    "id": "cuisine",
+    "pos": [
+     5,
+     6,
+     2,
+     5,
+     6,
+     5
+    ]
+   },
+   {
+    "id": "mid",
+    "pos": [
+     2,
+     3,
+     7,
+     6,
+     3,
+     6
+    ]
+   },
+   {
+    "id": "lucid",
+    "pos": [
+     6,
+     3,
+     7,
+     6,
+     3,
+     6
+    ]
+   },
+   {
+    "id": "neurocave",
+    "pos": [
+     9,
+     4,
+     7,
+     4,
+     6,
+     4
+    ]
+   },
+   {
+    "id": "perfect",
+    "pos": [
+     5,
+     4,
+     13,
+     6,
+     6,
+     6
+    ]
+   }
+  ],
+  "breath": [
+   {
+    "id": "lecture",
+    "pos": [
+     2,
+     3,
+     2,
+     6,
+     3,
+     6
+    ]
+   },
+   {
+    "id": "b343",
+    "pos": [
+     6,
+     6,
+     1,
+     5,
+     6,
+     5
+    ]
+   },
+   {
+    "id": "holotropic",
+    "pos": [
+     4,
+     6,
+     8,
+     5,
+     6,
+     5
+    ]
+   }
+  ],
+  "games": [
+   {
+    "id": "memfrgt",
+    "pos": [
+     9,
+     3,
+     2,
+     6,
+     3,
+     6
+    ]
+   },
+   {
+    "id": "ordinate",
+    "pos": [
+     2,
+     6,
+     3,
+     7,
+     6,
+     7
+    ]
+   },
+   {
+    "id": "guide",
+    "pos": [
+     2,
+     5,
+     10,
+     4,
+     6,
+     4
+    ]
+   },
+   {
+    "id": "dirbonsai",
+    "pos": [
+     8,
+     3,
+     10,
+     6,
+     3,
+     6
+    ]
+   },
+   {
+    "id": "razvidet",
+    "pos": [
+     3,
+     5,
+     15,
+     10,
+     6,
+     10
+    ]
+   },
+   {
+    "id": "mecubes",
+    "pos": [
+     9,
+     4,
+     17,
+     5,
+     6,
+     5
+    ]
+   },
+   {
+    "id": "urc",
+    "pos": [
+     9,
+     3,
+     22,
+     4,
+     3,
+     4
+    ]
+   },
+   {
+    "id": "upadenok",
+    "pos": [
+     4,
+     5,
+     25,
+     4,
+     6,
+     4
+    ]
+   },
+   {
+    "id": "nomad",
+    "pos": [
+     10,
+     3,
+     27,
+     6,
+     3,
+     6
+    ]
+   },
+   {
+    "id": "pongu",
+    "pos": [
+     2,
+     4,
+     30,
+     8,
+     6,
+     8
+    ]
+   },
+   {
+    "id": "homegeon",
+    "pos": [
+     7,
+     3,
+     31,
+     6,
+     3,
+     6
+    ]
+   },
+   {
+    "id": "jarnvid",
+    "pos": [
+     10,
+     3,
+     37,
+     4,
+     3,
+     4
+    ]
+   },
+   {
+    "id": "spacejunker",
+    "pos": [
+     5,
+     3,
+     38,
+     6,
+     3,
+     6
+    ]
+   },
+   {
+    "id": "ultraspeeed",
+    "pos": [
+     9,
+     3,
+     41,
+     6,
+     3,
+     6
+    ]
+   },
+   {
+    "id": "grav",
+    "pos": [
+     5,
+     3,
+     45,
+     3,
+     3,
+     3
+    ]
+   }
+  ],
+  "objects": [
+   {
+    "id": "biovoodoo",
+    "pos": [
+     2,
+     4,
+     2,
+     6,
+     6,
+     6
+    ]
+   },
+   {
+    "id": "elite",
+    "pos": [
+     7,
+     5,
+     2,
+     6,
+     6,
+     6
+    ]
+   }
+  ],
+  "practice": [
+   {
+    "id": "yart",
+    "pos": [
+     7,
+     5,
+     3,
+     4,
+     6,
+     4
+    ]
+   },
+   {
+    "id": "arcade",
+    "pos": [
+     2,
+     4,
+     4,
+     6,
+     6,
+     6
+    ]
+   },
+   {
+    "id": "shtubnits",
+    "pos": [
+     7,
+     3,
+     8,
+     6,
+     3,
+     6
+    ]
+   }
+  ],
+  "contacts": [
+   {
+    "id": "ctile",
+    "pos": [
+     4,
+     6,
+     1,
+     4,
+     6,
+     4
+    ]
+   }
+  ],
+  "gamedesign": [
+   {
+    "id": "exp",
+    "pos": [
+     1,
+     6,
+     1,
+     9,
+     6,
+     9
+    ]
+   },
+   {
+    "id": "restory",
+    "pos": [
+     7,
+     6,
+     1,
+     4,
+     6,
+     4
+    ]
+   },
+   {
+    "id": "iamfuture",
+    "pos": [
+     7,
+     6,
+     5,
+     6,
+     6,
+     6
+    ]
+   }
+  ],
+  "statement": [
+   {
+    "id": "s1",
+    "pos": [
+     1,
+     6,
+     1,
+     2,
+     6,
+     2
+    ]
+   },
+   {
+    "id": "s2",
+    "pos": [
+     7,
+     6,
+     3,
+     2,
+     6,
+     2
+    ]
+   },
+   {
+    "id": "s3",
+    "pos": [
+     2,
+     5,
+     6,
+     2,
+     6,
+     2
+    ]
+   },
+   {
+    "id": "s4",
+    "pos": [
+     8,
+     4,
+     7,
+     2,
+     6,
+     2
+    ]
+   },
+   {
+    "id": "kid-s-play",
+    "pos": [
+     3,
+     9,
+     10,
+     7,
+     6,
+     7
+    ]
+   },
+   {
+    "id": "s6",
+    "pos": [
+     2,
+     4,
+     17,
+     2,
+     6,
+     2
+    ]
+   },
+   {
+    "id": "s5",
+    "pos": [
+     7,
+     5,
+     19,
+     2,
+     6,
+     2
+    ]
+   },
+   {
+    "id": "s7",
+    "pos": [
+     4,
+     6,
+     22,
+     3,
+     6,
+     3
+    ]
+   }
+  ]
+ },
+ "statement": [
+  [
+   "Я работаю с Alt-ctrl видеоиграми, интерактивными инсталляциями, играми живого действия. ",
+   "The aesthetics of games is invisible — it hides in systems, sensations and interactions."
+  ],
+  [
+   "Если где-то можно выделить опыт человека взаимодействующего, значит я могу разложить его и превратить в игровое высказывание.",
+   "Like a mirage, it wraps around the action and gives special meaning to everything that happens. I am fascinated by how rules give rise to a particular experience, both inside a person and outside of them."
+  ],
+  [
+   "Игра освобождает от ответственности и даёт свободу изучать и экспериментировать. ",
+   "Play frees us from responsibility and gives us the freedom to explore and experiment. It awakens the innocence we lose with age."
+  ],
+  [
+   "Она пробуждает невинность, теряемую с возрастом.",
+   "In role-play we become sincere: behind someone else’s mask we feel our own true face."
+  ],
+  [
+   "В отыгрыше роли мы становимся искренними, под чужой маской мы чувствуем свое истинное лицо.",
+   "Pressing buttons, holding hands and breathing into a microphone are, on their own, one-off sensations. A game makes sense of them in the context of its goal, turning a method of input into a new tool, a new limb."
+  ],
+  [
+   "Просто нажатие на кнопки, держание за руки и дыхание в микрофон — одноразовое ощущение",
+   "I work with alt-ctrl video games, interactive installations and live-action games. Wherever the experience of a person interacting can be singled out, I can take it apart and turn it into a game statement."
+  ],
+  [
+   "Игра осмысляет их в контексте игровой цели, делая из метода ввода новый инструмент, новую конечность. \n\n",
+   "A game makes sense of them in the context of its goal, turning a method of input into a new tool, a new limb."
+  ]
+ ],
+ "images": {
+  "ex-yandex": {
+   "w": 1080,
+   "h": 1080
+  },
+  "ex-disorder": {
+   "w": 1080,
+   "h": 1350
+  },
+  "ex-tomorrow": {
+   "w": 937,
+   "h": 1075
+  },
+  "hero-contour": {
+   "w": 1120,
+   "h": 737
+  },
+  "portrait": {
+   "w": 864,
+   "h": 1184
+  },
+  "ex-list": {
+   "w": 2560,
+   "h": 1440
+  },
+  "cover-inst": {
+   "w": 2480,
+   "h": 3500
+  },
+  "god-1": {
+   "w": 1264,
+   "h": 1900
+  },
+  "god-2": {
+   "w": 1280,
+   "h": 960
+  },
+  "god-3": {
+   "w": 640,
+   "h": 480
+  },
+  "cu-1": {
+   "w": 1920,
+   "h": 1080
+  },
+  "cu-2": {
+   "w": 1920,
+   "h": 1080
+  },
+  "cu-3": {
+   "w": 1680,
+   "h": 1117
+  },
+  "mid-1": {
+   "w": 956,
+   "h": 1178
+  },
+  "mid-2": {
+   "w": 960,
+   "h": 1280
+  },
+  "mid-3": {
+   "w": 512,
+   "h": 382
+  },
+  "ld-1": {
+   "w": 1120,
+   "h": 1580
+  },
+  "ld-2": {
+   "w": 1280,
+   "h": 960
+  },
+  "ld-3": {
+   "w": 1280,
+   "h": 853
+  },
+  "ld-4": {
+   "w": 1280,
+   "h": 960
+  },
+  "nc-1": {
+   "w": 1932,
+   "h": 2160
+  },
+  "nc-2": {
+   "w": 1920,
+   "h": 1080
+  },
+  "nc-3": {
+   "w": 1600,
+   "h": 904
+  },
+  "nc-4": {
+   "w": 1600,
+   "h": 714
+  },
+  "nc-5": {
+   "w": 1600,
+   "h": 904
+  },
+  "pa-1": {
+   "w": 1932,
+   "h": 2160
+  },
+  "pa-2": {
+   "w": 1600,
+   "h": 904
+  },
+  "pa-3": {
+   "w": 1600,
+   "h": 904
+  },
+  "cover-breath": {
+   "w": 1920,
+   "h": 998
+  },
+  "yq-1": {
+   "w": 960,
+   "h": 1280
+  },
+  "yq-2": {
+   "w": 606,
+   "h": 540
+  },
+  "b3-1": {
+   "w": 1932,
+   "h": 2160
+  },
+  "b3-2": {
+   "w": 1681,
+   "h": 935
+  },
+  "b3-3": {
+   "w": 1600,
+   "h": 904
+  },
+  "ht-1": {
+   "w": 959,
+   "h": 1280
+  },
+  "ht-2": {
+   "w": 1600,
+   "h": 904
+  },
+  "ht-3": {
+   "w": 1932,
+   "h": 2160
+  },
+  "ht-4": {
+   "w": 1960,
+   "h": 1720
+  },
+  "ht-5": {
+   "w": 1600,
+   "h": 904
+  },
+  "cover-games": {
+   "w": 3500,
+   "h": 2480
+  },
+  "games-1": {
+   "w": 3500,
+   "h": 2480
+  },
+  "db-1": {
+   "w": 683,
+   "h": 949
+  },
+  "mf-1": {
+   "w": 1120,
+   "h": 1580
+  },
+  "mf-2": {
+   "w": 1600,
+   "h": 1140
+  },
+  "mf-3": {
+   "w": 1600,
+   "h": 1140
+  },
+  "gd-1": {
+   "w": 1872,
+   "h": 1052
+  },
+  "sh-1": {
+   "w": 893,
+   "h": 1280
+  },
+  "cover-obj": {
+   "w": 840,
+   "h": 588
+  },
+  "bv-1": {
+   "w": 1932,
+   "h": 2160
+  },
+  "bv-2": {
+   "w": 1600,
+   "h": 714
+  },
+  "bv-3": {
+   "w": 1600,
+   "h": 714
+  },
+  "el-1": {
+   "w": 1932,
+   "h": 2160
+  },
+  "el-2": {
+   "w": 3463,
+   "h": 2909
+  },
+  "el-3": {
+   "w": 1919,
+   "h": 944
+  },
+  "el-4": {
+   "w": 355,
+   "h": 459
+  },
+  "el-5": {
+   "w": 517,
+   "h": 444
+  },
+  "el-6": {
+   "w": 435,
+   "h": 406
+  },
+  "el-7": {
+   "w": 551,
+   "h": 484
+  },
+  "cover-prac": {
+   "w": 2480,
+   "h": 3500
+  },
+  "ar-1": {
+   "w": 1932,
+   "h": 2160
+  },
+  "ar-2": {
+   "w": 1932,
+   "h": 2160
+  },
+  "ar-3": {
+   "w": 1600,
+   "h": 842
+  },
+  "ar-4": {
+   "w": 1600,
+   "h": 842
+  },
+  "ya-1": {
+   "w": 1600,
+   "h": 904
+  },
+  "ya-2": {
+   "w": 1600,
+   "h": 904
+  },
+  "ya-3": {
+   "w": 618,
+   "h": 925
+  },
+  "ya-4": {
+   "w": 1600,
+   "h": 904
+  },
+  "ya-5": {
+   "w": 1600,
+   "h": 904
+  },
+  "contacts": {
+   "w": 1085,
+   "h": 588
+  },
+  "ord-1": {
+   "w": 630,
+   "h": 500
+  },
+  "ord-2": {
+   "w": 1300,
+   "h": 731
+  },
+  "ord-3": {
+   "w": 1300,
+   "h": 731
+  },
+  "ord-4": {
+   "w": 1300,
+   "h": 731
+  },
+  "nom-1": {
+   "w": 780,
+   "h": 1104
+  },
+  "upa-1": {
+   "w": 1600,
+   "h": 900
+  },
+  "upa-2": {
+   "w": 1600,
+   "h": 900
+  },
+  "upa-3": {
+   "w": 1600,
+   "h": 900
+  },
+  "upa-4": {
+   "w": 1600,
+   "h": 900
+  },
+  "pon-1": {
+   "w": 1600,
+   "h": 900
+  },
+  "pon-2": {
+   "w": 1524,
+   "h": 1080
+  },
+  "pon-3": {
+   "w": 1524,
+   "h": 1080
+  },
+  "pon-4": {
+   "w": 1524,
+   "h": 1080
+  },
+  "pon-5": {
+   "w": 1524,
+   "h": 1080
+  },
+  "pon-6": {
+   "w": 1524,
+   "h": 1080
+  },
+  "urc-1": {
+   "w": 780,
+   "h": 1104
+  },
+  "raz-1": {
+   "w": 1600,
+   "h": 843
+  },
+  "raz-2": {
+   "w": 1600,
+   "h": 422
+  },
+  "raz-3": {
+   "w": 1600,
+   "h": 422
+  },
+  "raz-4": {
+   "w": 1600,
+   "h": 843
+  },
+  "raz-5": {
+   "w": 1600,
+   "h": 843
+  },
+  "raz-6": {
+   "w": 1600,
+   "h": 843
+  },
+  "raz-7": {
+   "w": 1600,
+   "h": 843
+  },
+  "hom-1": {
+   "w": 700,
+   "h": 900
+  },
+  "hom-2": {
+   "w": 1600,
+   "h": 900
+  },
+  "hom-3": {
+   "w": 1600,
+   "h": 881
+  },
+  "hom-4": {
+   "w": 1600,
+   "h": 900
+  },
+  "hom-5": {
+   "w": 1600,
+   "h": 900
+  },
+  "jar-1": {
+   "w": 630,
+   "h": 500
+  },
+  "jar-2": {
+   "w": 1600,
+   "h": 811
+  },
+  "jar-3": {
+   "w": 1600,
+   "h": 811
+  },
+  "jar-4": {
+   "w": 1600,
+   "h": 811
+  },
+  "jar-5": {
+   "w": 1600,
+   "h": 811
+  },
+  "jar-6": {
+   "w": 1600,
+   "h": 811
+  },
+  "mcu-1": {
+   "w": 630,
+   "h": 500
+  },
+  "mcu-2": {
+   "w": 1600,
+   "h": 900
+  },
+  "mcu-3": {
+   "w": 1600,
+   "h": 900
+  },
+  "mcu-4": {
+   "w": 1600,
+   "h": 900
+  },
+  "mcu-5": {
+   "w": 1600,
+   "h": 900
+  },
+  "mcu-6": {
+   "w": 1600,
+   "h": 900
+  },
+  "mcu-7": {
+   "w": 1600,
+   "h": 900
+  },
+  "spj-1": {
+   "w": 1600,
+   "h": 1134
+  },
+  "ult-1": {
+   "w": 1600,
+   "h": 900
+  },
+  "ult-2": {
+   "w": 1600,
+   "h": 1134
+  },
+  "ult-3": {
+   "w": 1600,
+   "h": 900
+  },
+  "ult-4": {
+   "w": 1600,
+   "h": 900
+  },
+  "ult-5": {
+   "w": 1600,
+   "h": 900
+  },
+  "grv-1": {
+   "w": 851,
+   "h": 511
+  },
+  "grv-2": {
+   "w": 1600,
+   "h": 900
+  },
+  "grv-3": {
+   "w": 1600,
+   "h": 900
+  },
+  "grv-4": {
+   "w": 1600,
+   "h": 900
+  },
+  "grv-5": {
+   "w": 1600,
+   "h": 900
+  },
+  "grv-6": {
+   "w": 1600,
+   "h": 900
+  },
+  "urc-2": {
+   "w": 1535,
+   "h": 1500
+  },
+  "urc-3": {
+   "w": 1600,
+   "h": 900
+  },
+  "urc-4": {
+   "w": 1408,
+   "h": 888
+  },
+  "urc-5": {
+   "w": 1600,
+   "h": 900
+  },
+  "restory-1": {
+   "w": 1600,
+   "h": 902
+  },
+  "iamfuture-1": {
+   "w": 1600,
+   "h": 1067
+  },
+  "spacejunker-1": {
+   "w": 1600,
+   "h": 900
+  },
+  "spacejunker-2": {
+   "w": 1600,
+   "h": 900
+  },
+  "spacejunker-3": {
+   "w": 1600,
+   "h": 900
+  },
+  "spacejunker-4": {
+   "w": 1059,
+   "h": 1500
+  },
+  "ultraspeeed-1": {
+   "w": 720,
+   "h": 1016
+  },
+  "pongu-1": {
+   "w": 600,
+   "h": 847
+  },
+  "razvidet-1": {
+   "w": 600,
+   "h": 847
+  },
+  "shtubnits-1": {
+   "w": 1280,
+   "h": 916
+  },
+  "shtubnits-2": {
+   "w": 1280,
+   "h": 960
+  },
+  "shtubnits-3": {
+   "w": 1280,
+   "h": 960
+  },
+  "poster-kid-s-play-1": {
+   "w": 1600,
+   "h": 900
+  },
+  "poster-kid-s-play-2": {
+   "w": 1600,
+   "h": 900
+  },
+  "nomad-1": {
+   "w": 1600,
+   "h": 922
+  },
+  "nomad-2": {
+   "w": 1600,
+   "h": 904
+  },
+  "lecture-1": {
+   "w": 1280,
+   "h": 960
+  },
+  "lucid-1": {
+   "w": 1535,
+   "h": 864
+  },
+  "lucid-2": {
+   "w": 1535,
+   "h": 864
+  }
+ },
+ "experience": [
+  {
+   "dates": [
+    "Сен 2026 — сейчас",
+    "Sep 2026 — present"
+   ],
+   "role": [
+    "Приглашённый лектор",
+    "Visiting Lecturer"
+   ],
+   "org": [
+    "НИУ ВШЭ",
+    "HSE University"
+   ],
+   "note": null,
+   "bullets": [
+    [
+     "Элективный курс World Building: как сюжет, пространство и механики поддерживают друг друга",
+     "World Building elective: how story, space and mechanics support each other"
+    ]
+   ]
+  },
+  {
+   "dates": [
+    "Апр 2024 — Окт 2026",
+    "Apr 2024 — Oct 2026"
+   ],
+   "role": [
+    "Геймдизайнер",
+    "Game Designer"
+   ],
+   "org": [
+    "Mandragora Studio",
+    "Mandragora Studio"
+   ],
+   "note": [
+    "I Am Future (симулятор выживания и фермерства), Restory (симулятор ремонта)",
+    "I Am Future (survival farming sim), Restory (repair simulator)"
+   ],
+   "bullets": [
+    [
+     "Вёл ключевые игровые системы от прототипа до релиза, с живой документацией",
+     "Owned core gameplay systems from prototype to release, with living documentation"
+    ],
+    [
+     "Проектировал энкаунтеры и уровни; проводил внутренние и внешние плейтесты и итерировал по их результатам",
+     "Designed encounters and levels; ran internal and external playtest cycles and iterated on the results"
+    ],
+    [
+     "Настраивал прогрессию и темп сессий по данным плейтестов и отзывам комьюнити",
+     "Tuned progression and session pacing based on playtest data and community feedback"
+    ],
+    [
+     "Постоянно использовал ИИ для прототипов систем и плейтестов: идеи проверялись за дни, а не недели",
+     "Used AI constantly to prototype systems and run playtests — ideas tested in days, not weeks"
+    ],
+    [
+     "Вёл задачи и спринты дизайн-команды",
+     "Managed tasks and sprints for the design team"
+    ]
+   ]
+  },
+  {
+   "dates": [
+    "Июн 2025 — Сен 2025",
+    "Jun 2025 — Sep 2025"
+   ],
+   "role": [
+    "Геймдизайнер (контракт, NDA)",
+    "Game Designer (contract, NDA)"
+   ],
+   "org": null,
+   "note": null,
+   "bullets": [
+    [
+     "Проектировал механики и системы для онлайн-прототипов инсталляций на Unity для крупного международного события",
+     "Designed mechanics and systems for online Unity prototypes of installations at a large international event"
+    ],
+    [
+     "Писал дизайн-документы и тайминги для реальных толп в физическом пространстве",
+     "Wrote design docs and timings for real crowds in a physical space"
+    ]
+   ]
+  },
+  {
+   "dates": [
+    "Янв 2023 — Дек 2023",
+    "Jan 2023 — Dec 2023"
+   ],
+   "role": [
+    "Геймдизайнер",
+    "Game Designer"
+   ],
+   "org": [
+    "Rabbiot",
+    "Rabbiot"
+   ],
+   "note": [
+    "Bartender Ender (экшн-шутер на UE5 с миксованием коктейлей в реальном времени)",
+    "Bartender Ender (UE5 action shooter with real-time cocktail mixing)"
+   ],
+   "bullets": [
+    [
+     "Проектировал и настраивал гибридные механики в Unreal Engine 5: бой плюс крафт в реальном времени",
+     "Designed and tuned hybrid mechanics in Unreal Engine 5: combat plus a real-time crafting layer"
+    ],
+    [
+     "Писал и поддерживал дизайн-документацию для кросс-дисциплинарной команды",
+     "Wrote and maintained design documentation for a cross-disciplinary team"
+    ]
+   ]
+  }
+ ],
+ "posters": [
+  {
+   "id": "restory",
+   "img": "restory-1",
+   "title": [
+    "Restory",
+    "Restory"
+   ],
+   "tag": [
+    "Steam ↗",
+    "Steam ↗"
+   ],
+   "url": "https://store.steampowered.com/app/3812600/ReStory_Chill_Electronics_Repairs/"
+  },
+  {
+   "id": "iamfuture",
+   "img": "iamfuture-1",
+   "title": [
+    "I Am Future",
+    "I Am Future"
+   ],
+   "tag": [
+    "Steam ↗",
+    "Steam ↗"
+   ],
+   "url": "https://store.steampowered.com/app/1658040/I_Am_Future_Cozy_Apocalypse_Survival/"
+  },
+  {
+   "id": "kid-s-play",
+   "img": "poster-kid-s-play-2",
+   "title": [
+    "Детские игры",
+    "Kid's Play"
+   ],
+   "tag": [
+    "Питер Брейгель Старший",
+    "Pieter Bruegel the Elder"
+   ],
+   "url": ""
+  }
+ ],
+ "ui": {
+  "hello": [
+   "Добро пожаловать в моё портфолио!",
+   "Welcome to my portfolio!"
+  ],
+  "contact_lead": [
+   "Если вы хотите что-то необычное и интерактивное вместе — пишите! ",
+   "Got something unusual and interactive in mind? Get in touch! "
+  ]
+ }
+}
