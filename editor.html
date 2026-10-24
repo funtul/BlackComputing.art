@@ -474,7 +474,6 @@ h4 { margin: 22px 0 8px; font-size: 12px; text-transform: uppercase; letter-spac
     C.projects.forEach(function (p) { f['p/' + p.id + '/index.html'] = stub(C, p); });
     f['sitemap.xml'] = sitemap(C);
     f['robots.txt'] = robots(C);
-    f['404.html'] = '<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>404</title><meta http-equiv="refresh" content="3;url=/"></head><body style="background:#000;color:#fff;font:16px system-ui;padding:40px"><p>Такой страницы нет. <a href="/" style="color:#7df">На главную</a></p></body></html>\n';
     f['.nojekyll'] = '';
     var dom = (C.site.domain || '').replace(/^https?:\/\//, '').replace(/\/+$/, '');
     f['CNAME'] = dom ? dom + '\n' : null;

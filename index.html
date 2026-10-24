@@ -441,12 +441,30 @@ var Sim = (function () {
     this.preyMin = 4; this.preyCap = 10; this.predMin = 1;
     this.slashes = 0; this.fruits = []; this.fruitT = 1; this.fruitCap = 3; this.visit = null; this.bfsLeft = 1;
     this.stats = { prey: 0, chunks: 0, preds: 0, grass: 0 };
+    /* active zone: only what is inside [y0,y1] is simulated, the rest stands frozen (null = the whole page) */
+    this.zone = null; this.view = null; this.act = []; this.actPreds = [];
   }
+
+  /* view = what the viewer sees, zone = view plus a margin on both sides. Population targets are per zone. */
+  World.prototype.setZone = function (vy0, vy1, y0, y1) {
+    this.view = { y0: vy0, y1: vy1 };
+    this.zone = { y0: Math.max(0, y0), y1: Math.min(this.H, y1) };
+    var area = this.W * Math.max(1, this.zone.y1 - this.zone.y0);
+    this.fruitCap = clamp(Math.round(area / 400000), 2, 10);
+    this.preyMin = clamp(Math.round(area / 160000), 3, 26);
+    this.preyCap = clamp(Math.round(area / 90000), 6, 48);
+    this.predMin = clamp(Math.round(area / 700000), 1, 6);
+  };
+  World.prototype.inZone = function (y) { var z = this.zone; return !z || (y >= z.y0 && y <= z.y1); };
+  World.prototype.inView = function (y) { var v = this.view; return !!v && y >= v.y0 && y <= v.y1; };
+
+  /* a flow field is stored only for a band of rows (its own r0/off); fv reads it by full-grid index */
+  function fv(d, i) { var j = i - d.off; return (j < 0 || j >= d.length) ? -1 : d[j]; }
 
   /* ---------- layout ---------- */
   World.prototype.setLayout = function (W, H, rects, S) {
     this.W = W; this.H = H; this.S = S;
-    this.rects = rects.map(function (r) { return { x0: r.x0, y0: r.y0, x1: r.x1, y1: r.y1, g: r.g ? 1 : 0, ng: r.ng ? 1 : 0, t: r.t ? 1 : 0, st: 0 }; });
+    this.rects = rects.map(function (r) { return { x0: r.x0, y0: r.y0, x1: r.x1, y1: r.y1, g: r.g ? 1 : 0, ng: r.ng ? 1 : 0, t: r.t ? 1 : 0, fz: r.fz ? 1 : 0, st: 0 }; });
     this.tiles = this.rects.filter(function (r) { return !r.g; });
     this.indexRects();
     this.buildSurfaces(); this.buildNav();
@@ -454,10 +472,12 @@ var Sim = (function () {
     this.soft = this.soft.filter(function (c) { return c.kind !== 'fruit'; });
     this.visit = { cs: 48, cols: Math.ceil(W / 48), rows: Math.ceil(H / 48), t: new Float32Array(Math.ceil(W / 48) * Math.ceil(H / 48)).fill(-1000) };
     var area = W * H;
-    this.fruitCap = clamp(Math.round(area / 650000), 2, 4);
-    this.preyMin = clamp(Math.round(area / 300000), 3, 8);
-    this.preyCap = clamp(Math.round(area / 150000), 6, 20);
-    this.predMin = clamp(Math.round(area / 900000), 1, 3);
+    if (!this.zone) {
+      this.fruitCap = clamp(Math.round(area / 650000), 2, 4);
+      this.preyMin = clamp(Math.round(area / 300000), 3, 8);
+      this.preyCap = clamp(Math.round(area / 150000), 6, 20);
+      this.predMin = clamp(Math.round(area / 900000), 1, 3);
+    }
     var i, j, c, p;
     for (i = 0; i < this.soft.length; i++) {
       c = this.soft[i];
@@ -520,6 +540,7 @@ var Sim = (function () {
         this.segTotal += len;
       }
     }
+    this.blades.sort(function (a, b) { return a.y - b.y; }); /* sorted by y so the grass of the active zone is one contiguous run */
     for (k = 0; k < ceils.length; k++) {
       seg = ceils[k];
       for (x = seg.x0 + 5; x < seg.x1 - 5; x += R(7, 11)) {
@@ -577,23 +598,28 @@ var Sim = (function () {
     return -1;
   };
 
-  World.prototype.flowField = function (tx, ty, buf) {
-    var nv = this.nav, cols = nv.cols, rows = nv.rows, n = cols * rows;
+  /* BFS from the target over a band of rows only: around the target, and around the seeker (sx,sy) when there is one.
+     The result is indexed through d.off (see fv), so a field costs a band of the page, not the whole page. */
+  World.prototype.flowField = function (tx, ty, buf, sx, sy) {
+    var nv = this.nav, cols = nv.cols, rows = nv.rows, seek = sx !== undefined, mg = seek ? 60 : 110;
+    var ya = seek ? Math.min(ty, sy) : ty, yb = seek ? Math.max(ty, sy) : ty;
+    var r0 = clamp(Math.floor(ya / CELL) - mg, 0, rows - 1), r1 = clamp(Math.floor(yb / CELL) + mg + 1, r0 + 1, rows);
+    var n = (r1 - r0) * cols;
     var d = (buf && buf.length === n) ? buf : new Int32Array(n);
-    d.fill(-1);
-    var s = this.nearestFree(tx, ty);
-    if (s < 0) return d;
+    d.fill(-1); d.r0 = r0; d.off = r0 * cols;
+    var s = this.nearestFree(tx, ty), off = d.off;
+    if (s < 0 || s < off || s >= off + n) return d;
     var q = nv.queue, qh = 0, qt = 0, bl = nv.blocked, k, cur, cx, cy, cd, nx, ny, ni;
-    q[qt++] = s; d[s] = 0;
+    q[qt++] = s; d[s - off] = 0;
     while (qh < qt) {
-      cur = q[qh++]; cx = cur % cols; cy = (cur / cols) | 0; cd = d[cur] + 1;
+      cur = q[qh++]; cx = cur % cols; cy = (cur / cols) | 0; cd = d[cur - off] + 1;
       for (k = 0; k < 8; k++) {
         nx = cx + DX[k]; ny = cy + DY[k];
-        if (nx < 0 || ny < 0 || nx >= cols || ny >= rows) continue;
+        if (nx < 0 || ny < r0 || nx >= cols || ny >= r1) continue;
         ni = ny * cols + nx;
-        if (bl[ni] || d[ni] >= 0) continue;
+        if (bl[ni] || d[ni - off] >= 0) continue;
         if (k >= 4 && (bl[cy * cols + nx] || bl[ny * cols + cx])) continue;
-        d[ni] = cd; q[qt++] = ni;
+        d[ni - off] = cd; q[qt++] = ni;
       }
     }
     return d;
@@ -612,14 +638,14 @@ var Sim = (function () {
     var nv = this.nav, cols = nv.cols, rows = nv.rows, bl = nv.blocked, k, step;
     var cx = clamp(Math.floor(x / CELL), 0, cols - 1), cy = clamp(Math.floor(y / CELL), 0, rows - 1);
     var i = cy * cols + cx, tx, ty, len;
-    if (bl[i] || d[i] < 0) {
+    if (bl[i] || fv(d, i) < 0) {
       var best = -1, bd = 1e9, dx, dy, nx, ny, dd;
       for (dy = -4; dy <= 4; dy++) {
         for (dx = -4; dx <= 4; dx++) {
           nx = cx + dx; ny = cy + dy;
           if (nx < 0 || ny < 0 || nx >= cols || ny >= rows) continue;
           var ni = ny * cols + nx;
-          if (bl[ni] || d[ni] < 0) continue;
+          if (bl[ni] || fv(d, ni) < 0) continue;
           dd = dx * dx + dy * dy;
           if (dd < bd) { bd = dd; best = ni; }
         }
@@ -632,15 +658,15 @@ var Sim = (function () {
     }
     var cur = i, vis = i;
     for (step = 0; step < 4; step++) {
-      if (d[cur] === 0) break;
-      var ccx = cur % cols, ccy = (cur / cols) | 0, bn = -1, bv = d[cur];
+      if (fv(d, cur) === 0) break;
+      var ccx = cur % cols, ccy = (cur / cols) | 0, bn = -1, bv = fv(d, cur);
       for (k = 0; k < 8; k++) {
         var nx2 = ccx + DX[k], ny2 = ccy + DY[k];
         if (nx2 < 0 || ny2 < 0 || nx2 >= cols || ny2 >= rows) continue;
-        var n2 = ny2 * cols + nx2;
-        if (bl[n2] || d[n2] < 0 || d[n2] >= bv) continue;
+        var n2 = ny2 * cols + nx2, v2 = fv(d, n2);
+        if (bl[n2] || v2 < 0 || v2 >= bv) continue;
         if (k >= 4 && (bl[ccy * cols + nx2] || bl[ny2 * cols + ccx])) continue;
-        bv = d[n2]; bn = n2;
+        bv = v2; bn = n2;
       }
       if (bn < 0) break;
       cur = bn;
@@ -654,10 +680,13 @@ var Sim = (function () {
     return { x: tx / len, y: ty / len };
   };
 
-  World.prototype.randFreePoint = function (x0, y0) {
-    var nv = this.nav, last = null;
+  /* a free spot 120..520px from (x0,y0); sampled only in the rows around it. With y0 < -1e4 (no origin) in rows ya..yb. */
+  World.prototype.randFreePoint = function (x0, y0, ya, yb) {
+    var nv = this.nav, last = null, r0 = 0, r1 = nv.rows - 1;
+    if (y0 > -1e4) { r0 = clamp(Math.floor((y0 - 520) / CELL), 0, r1); r1 = clamp(Math.ceil((y0 + 520) / CELL), r0, r1); }
+    else if (ya !== undefined) { r0 = clamp(Math.floor(ya / CELL), 0, r1); r1 = clamp(Math.ceil(yb / CELL), r0, r1); }
     for (var t = 0; t < 80; t++) {
-      var cx = (rnd() * nv.cols) | 0, cy = (rnd() * nv.rows) | 0;
+      var cx = (rnd() * nv.cols) | 0, cy = r0 + ((rnd() * (r1 - r0 + 1)) | 0);
       if (nv.blocked[cy * nv.cols + cx]) continue;
       var x = (cx + 0.5) * CELL, y = (cy + 0.5) * CELL;
       last = { x: x, y: y };
@@ -672,7 +701,7 @@ var Sim = (function () {
     this.soft = []; this.preds = []; this.fx = []; this.stains = []; this.grab = null;
     var i;
     for (i = 0; i < this.blades.length; i++) { this.blades[i].h = R(0.2, 1); this.blades[i].boost = 0; this.blades[i].bend = 0; }
-    var n = clamp(Math.round(this.W * this.H / 200000), 4, 12);
+    var z = this.zone, n = z ? clamp(Math.round(this.W * (z.y1 - z.y0) / 110000), 4, 36) : clamp(Math.round(this.W * this.H / 200000), 4, 12);
     for (i = 0; i < n; i++) this.spawnPrey(true);
     for (i = 0; i < this.predMin; i++) this.spawnPred(true);
     this.fruits = [];
@@ -681,11 +710,18 @@ var Sim = (function () {
 
   World.prototype.spawnPrey = function (silent) {
     if (!this.segs.length) return null;
-    for (var tries = 0; tries < 12; tries++) {
-      var r = rnd() * this.segTotal, i, seg = this.segs[0];
-      for (i = 0; i < this.segs.length; i++) { seg = this.segs[i]; r -= seg.len; if (r <= 0) break; }
+    var z = this.zone, segs = this.segs, tot = this.segTotal, i0;
+    if (z) { /* only the ledges inside the active zone */
+      segs = []; tot = 0;
+      for (i0 = 0; i0 < this.segs.length; i0++) if (this.segs[i0].y >= z.y0 && this.segs[i0].y <= z.y1) { segs.push(this.segs[i0]); tot += this.segs[i0].len; }
+      if (!segs.length) return null;
+    }
+    for (var tries = 0; tries < 16; tries++) {
+      var r = rnd() * tot, i, seg = segs[0];
+      for (i = 0; i < segs.length; i++) { seg = segs[i]; r -= seg.len; if (r <= 0) break; }
       var s = R(0.85, 1.05);
       var x = R(seg.x0 + 16, seg.x1 - 16), y = seg.y - 12 * this.S * s;
+      if (!silent && tries < 10 && this.inView(y)) continue; /* a newcomer appears out of the viewer's sight when it can */
       if (this.solidAt(x, y - 8 * this.S) || this.solidAt(x - 10 * this.S, y) || this.solidAt(x + 10 * this.S, y)) continue;
       var c = makePrey(this, x, y, s);
       this.soft.push(c);
@@ -696,7 +732,11 @@ var Sim = (function () {
   };
 
   World.prototype.spawnPred = function (silent) {
-    var pt = this.randFreePoint(-1e5, -1e5);
+    var z = this.zone, pt, tries;
+    for (tries = 0; tries < 8; tries++) {
+      pt = this.randFreePoint(-1e5, -1e5, z ? z.y0 : 0, z ? z.y1 : this.H);
+      if (silent || !this.inView(pt.y)) break;
+    }
     var pr = makePred(this, pt.x, pt.y);
     this.initLegs(pr);
     this.preds.push(pr);
@@ -939,8 +979,13 @@ var Sim = (function () {
   };
 
   World.prototype.updateGrass = function (dt) {
-    var bl = this.blades, tot = 0, i, b, rate, dec = Math.exp(-4 * dt);
-    for (i = 0; i < bl.length; i++) {
+    var bl = this.blades, tot = 0, i, b, rate, dec = Math.exp(-4 * dt), z = this.zone, lo = 0, hi = bl.length, m;
+    if (z) { /* blades are sorted by y: grass grows only inside the active zone */
+      hi = bl.length; while (lo < hi) { m = (lo + hi) >> 1; if (bl[m].y < z.y0) lo = m + 1; else hi = m; }
+      var a0 = lo; hi = bl.length; while (lo < hi) { m = (lo + hi) >> 1; if (bl[m].y <= z.y1) lo = m + 1; else hi = m; }
+      hi = lo; lo = a0;
+    }
+    for (i = lo; i < hi; i++) {
       b = bl[i];
       rate = (1 / 45) * (b.boost > 0 ? 4 : 1);
       if (b.boost > 0) b.boost -= dt;
@@ -948,7 +993,7 @@ var Sim = (function () {
       b.bend *= dec;
       tot += b.h;
     }
-    this.stats.grass = bl.length ? tot / bl.length : 0;
+    this.stats.grass = hi > lo ? tot / (hi - lo) : 0;
   };
 
   /* ---------- breaking ---------- */
@@ -1070,7 +1115,7 @@ var Sim = (function () {
     var b = pr.body, best = null, bd = 1e9, bestC = null, bdC = 1e9, i, c, d;
     for (i = 0; i < this.soft.length; i++) {
       c = this.soft[i];
-      if (c.dead || c.parts.length < 3) continue;
+      if (c.dead || c.frozen || c.parts.length < 3) continue;
       d = hyp(c.com.x - b.x, c.com.y - b.y);
       if (c.kind === 'prey') { if (d < bd) { bd = d; best = c; } }
       else if (c.kind === 'chunk' && d < bdC) { bdC = d; bestC = c; }
@@ -1080,8 +1125,13 @@ var Sim = (function () {
 
   /* ---------- fruits ---------- */
   World.prototype.spawnFruit = function (ripe) {
-    var rs = this.tiles, S = this.S, tries, i, j;
+    var rs = this.tiles, S = this.S, tries, i, j, z = this.zone;
     if (rs.length < 2) return null;
+    if (z) { /* only tiles of the active zone bear fruit */
+      rs = [null];
+      for (i = 1; i < this.tiles.length; i++) if (this.tiles[i].y1 >= z.y0 && this.tiles[i].y0 <= z.y1) rs.push(this.tiles[i]);
+      if (rs.length < 2) return null;
+    }
     for (tries = 0; tries < 40; tries++) {
       var q = rs[1 + ((rnd() * (rs.length - 1)) | 0)], side = (rnd() * 4) | 0, sx, sy, nx = 0, ny = 0;
       if (side === 0) { sx = R(q.x0 + 14, q.x1 - 14); sy = q.y0; ny = -1; }
@@ -1109,8 +1159,7 @@ var Sim = (function () {
         twigs.push([o, [o[0] + dx * tl * 0.5 + tx * sg * 0.8, o[1] + dy * tl * 0.5 + ty * sg * 0.8], e]);
       }
       var f = { x: fx, y: fy, hx: fx, hy: fy, nx: nx, ny: ny, sx: sx, sy: sy, r: fr, grow: ripe ? 1 : 0, eaten: false, field: null, ph: rnd() * TAU, main: main, twigs: twigs, body: null, sz: -1 };
-      f.field = this.flowField(fx, fy, null);
-      f.body = makeFruitBody(this, fx, fy, fr); f.body.fruit = f; this.soft.push(f.body);
+      f.field = this.flowField(fx, fy, null);      f.body = makeFruitBody(this, fx, fy, fr); f.body.fruit = f; this.soft.push(f.body);
       this.fruits.push(f);
       return f;
     }
@@ -1122,6 +1171,7 @@ var Sim = (function () {
     for (i = 0; i < fr.length; i++) {
       f = fr[i];
       if (f.eaten) { if (f.body) f.body.dead = true; continue; }
+      if (f.body && f.body.frozen) { fr[m++] = f; continue; }
       if (f.grow < 1) f.grow = Math.min(1, f.grow + dt / 9);
       if (f.body) { f.x = f.body.com.x; f.y = f.body.com.y; }
       if (f.free) {
@@ -1134,8 +1184,10 @@ var Sim = (function () {
     fr.length = m;
     this.fruitT -= dt;
     if (this.fruitT <= 0) {
-      if (fr.length < this.fruitCap) this.spawnFruit(false);
-      this.fruitT = R(5, 12);
+      var nf = 0, z = this.zone;
+      for (i = 0; i < fr.length; i++) if (!z || (fr[i].y >= z.y0 && fr[i].y <= z.y1)) nf++;
+      if (nf < this.fruitCap) this.spawnFruit(false);
+      this.fruitT = nf * 2 < this.fruitCap ? R(1, 2.5) : R(5, 12);
     }
   };
 
@@ -1176,7 +1228,7 @@ var Sim = (function () {
     for (dy = -1; dy <= 1; dy++) for (dx = -1; dx <= 1; dx++) {
       nx = cx + dx; ny = cy + dy;
       if (nx < 0 || ny < 0 || nx >= cols || ny >= rows) continue;
-      v = d[ny * cols + nx]; if (v >= 0 && v < best) best = v;
+      v = fv(d, ny * cols + nx); if (v >= 0 && v < best) best = v;
     }
     return best;
   };
@@ -1199,7 +1251,7 @@ var Sim = (function () {
     if (!best) return false;
     this.bfsLeft--;
     c.wp = best; c.wpT = 16;
-    c.field = this.flowField(best.x, best.y, c.field);
+    c.field = this.flowField(best.x, best.y, c.field, c.com.x, c.com.y);
     return true;
   };
 
@@ -1304,6 +1356,7 @@ var Sim = (function () {
     var thr = null, td = 1e9, pr;
     for (i = 0; i < this.preds.length; i++) {
       pr = this.preds[i];
+      if (pr.frozen) continue;
       var d = hyp(com.x - pr.body.x, com.y - pr.body.y);
       /* a predator sitting in ambush is only noticed from very close; a jump is seen from afar */
       var tr = (pr.state === 'lunge' || pr.alarm > 0) ? Math.max(320, this.W * 0.55 / this.S) : (pr.state === 'ambush' ? 38 : 140);
@@ -1472,7 +1525,7 @@ var Sim = (function () {
     L.t += dt; pr.lookT = L.c && !L.c.dead ? L.c.com : null;
     if (!L.hit) {
       for (i = 0; i < this.soft.length && !L.hit; i++) {
-        c = this.soft[i]; if (c.kind !== 'prey' || c.dead) continue;
+        c = this.soft[i]; if (c.kind !== 'prey' || c.dead || c.frozen) continue;
         for (j = 0; j < c.parts.length; j++) {
           p = c.parts[j]; d = hyp(p.x - b.x, p.y - b.y);
           if (d < pr.reach * 0.8 && this.los(b.x, b.y, p.x, p.y)) {
@@ -1522,7 +1575,7 @@ var Sim = (function () {
             } else { pr.state = 'wander'; pr.stateT = 0; pr.target = null; pr.ambT = R(35, 60); }
           } else {
             pr.navT -= dt;
-            if (pr.navT <= 0 || !pr.field) { pr.field = this.flowField(pr.spot.x, pr.spot.y, pr.field); pr.navT = 0.8; }
+            if (pr.navT <= 0 || !pr.field) { pr.field = this.flowField(pr.spot.x, pr.spot.y, pr.field, b.x, b.y); pr.navT = 0.8; }
             want = this.flowDir(pr.field, b.x, b.y); speed = 150 * S;
           }
         } else {
@@ -1530,7 +1583,7 @@ var Sim = (function () {
           var ab = null, abd = 1e9, ac, ad, pl2 = 0, jr = Math.max(pr.reach * 3.2, this.W * 0.5);
           for (i = 0; i < pr.legs.length; i++) if (pr.legs[i].planted && !pr.legs[i].stepping) pl2++;
           for (i = 0; i < this.soft.length; i++) {
-            ac = this.soft[i]; if (ac.kind !== 'prey' || ac.dead || ac.parts.length < 5) continue;
+            ac = this.soft[i]; if (ac.kind !== 'prey' || ac.dead || ac.frozen || ac.parts.length < 5) continue;
             ad = hyp(ac.com.x - b.x, ac.com.y - b.y);
             if (ad < abd && ad < jr && this.los(b.x, b.y, ac.com.x, ac.com.y)) { abd = ad; ab = ac; }
           }
@@ -1553,7 +1606,7 @@ var Sim = (function () {
         if (np && nd < pr.reach * 0.86 && pr.biteCD <= 0 && pl >= 4) this.startStrike(pr, food, np);
         pr.navT -= dt;
         if (pr.navT <= 0 || !pr.field) {
-          pr.field = this.flowField(np ? np.x : food.com.x, np ? np.y : food.com.y, pr.field);
+          pr.field = this.flowField(np ? np.x : food.com.x, np ? np.y : food.com.y, pr.field, b.x, b.y);
           pr.navT = 0.35;
         }
         want = this.flowDir(pr.field, b.x, b.y); speed = (nd < pr.reach * 0.45 ? 30 : 160) * S;
@@ -1562,7 +1615,7 @@ var Sim = (function () {
         if (dd < 18) { pr.stateT = 0; }
         else {
           pr.navT -= dt;
-          if (pr.navT <= 0 || !pr.field) { pr.field = this.flowField(pr.target.x, pr.target.y, pr.field); pr.navT = 0.8; }
+          if (pr.navT <= 0 || !pr.field) { pr.field = this.flowField(pr.target.x, pr.target.y, pr.field, b.x, b.y); pr.navT = 0.8; }
           want = this.flowDir(pr.field, b.x, b.y); speed = 55 * S;
         }
       } else if (pr.state === 'flee') {
@@ -1654,7 +1707,7 @@ var Sim = (function () {
   };
 
   World.prototype.collideSofts = function () {
-    var s = this.soft, n = s.length, i, j, A, B, a, b, pa, pb, dx, dy, d2, rr, d, ov;
+    var s = this.act, n = s.length, i, j, A, B, a, b, pa, pb, dx, dy, d2, rr, d, ov;
     for (i = 0; i < n; i++) {
       A = s[i];
       for (j = i + 1; j < n; j++) {
@@ -1679,13 +1732,13 @@ var Sim = (function () {
   };
 
   World.prototype.substep = function (h) {
-    var i, j, k, c, p, soft = this.soft, g = this.grab;
+    var i, j, k, c, p, soft = this.act, preds = this.actPreds, g = this.grab;
     for (i = 0; i < soft.length; i++) {
       c = soft[i];
       for (j = 0; j < c.parts.length; j++) { p = c.parts[j]; p.imp = 0; p.gx = c.gx; p.gy = c.gy; integrate(p, c.gx * G * c.gs, c.gy * G * c.gs, h, 0.9985); }
     }
-    for (i = 0; i < this.preds.length; i++) {
-      var pr = this.preds[i], b = pr.body, ax = pr.accX, ay = pr.accY + G * pr.gk;
+    for (i = 0; i < preds.length; i++) {
+      var pr = preds[i], b = pr.body, ax = pr.accX, ay = pr.accY + G * pr.gk;
       if (pr.supK > 0) {
         var vx = (b.x - b.px) / h, vy = (b.y - b.py) / h, sp = pr.sup, q;
         for (q = 0; q < sp.length; q += 5) {
@@ -1764,19 +1817,30 @@ var Sim = (function () {
       }
     }
     this.collideSofts();
-    for (i = 0; i < this.preds.length; i++) this.collide(this.preds[i].body, 0.1, 0.2, h, true);
+    for (i = 0; i < preds.length; i++) this.collide(preds[i].body, 0.1, 0.2, h, true);
     for (i = 0; i < soft.length; i++) if (soft[i].kind !== 'fruit') this.damage(soft[i], h);
   };
 
   World.prototype.step = function (dt) {
     dt = Math.min(dt, 0.05);
     this.t += dt; this.bfsLeft = 1;
-    var n = Math.max(1, Math.ceil(dt / SUB)), h = dt / n, i, c;
+    var n = Math.max(1, Math.ceil(dt / SUB)), h = dt / n, i, c, pr, z = this.zone, act = this.act, ap = this.actPreds;
+    /* outside the zone everything stands frozen: no AI, no physics (what the viewer holds is never frozen) */
+    act.length = 0; ap.length = 0;
     for (i = 0; i < this.soft.length; i++) {
-      c = this.soft[i]; updateBounds(c); c.age += dt;
+      c = this.soft[i];
+      c.frozen = !!z && !c.held && (c.com.y < z.y0 || c.com.y > z.y1);
+      if (c.frozen) continue;
+      act.push(c);
+      updateBounds(c); c.age += dt;
       if (c.kind === 'prey') this.updatePrey(c, dt); else if (c.kind === 'fruit') this.updateFruitBody(c, dt); else this.updateChunk(c, dt);
     }
-    for (i = 0; i < this.preds.length; i++) this.updatePred(this.preds[i], dt);
+    for (i = 0; i < this.preds.length; i++) {
+      pr = this.preds[i];
+      pr.frozen = !!z && !pr.held && (pr.body.y < z.y0 || pr.body.y > z.y1);
+      if (pr.frozen) continue;
+      ap.push(pr); this.updatePred(pr, dt);
+    }
     for (i = 0; i < n; i++) this.substep(h);
     this.postFrame(dt);
   };
@@ -1791,6 +1855,7 @@ var Sim = (function () {
     for (i = 0; i < soft.length; i++) {
       c = soft[i];
       if (c.dead) { if (this.grab && this.grab.c === c) this.releaseGrab(); continue; }
+      if (c.frozen && c.kind === 'chunk') continue; /* a chunk left behind would never rot: drop it quietly */
       soft[m++] = c;
     }
     soft.length = m;
@@ -1798,11 +1863,11 @@ var Sim = (function () {
       for (i = 0; i < soft.length; i++) if (soft[i].kind === 'chunk' && !soft[i].held) { this.pop(soft[i].parts); soft.splice(i, 1); break; }
       if (i >= soft.length) break;
     }
-    for (i = 0; i < soft.length; i++) if (soft[i].kind === 'prey') np++; else if (soft[i].kind === 'chunk') nc++;
+    for (i = 0; i < soft.length; i++) if (soft[i].kind === 'prey') { if (!soft[i].frozen) np++; } else if (soft[i].kind === 'chunk') nc++;
     // regrow, reproduce
     for (i = 0; i < soft.length; i++) {
       c = soft[i];
-      if (c.kind !== 'prey' || c.held) continue;
+      if (c.kind !== 'prey' || c.held || c.frozen) continue;
       updateBounds(c);
       if (c.parts.length <= c.full - 3 && c.energy > 0.4) {
         c.healT += dt;
@@ -1814,10 +1879,32 @@ var Sim = (function () {
       }
     }
     this.spawnT -= dt; this.predT -= dt;
-    if (np < this.preyMin && this.spawnT <= 0) { this.spawnPrey(false); this.spawnT = R(2.5, 5); }
-    if (this.preds.length < this.predMin && this.predT <= 0) { this.spawnPred(false); this.predT = 20; }
+    if (np < this.preyMin && this.spawnT <= 0) { this.spawnPrey(false); this.spawnT = np * 2 < this.preyMin ? R(0.3, 0.8) : R(2.5, 5); }
+    var npd = 0;
+    for (i = 0; i < this.preds.length; i++) if (!this.preds[i].frozen) npd++;
+    if (npd < this.predMin && this.predT <= 0) { this.spawnPred(false); this.predT = this.zone ? 6 : 20; }
+    if (this.zone) this.evictFar();
     this.updateFx(dt); this.updateGrass(dt); this.updateFruits(dt);
-    this.stats.prey = np; this.stats.chunks = nc; this.stats.preds = this.preds.length;
+    this.stats.prey = np; this.stats.chunks = nc; this.stats.preds = npd;
+  };
+
+  /* the frozen keep their place, but not forever: of those outside the zone only the nearest few are kept */
+  World.prototype.evictFar = function () {
+    var z = this.zone, mid = (z.y0 + z.y1) / 2, soft = this.soft, preds = this.preds, i, c, fz, f;
+    function far(a, b) { return Math.abs(b.y - mid) - Math.abs(a.y - mid); }
+    fz = [];
+    for (i = 0; i < soft.length; i++) { c = soft[i]; if (c.kind === 'prey' && c.frozen && !c.dead) fz.push({ c: c, y: c.com.y }); }
+    if (fz.length > this.preyCap) { fz.sort(far); for (i = 0; i < fz.length - this.preyCap; i++) fz[i].c.dead = true; }
+    fz = [];
+    for (i = 0; i < preds.length; i++) if (preds[i].frozen) fz.push({ c: preds[i], y: preds[i].body.y });
+    if (fz.length > this.predMin + 1) {
+      fz.sort(far);
+      var drop = fz.length - this.predMin - 1;
+      for (i = 0; i < drop; i++) preds.splice(preds.indexOf(fz[i].c), 1);
+    }
+    fz = [];
+    for (i = 0; i < this.fruits.length; i++) { f = this.fruits[i]; if (!f.eaten && f.body && f.body.frozen) fz.push({ c: f, y: f.y }); }
+    if (fz.length > this.fruitCap) { fz.sort(far); for (i = 0; i < fz.length - this.fruitCap; i++) fz[i].c.eaten = true; }
   };
 
   /* ---------- pointer ---------- */
@@ -2077,9 +2164,16 @@ var Render = (function () {
     k2.globalCompositeOperation = 'source-over'; k2.fillStyle = '#000';
     for (i = 0; i < w.rects.length; i++) {
       q = w.rects[i];
-      if ((q.g && !q.t) || q.x1 < cam.x - 8 || q.x0 > cam.x + cam.vw + 8 || q.y1 < cam.y - 8 || q.y0 > cam.y + cam.vh + 8) continue;
+      if ((q.g && !q.t) || q.fz || q.x1 < cam.x - 8 || q.x0 > cam.x + cam.vw + 8 || q.y1 < cam.y - 8 || q.y0 > cam.y + cam.vh + 8) continue;
       var mx0 = Math.floor((q.x0 - cam.x) / P) - 1, my0 = Math.floor((q.y0 - cam.y) / P) - 1;
       k2.fillRect(mx0, my0, Math.floor((q.x1 - cam.x) / P) + 2 - mx0, Math.floor((q.y1 - cam.y) / P) + 2 - my0);
+    }
+    /* data-fuzz tiles (the 404 button): the inside is lit, so the fuzz shader works over the whole face */
+    k2.fillStyle = 'rgb(22,70,82)';
+    for (i = 0; i < w.rects.length; i++) {
+      q = w.rects[i];
+      if (!q.fz || q.x1 < cam.x - 8 || q.x0 > cam.x + cam.vw + 8 || q.y1 < cam.y - 8 || q.y0 > cam.y + cam.vh + 8) continue;
+      k2.fillRect(Math.floor((q.x0 - cam.x) / P), Math.floor((q.y0 - cam.y) / P), Math.floor((q.x1 - q.x0) / P), Math.floor((q.y1 - q.y0) / P));
     }
     var gl0 = w.glyphs || [], gg;
     k2.imageSmoothingEnabled = false;
@@ -2546,7 +2640,9 @@ var Render = (function () {
           lines = [words.slice(0, half).join(' '), words.slice(half).join(' ')];
           fs = avail / (Math.max(wOf(f100, lines[0]), wOf(f100, lines[1])) / 100);
         } else { lines = [text]; fs = avail / (wOf(f100, text) / 100); }
-        fs = Math.min(fs, narrow ? ref : ref * 1.12);
+        /* data-big (the 404): as large as the width and the screen height allow, up to twice the name */
+        var cap = el.hasAttribute('data-big') ? Math.min(ref * 2, Math.max(ref * 1.12, (window.innerHeight - 330) / 0.95)) : narrow ? ref : ref * 1.12;
+        fs = Math.min(fs, cap);
       } else {
         fs = ref * 0.5; if (narrow) fs = Math.max(fs, 48);
         var longest = 0; words.forEach(function (w) { longest = Math.max(longest, wOf(f100, w) / 100); });
@@ -2557,13 +2653,14 @@ var Render = (function () {
       var lh = lines.length > 1 ? fs * 0.96 : fs, asc = fs * 0.76, pad = fs * 0.05;
       var h = Math.ceil(pad + asc + (lines.length - 1) * lh + fs * 0.24 + pad);
       el.style.height = h + 'px';
+      var xs = lines.map(function (ln) { return el.hasAttribute('data-center') ? Math.max(0, (avail - wOf('900 ' + fs + 'px ' + fam, ln)) / 2) : 0; });
       if (kind !== 'hero') { /* section titles are plain black text with a cyan vector outline, the creatures walk on flat platforms over the lines; the main name keeps the engine's shader letters */
         var ns = 'http://www.w3.org/2000/svg', svg = document.createElementNS(ns, 'svg');
         svg.setAttribute('class', 'gsvg'); svg.setAttribute('aria-hidden', 'true'); svg.setAttribute('width', avail); svg.setAttribute('height', h);
         svg.style.left = padL + 'px';
         lines.forEach(function (ln, i) {
           var tx = document.createElementNS(ns, 'text');
-          tx.setAttribute('x', 0); tx.setAttribute('y', (pad + asc + i * lh).toFixed(1));
+          tx.setAttribute('x', xs[i].toFixed(1)); tx.setAttribute('y', (pad + asc + i * lh).toFixed(1));
           tx.setAttribute('font-size', fs); tx.setAttribute('font-weight', 900); tx.setAttribute('font-family', fam);
           tx.style.strokeWidth = (2 * Math.max(1.4, fs * 0.022)).toFixed(2) + 'px'; /* doubled: the fill covers the inner half, so the overlapping contours of the variable font never show */
           tx.textContent = ln; svg.appendChild(tx);
@@ -2571,7 +2668,7 @@ var Render = (function () {
         el.setAttribute('aria-label', text);
         el.textContent = ''; el.appendChild(svg);
       }
-      out.push({ el: el, padL: padL, avail: avail, h: h, fs: fs, lh: lh, asc: asc, pad: pad, lines: lines, font: '900 ' + fs + 'px ' + fam });
+      out.push({ el: el, xs: xs, padL: padL, avail: avail, h: h, fs: fs, lh: lh, asc: asc, pad: pad, lines: lines, font: '900 ' + fs + 'px ' + fam });
     });
     return out;
   }
@@ -2582,14 +2679,14 @@ var Render = (function () {
       if (g.el.getAttribute('data-glyph') !== 'hero') { /* section title: one flat platform per line */
         g.lines.forEach(function (ln, i) {
           var base = gy + g.pad + g.asc + i * g.lh, w = wOf(g.font, ln);
-          rects.push({ x0: gx, x1: gx + w, y0: base - g.fs * 0.74, y1: base + g.fs * 0.2, g: 1, ng: 1, t: 1 });
+          rects.push({ x0: gx + g.xs[i], x1: gx + g.xs[i] + w, y0: base - g.fs * 0.74, y1: base + g.fs * 0.2, g: 1, ng: 1, t: 1 });
         });
         return;
       }
       /* the main name: letters drawn and made solid by the engine, with the shader fuzz */
-      var key = (g.fs < 50 ? "t" : "f") + g.font + '|' + g.lines.join('/') + '|' + g.avail + '|' + g.h + '|' + P, built = gcache[key];
+      var key = (g.fs < 50 ? "t" : "f") + g.font + '|' + g.lines.join('/') + '|' + g.avail + '|' + g.h + '|' + g.xs.join(',') + '|' + P, built = gcache[key];
       if (!built) {
-        built = Render.buildGlyph({ w: g.avail, h: g.h, font: g.font, thin: g.fs < 50, lines: g.lines.map(function (t, i) { return { t: t, x: 0, y: g.pad + g.asc + i * g.lh }; }) }, P);
+        built = Render.buildGlyph({ w: g.avail, h: g.h, font: g.font, thin: g.fs < 50, lines: g.lines.map(function (t, i) { return { t: t, x: g.xs[i], y: g.pad + g.asc + i * g.lh }; }) }, P);
         gcache = gcache.__n > 40 ? {} : gcache; gcache.__n = (gcache.__n || 0) + 1; gcache[key] = built;
       }
       res.push({ x: gx, y: gy, w: g.avail, h: g.h, edge: built.edge, fill: built.fill });
@@ -2717,13 +2814,14 @@ var Render = (function () {
     rects.push({ x0: 0, y0: 0, x1: W, y1: padTop + bar.offsetHeight });
     tiles.forEach(function (t) {
       var b = t.getBoundingClientRect();
-      rects.push({ x0: b.left + sx + ins, y0: b.top + sy + ins, x1: b.right + sx - ins, y1: b.bottom + sy - ins });
+      rects.push({ x0: b.left + sx + ins, y0: b.top + sy + ins, x1: b.right + sx - ins, y1: b.bottom + sy - ins, fz: t.hasAttribute('data-fuzz') });
     });
     var gl = buildGlyphs(gs, sx, sy);
     gl.rects.forEach(function (r) { rects.push(r); });
     world.glyphs = gl.list;
     var wasW = lastW; lastW = W;
     world.setLayout(W, H, rects, S);
+    syncZone();
     if (reset || !started || (wasW && Math.abs(wasW - W) > 160)) { world.reset(); started = true; }
     lastMainH = views.offsetHeight; lastMainW = views.offsetWidth;
     paintSoil();
@@ -2828,6 +2926,11 @@ var Render = (function () {
 
 
   var last = 0, censusT = 0, edge = 0, seenSlash = 0;
+  /* the simulation lives around what the viewer sees: the screen plus most of a screen above and below, the rest stands frozen */
+  function syncZone() {
+    var y = window.pageYOffset;
+    world.setZone(y, y + vh, y - vh * 0.75, y + vh * 1.75);
+  }
   /* ---------- language ---------- */
   var langBtns = Array.prototype.slice.call(document.querySelectorAll('[data-lang]'));
   function setLang(l, save) {
@@ -2860,6 +2963,7 @@ var Render = (function () {
       if (ey < 70) edge = -(70 - ey) / 70; else if (ey > vh - 70) edge = (ey - (vh - 70)) / 70;
       if (edge) window.scrollBy(0, edge * 16);
     }
+    syncZone();
     world.step(dt);
     var sy = window.pageYOffset, maxCam = Math.max(0, Math.floor(world.H - cvH)), want = Math.max(0, Math.min(maxCam, Math.round((sy - marg) / P) * P));
     if (camY === null) camY = want;
