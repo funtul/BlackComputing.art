@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru"><head>
+<html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>404 — Black Computing</title>
@@ -18,12 +18,18 @@
 @font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 700; font-display: swap; src: url(/fonts/ibm-plex-mono-latin-700-normal.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 @font-face { font-family: "IBM Plex Sans"; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/ibm-plex-sans-cyrillic-400-normal.woff2) format("woff2"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
 @font-face { font-family: "IBM Plex Sans"; font-style: normal; font-weight: 400; font-display: swap; src: url(/fonts/ibm-plex-sans-latin-400-normal.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Handjet"; font-style: normal; font-weight: 100 900; font-display: swap; src: url(/fonts/handjet-cyrillic-wght-normal.woff2) format("woff2-variations"); unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+@font-face { font-family: "Handjet"; font-style: normal; font-weight: 100 900; font-display: swap; src: url(/fonts/handjet-latin-ext-wght-normal.woff2) format("woff2-variations"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Handjet"; font-style: normal; font-weight: 100 900; font-display: swap; src: url(/fonts/handjet-latin-wght-normal.woff2) format("woff2-variations"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 :root {
   --black: #000; --white: #fff; --paper: #e6e6e6; --grey: #8f8f8f; --grey-l: #d9d9d9;
   --cyan: #5ff5ff; --rule: rgba(95, 245, 255, 0.4); --pink: #fe3d93; --orange: #ff5522;
   --gap: 32px; --u: 56px; --barh: 56px;
-  --sans: "Inter", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
-  --body: "IBM Plex Sans", "Inter", system-ui, Arial, sans-serif;
+  /* Inter for the name, section titles, captions and big type; Handjet only for the small headings inside the frames;
+     IBM Plex Sans for reading, IBM Plex Mono for machine labels */
+  --display: "Inter", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --label: "Handjet", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --body: "IBM Plex Sans", system-ui, Arial, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   color-scheme: dark;
 }
@@ -56,10 +62,10 @@ body::before {
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
-.brand { font: 700 22px/1.2 var(--sans); letter-spacing: -0.022em; margin-right: auto; white-space: nowrap; }
+.brand { font: 700 22px/1.2 var(--display); letter-spacing: -0.022em; margin-right: auto; white-space: nowrap; }
 .bar nav { display: flex; gap: clamp(10px, 2.2vw, 30px); }
 .bar nav a[aria-current="page"] { color: var(--cyan); }
-.bar nav a { font: 500 15px/1.2 var(--sans); color: var(--grey); padding: 10px 0; white-space: nowrap; }
+.bar nav a { font: 500 15px/1.2 var(--display); color: var(--grey); padding: 10px 0; white-space: nowrap; }
 .bar nav a:hover, .bar nav a:focus-visible, .brand:hover { color: var(--white); }
 .lang { display: flex; align-items: center; gap: 6px; font: 400 14px/1.2 var(--mono); color: var(--grey); }
 .lang button { color: var(--grey); padding: 8px 2px; }
@@ -72,7 +78,7 @@ main { position: relative; z-index: 1; flex: 1 0 auto; padding-bottom: calc(var(
 .view > .sec:first-child, .sec:first-child { margin-top: var(--gap); }
 .gt {
   display: block; margin: 0 0 var(--gap); padding: 0 max(var(--gap), env(safe-area-inset-right, 0px)) 0 max(var(--gap), env(safe-area-inset-left, 0px));
-  color: transparent; font: 900 20px/1 var(--sans); overflow: hidden; min-height: 1em; -webkit-user-select: none; user-select: none; letter-spacing: -0.03em;
+  color: transparent; font: 900 20px/1 var(--display); overflow: hidden; min-height: 1em; -webkit-user-select: none; user-select: none; letter-spacing: -0.03em;
 }
 .gt[data-glyph="hero"] { margin-bottom: calc(var(--gap) * 1.2); }
 .grid {
@@ -94,7 +100,7 @@ main { position: relative; z-index: 1; flex: 1 0 auto; padding-bottom: calc(var(
   position: absolute; left: 0; bottom: 0; max-width: 100%; background: var(--black); color: var(--white);
   padding: 10px 16px 10px 12px; display: flex; flex-direction: column; gap: 4px;
 }
-.cap b { font: 700 clamp(16px, 1.5vw, 22px)/1.2 var(--sans); letter-spacing: -0.022em; }
+.cap b { font: 700 clamp(16px, 1.5vw, 22px)/1.2 var(--display); letter-spacing: -0.022em; }
 .cap small { font: 400 13px/1.25 var(--mono); color: var(--grey); }
 .cap.c1 small, .cap.c2 small, .cap.c3 small { display: none; }
 .cap.c2 { padding: 6px 12px 6px 10px; }
@@ -105,8 +111,8 @@ main { position: relative; z-index: 1; flex: 1 0 auto; padding-bottom: calc(var(
 .photo { background: #000; }
 
 /* text tiles: CV language (cyan Plex Mono headings, 116px year column, cyan 40% rules) */
-.txt, .cv { padding: clamp(16px, 2.2vw, 30px); display: flex; flex-direction: column; gap: 14px; }
-.txt h2, .cv h2 { margin: 0; font: 700 clamp(16px, 1.5vw, 20px)/1.2 var(--mono); color: var(--cyan); }
+.txt, .cv { --pad: clamp(20px, 2.6vw, 36px); padding: var(--pad); display: flex; flex-direction: column; gap: 14px; }
+.txt h2, .cv h2 { margin: 0; font: 600 clamp(22px, 2vw, 30px)/1.05 var(--label); letter-spacing: .06em; color: var(--cyan); }
 .txt h2.h2b { margin-top: 10px; }
 .txt > *, .cv > * { flex-shrink: 0; }
 .cv dl, .txt dl { margin: 0; display: flex; flex-direction: column; min-height: 0; }
@@ -119,15 +125,36 @@ main { position: relative; z-index: 1; flex: 1 0 auto; padding-bottom: calc(var(
 .sel { -webkit-user-select: all; user-select: all; }
 .body { margin: 0; font: 400 clamp(14px, 1.15vw, 16px)/1.55 var(--body); color: var(--paper); }
 .pub { margin-top: -4px; }
-.hello { margin: 0; font: 700 clamp(28px, 3.6vw, 56px)/1.06 var(--sans); letter-spacing: -0.022em; text-wrap: balance; }
-.lead { margin: 0; font: 500 clamp(18px, 1.8vw, 26px)/1.3 var(--sans); letter-spacing: -0.01em; color: var(--white); }
+.hello { margin: 0; font: 700 clamp(28px, 3.6vw, 56px)/1.06 var(--display); letter-spacing: -0.022em; text-wrap: balance; }
+.lead { margin: 0; font: 400 clamp(18px, 1.8vw, 26px)/1.3 var(--body); letter-spacing: -0.01em; color: var(--white); }
 .k { margin: 0; font: 400 13px/1.4 var(--mono); color: var(--grey); }
 .k.exh { color: var(--paper); }
-.tagline { margin: 0; font: 500 clamp(16px, 1.5vw, 20px)/1.3 var(--sans); color: var(--paper); }
+.tagline { margin: 0; font: 400 clamp(16px, 1.5vw, 20px)/1.3 var(--body); color: var(--paper); }
 .btns { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; padding-top: 6px; }
 .btn { font: 400 13px/1.2 var(--mono); color: var(--cyan); border: 1px solid var(--rule); padding: 12px 15px; background: #000; transition: none; }
 .btn:hover, .btn:focus-visible { background: var(--cyan); color: #000; }
 .btn[disabled] { opacity: .5; }
+/* a button that is a whole tile: the frame is the tile's own fuzzy edge, the label left, the file kind right */
+.dlt .btn { position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 20px; border: 0; font-size: 14px; }
+.dlt .btn i { font-style: normal; color: var(--grey); white-space: nowrap; }
+.dlt .btn:hover i, .dlt .btn:focus-visible i { color: #000; }
+/* tiles whose heading sits in a tab of the frame: the tile itself is bare; the heading (.th) and .in are two black boxes
+   that the engine joins into one shape, so the shader outline steps up round the heading (page.js layout, render.js outlines).
+   The words sit in the middle of the tab, the same space (--tp) from the capitals and the baseline to the outline on every
+   side: at line-height 1 both faces leave about .15em over the capitals and under the baseline, which comes off the top and
+   bottom; each side adds the 4px of the engine's outline (2 scene pixels) that lies inside the box; the frame's top line
+   sits 1.5px below the box, so the bottom gives that back twice over (the line's own fuzz). The right side loses the
+   trailing letter-spacing. */
+.tile.hd { padding: 0; gap: 0; }
+.hd > .th { --tp: .42em; align-self: flex-start; max-width: 100%; line-height: 1; background: var(--black);
+  padding: calc(var(--tp) - .15em + 4px) calc(var(--tp) + 4px - .06em) calc(var(--tp) - .15em - 3px) calc(var(--tp) + 4px); }
+.hd > .th.hello { --tp: .27em; padding-right: calc(var(--tp) + 2.5px); }
+.hd > .in { flex: 1 0 auto; display: flex; flex-direction: column; gap: 14px; padding: calc(var(--pad) * .7) var(--pad) var(--pad); }
+.hi > .in { gap: 10px; }
+.hi .body { font-size: clamp(15px, 1.3vw, 19px); line-height: 1.5; color: var(--grey-l); }
+.hi .btns { padding-top: 14px; }
+.btns .btn i { font-style: normal; color: var(--grey); margin-left: 10px; }
+.btns .btn:hover i, .btns .btn:focus-visible i { color: #000; }
 .exl dd .v { display: block; font: 400 12px/1.35 var(--mono); color: var(--grey); }
 .exl dd b, .gl dd b { font: 500 clamp(14px, 1.15vw, 16px)/1.35 var(--body); color: var(--white); }
 .gl dd .d { display: block; color: var(--grey); font: 400 13px/1.4 var(--body); margin-top: 2px; }
@@ -136,7 +163,7 @@ main { position: relative; z-index: 1; flex: 1 0 auto; padding-bottom: calc(var(
 /* contents list */
 .toc ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
 .toc a { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto 30px; align-items: baseline; gap: 0 12px; padding: 13px 0; border-top: 1px solid var(--rule); }
-.toc .nm { font: 700 clamp(22px, 2.7vw, 40px)/1.08 var(--sans); letter-spacing: -0.022em; }
+.toc .nm { font: 700 clamp(22px, 2.7vw, 40px)/1.08 var(--display); letter-spacing: -0.022em; }
 .toc .n, .toc .ct { font: 400 13px/1 var(--mono); color: var(--grey); }
 .toc .ar { color: var(--cyan); opacity: 0; text-align: right; font: 400 20px/1 var(--mono); }
 .toc a:hover .nm, .toc a:focus-visible .nm { color: var(--cyan); }
@@ -144,15 +171,15 @@ main { position: relative; z-index: 1; flex: 1 0 auto; padding-bottom: calc(var(
 
 /* artist statement */
 .stm .st { margin: auto 0; }
-.st { font: 500 clamp(19px, 2.15vw, 32px)/1.28 var(--sans); letter-spacing: -0.012em; color: var(--white); text-wrap: pretty; }
+.st { font: 400 clamp(19px, 2.15vw, 32px)/1.3 var(--body); letter-spacing: -0.012em; color: var(--white); text-wrap: pretty; }
 
 /* project page */
 .ptitle { gap: 10px; }
 .back { color: var(--grey); align-self: flex-start; padding-bottom: 8px; }
 .back:hover, .back:focus-visible { color: var(--cyan); }
-.pt { margin: 4px 0 0; font: 700 clamp(30px, 4.6vw, 68px)/1.04 var(--sans); letter-spacing: -0.026em; text-wrap: balance; }
+.pt { margin: 4px 0 0; font: 700 clamp(30px, 4.6vw, 68px)/1.04 var(--display); letter-spacing: -0.026em; text-wrap: balance; }
 .blk { display: flex; flex-direction: column; gap: 8px; padding-top: 14px; border-top: 1px solid var(--rule); }
-.blk h3 { margin: 0; font: 700 clamp(14px, 1.2vw, 16px)/1.3 var(--mono); color: var(--cyan); }
+.blk h3 { margin: 0; font: 600 clamp(19px, 1.6vw, 24px)/1.1 var(--label); letter-spacing: .06em; color: var(--cyan); }
 .blk ul { margin: 0; padding-left: 18px; font: 400 clamp(14px, 1.15vw, 16px)/1.5 var(--body); color: var(--paper); }
 .blk li + li { margin-top: 4px; }
 .desc > .lead { margin-bottom: 4px; }
@@ -170,7 +197,7 @@ main { position: relative; z-index: 1; flex: 1 0 auto; padding-bottom: calc(var(
 .play { position: absolute; inset: 0; display: block; }
 .play i { position: absolute; left: 50%; top: 50%; width: 88px; height: 88px; margin: -44px 0 0 -44px; background: #000; border: 1px solid var(--rule); }
 .play i::after { content: ""; position: absolute; left: 33px; top: 27px; border-left: 28px solid var(--pink); border-top: 16px solid transparent; border-bottom: 16px solid transparent; }
-.play span { position: absolute; left: 0; bottom: 0; background: #000; padding: 12px 18px 12px 14px; font: 500 15px/1.2 var(--sans); color: var(--white); }
+.play span { position: absolute; left: 0; bottom: 0; background: #000; padding: 12px 18px 12px 14px; font: 500 15px/1.2 var(--display); color: var(--white); }
 .play:hover i, .play:focus-visible i { border-color: var(--pink); }
 .play:hover span, .play:focus-visible span { color: var(--pink); }
 .car-btn { position: absolute; top: 50%; margin-top: -28px; width: 56px; height: 56px; background: #000; color: var(--cyan); border: 1px solid var(--rule); display: flex; align-items: center; justify-content: center; }
@@ -249,10 +276,6 @@ a.hov:hover b, a.hov:focus-visible b { color: var(--cyan); text-decoration-color
 #lb .lb-f { right: max(16px, env(safe-area-inset-right, 0px)); }
 #lb.one .lb-n { display: none; }
 
-/* section titles: smooth outline drawn as vector text; the pixel fuzz of the engine sits under it */
-.gt { position: relative; }
-.gt .gsvg { position: absolute; top: 0; overflow: visible; pointer-events: none; }
-.gt .gsvg text { letter-spacing: 0; fill: #000; stroke: var(--cyan); stroke-linejoin: round; paint-order: stroke fill; }
 .xp dd .v { display: inline; font: 400 12px/1.35 var(--mono); color: var(--grey); }
 .xp dd .v::before { content: "· "; }
 .xl { margin: 8px 0 0; padding: 0 0 0 16px; color: var(--grey); font: 400 13px/1.45 var(--body); }
@@ -264,7 +287,7 @@ a.hov:hover b, a.hov:focus-visible b { color: var(--cyan); text-decoration-color
 <header class="bar" id="bar"><div class="bar-in">
   <a class="brand" href="/">Black Computing</a>
   <div class="lang" role="group" aria-label="Language"><button type="button" data-lang="en">EN</button><span aria-hidden="true">/</span><button type="button" data-lang="ru">RU</button></div>
-</div></header><main id="views"><div class="view" id="v-home" data-view="home"><section id="top" class="sec"><h1 class="gt" data-glyph="hero" data-big data-center data-ru="404" data-en="404">404</h1><h2 class="gt" data-glyph="sec" data-center data-ru="Здесь нет искусства" data-en="No art here">Здесь нет искусства</h2><div class="grid"><div class="tile" data-solid data-fuzz style="--c:5;--cs:4;--r:1;--rs:1;--mcs:6;--mrs:1"><div class="btns" style="padding:0;margin:0;height:100%;justify-content:center;align-items:center"><a class="btn" style="flex:1;height:100%;display:flex;align-items:center;justify-content:center" href="/" data-ru="На главную" data-en="Back to main page">На главную</a></div></div></div></section></div></main><footer class="foot" id="foot" data-solid data-jit="0">
+</div></header><main id="views"><div class="view" id="v-home" data-view="home"><section id="top" class="sec"><h1 class="gt" data-glyph="hero" data-big data-center data-ru="404" data-en="404">404</h1><h2 class="gt" data-glyph="sec" data-center data-ru="Здесь нет искусства" data-en="No art here">No art here</h2><div class="grid"><div class="tile dlt" data-solid data-fuzz style="--c:5;--cs:4;--r:1;--rs:1;--mcs:6;--mrs:1"><a class="btn" href="/"><span data-ru="На главную" data-en="Back to main page">Back to main page</span><i aria-hidden="true">←</i></a></div></div></section></div></main><footer class="foot" id="foot" data-solid data-jit="0">
   <canvas id="soil" aria-hidden="true"></canvas>
   <div class="dig" id="dig">
     <span class="mono b1">© 2026 Black Computing</span>
@@ -441,7 +464,8 @@ var Sim = (function () {
   /* ---------- layout ---------- */
   World.prototype.setLayout = function (W, H, rects, S) {
     this.W = W; this.H = H; this.S = S;
-    this.rects = rects.map(function (r) { return { x0: r.x0, y0: r.y0, x1: r.x1, y1: r.y1, g: r.g ? 1 : 0, ng: r.ng ? 1 : 0, t: r.t ? 1 : 0, fz: r.fz ? 1 : 0, st: 0 }; });
+    /* tx0/tx1: the frame's top edge is open there (a heading tab stands on it); tb: a tab, whose open bottom is the frame's top at this y */
+    this.rects = rects.map(function (r) { return { x0: r.x0, y0: r.y0, x1: r.x1, y1: r.y1, g: r.g ? 1 : 0, ng: r.ng ? 1 : 0, t: r.t ? 1 : 0, fz: r.fz ? 1 : 0, tx0: r.tx0 || 0, tx1: r.tx1 || 0, tb: r.tb || 0, st: 0 }; });
     this.tiles = this.rects.filter(function (r) { return !r.g; });
     this.indexRects();
     this.buildSurfaces(); this.buildNav();
@@ -497,7 +521,7 @@ var Sim = (function () {
       q = rs[i];
       if (q.ng) continue; /* titles are plain outlined text: no grass or fuzz on them */
       floors.push({ x0: q.x0, x1: q.x1, y: q.y0 });
-      ceils.push({ x0: q.x0, x1: q.x1, y: q.y1 });
+      if (!q.t) ceils.push({ x0: q.x0, x1: q.x1, y: q.y1 }); /* section titles: grass on the letters, no vines under them */
     }
     floors.push({ x0: 0, x1: W, y: H }); ceils.push({ x0: 0, x1: W, y: 0 });
     this.blades = []; this.ceil = []; this.segs = []; this.segTotal = 0; this.bucket = {};
@@ -2160,6 +2184,12 @@ var Render = (function () {
       k2.drawImage(gg.fill, Math.round((gg.x - cam.x) / P) - GPAD, Math.round((gg.y - cam.y) / P) - GPAD);
     }
     k2.globalCompositeOperation = 'lighter';
+    /* small titles (crisp): their core line goes to the stable layer, past the fuzz, so the word stays readable */
+    for (i = 0; i < gl0.length; i++) {
+      gg = gl0[i];
+      if (!gg.crisp || gg.x + gg.w < cam.x - 16 || gg.x > cam.x + cam.vw + 16 || gg.y + gg.h < cam.y - 16 || gg.y > cam.y + cam.vh + 16) continue;
+      k2.drawImage(gg.edge, Math.round((gg.x - cam.x) / P) - GPAD, Math.round((gg.y - cam.y) / P) - GPAD);
+    }
     function px(x, y, col) { ctx.fillStyle = col; ctx.fillRect(Math.floor((x - cam.x) / P), Math.floor((y - cam.y) / P), 1, 1); }
     function T() { ctx.setTransform(1 / P, 0, 0, 1 / P, -cam.x / P, -cam.y / P); }
     function I() { ctx.setTransform(1, 0, 0, 1, 0, 0); }
@@ -2419,33 +2449,39 @@ var Render = (function () {
     }
     if (cam.cur) { T(); ctx.globalAlpha = 0.3; ctx.drawImage(SP.soft2, cam.cur.x - 30, cam.cur.y - 30, 60, 60); ctx.globalAlpha = 1; I(); }
 
-    /* --- tile outlines (hairline, 40% cyan) --- */
+    /* --- tile outlines (hairline, 40% cyan): a band t pixels thick round each frame. A frame with a heading tab leaves its
+       top open over the tab (tx0..tx1), and the tab has no bottom (it ends at tb, the frame's top), so the two read as one shape --- */
+    function edges(q, t) {
+      var e = (t - 2) / 2, x0 = Math.floor((q.x0 - cam.x) / P), y0 = Math.floor((q.y0 - cam.y) / P),
+        x1 = Math.floor((q.x1 - cam.x) / P), y1 = Math.floor(((q.tb || q.y1) - cam.y) / P);
+      if (q.tx1 > q.tx0) {
+        var a0 = Math.floor((q.tx0 - cam.x) / P), a1 = Math.floor((q.tx1 - cam.x) / P);
+        if (a0 > x0) ctx.fillRect(x0 - e, y0 - e, a0 - x0 + 1 + e, t);
+        if (a1 < x1) ctx.fillRect(a1, y0 - e, x1 - a1 + 1 + e, t);
+      } else ctx.fillRect(x0 - e, y0 - e, x1 - x0 + 1 + 2 * e, t);
+      if (!q.tb) ctx.fillRect(x0 - e, y1 - 1 - e, x1 - x0 + 1 + 2 * e, t);
+      ctx.fillRect(x0 - e, y0 - e, t, y1 - y0 + 1 + 2 * e);
+      ctx.fillRect(x1 - 1 - e, y0 - e, t, y1 - y0 + 1 + 2 * e);
+    }
     ctx.fillStyle = 'rgba(95,245,255,0.07)';
     for (i = 1; i < w.rects.length; i++) {
       q = w.rects[i];
       if (q.g || q.x1 < cam.x - 8 * P || q.x0 > cam.x + cam.vw + 8 * P || q.y1 < cam.y - 8 * P || q.y0 > cam.y + cam.vh + 8 * P) continue;
-      var wx0 = Math.floor((q.x0 - cam.x) / P), wy0 = Math.floor((q.y0 - cam.y) / P), wx1 = Math.floor((q.x1 - cam.x) / P), wy1 = Math.floor((q.y1 - cam.y) / P);
-      ctx.fillRect(wx0 - 2, wy0 - 2, wx1 - wx0 + 5, 6); ctx.fillRect(wx0 - 2, wy1 - 3, wx1 - wx0 + 5, 6);
-      ctx.fillRect(wx0 - 2, wy0 - 2, 6, wy1 - wy0 + 5); ctx.fillRect(wx1 - 3, wy0 - 2, 6, wy1 - wy0 + 5);
+      edges(q, 6);
     }
     ctx.fillStyle = 'rgba(95,245,255,0.6)';
     for (i = 1; i < w.rects.length; i++) {
       q = w.rects[i];
       if (q.g || q.x1 < cam.x || q.x0 > cam.x + cam.vw || q.y1 < cam.y || q.y0 > cam.y + cam.vh) continue;
-      var rx0 = Math.floor((q.x0 - cam.x) / P), ry0 = Math.floor((q.y0 - cam.y) / P),
-        rx1 = Math.floor((q.x1 - cam.x) / P), ry1 = Math.floor((q.y1 - cam.y) / P);
-      ctx.fillRect(rx0, ry0, rx1 - rx0 + 1, 2);
-      ctx.fillRect(rx0, ry1 - 1, rx1 - rx0 + 1, 2);
-      ctx.fillRect(rx0, ry0, 2, ry1 - ry0 + 1);
-      ctx.fillRect(rx1 - 1, ry0, 2, ry1 - ry0 + 1);
+      edges(q, 2);
     }
 
     /* --- big titles: outline of the letters (pre-rendered), same fuzz as the tiles --- */
     ctx.imageSmoothingEnabled = false;
     for (i = 0; i < gl0.length; i++) {
       gg = gl0[i];
-      if (gg.crisp || gg.x + gg.w < cam.x - 16 || gg.x > cam.x + cam.vw + 16 || gg.y + gg.h < cam.y - 16 || gg.y > cam.y + cam.vh + 16) continue; /* section titles are plain vector outlines in the page */
-      ctx.drawImage(gg.edge, Math.round((gg.x - cam.x) / P) - GPAD, Math.round((gg.y - cam.y) / P) - GPAD);
+      if (gg.x + gg.w < cam.x - 16 || gg.x > cam.x + cam.vw + 16 || gg.y + gg.h < cam.y - 16 || gg.y > cam.y + cam.vh + 16) continue;
+      ctx.drawImage(gg.crisp ? gg.edge2 : gg.edge, Math.round((gg.x - cam.x) / P) - GPAD, Math.round((gg.y - cam.y) / P) - GPAD);
     }
 
     /* --- effects --- */
@@ -2465,6 +2501,7 @@ var Render = (function () {
   var FS = [
     'precision highp float;',
     'uniform sampler2D u_tex;uniform sampler2D u_tex2;uniform vec2 u_res;uniform float u_seed;uniform float u_time;uniform float u_amp;uniform float u_shock;',
+    'uniform vec4 u_hot;uniform float u_seed2;uniform float u_time2;',
     'float hash(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}',
     'float vn(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);',
     ' return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}',
@@ -2472,22 +2509,25 @@ var Render = (function () {
     'float L(vec3 c){return max(c.r,max(c.g,c.b));}',
     'void main(){',
     ' vec2 p=floor(gl_FragCoord.xy);',
+    ' float hot=step(u_hot.x,p.x)*step(p.x,u_hot.z)*step(u_hot.y,p.y)*step(p.y,u_hot.w);',
+    ' float sd=mix(u_seed,u_seed2,hot),tm=mix(u_time,u_time2,hot);',
     ' float l0=L(T(p));',
     ' float e=max(max(abs(L(T(p+vec2(3.,0.)))-l0),abs(L(T(p-vec2(3.,0.)))-l0)),max(abs(L(T(p+vec2(0.,3.)))-l0),abs(L(T(p-vec2(0.,3.)))-l0)));',
     ' float edge=smoothstep(.02,.16,e);',
-    ' float n=vn(p*.05+vec2(u_time*.35,-u_time*.2));',
+    ' float n=vn(p*.05+vec2(tm*.35,-tm*.2));',
     ' float amp=u_amp*(.12+.8*edge)*(.6+.8*n);',
-    ' amp*=1.+.35*u_shock;',
-    ' vec2 o=(vec2(hash(p+u_seed*1.31),hash(p.yx*1.7+u_seed*2.17+7.1))-.5)*2.*amp;',
-    ' vec2 o2=(vec2(hash(p*1.9+u_seed*.73+3.3),hash(p.yx*.8+u_seed*1.57+11.7))-.5)*2.*amp;',
+    ' amp*=1.+.35*u_shock+.9*hot;',
+    ' vec2 o=(vec2(hash(p+sd*1.31),hash(p.yx*1.7+sd*2.17+7.1))-.5)*2.*amp;',
+    ' vec2 o2=(vec2(hash(p*1.9+sd*.73+3.3),hash(p.yx*.8+sd*1.57+11.7))-.5)*2.*amp;',
     ' vec3 c=max(T(p+floor(o+.5)),T(p+floor(o2+.5)));',
-    ' float m=vn(p*.3+vec2(-u_time*1.2,u_time*.8));',
-    ' float h=vn(p*.11+vec2(u_time*.5,u_time*.3)+9.);',
+    ' float m=vn(p*.3+vec2(-tm*1.2,tm*.8));',
+    ' float h=vn(p*.11+vec2(tm*.5,tm*.3)+9.);',
     ' float on=smoothstep(.03,.14,max(e,L(c)*.0))*step(c.r*1.3,c.g)*step(c.r,c.b);',
     ' float inten=L(c);',
     ' vec3 tint=mix(mix(vec3(.37,.96,1.),vec3(.28,1.,.5),smoothstep(.45,.8,h)),vec3(.22,.4,1.),smoothstep(.55,.9,1.-h));',
     ' vec3 mod_=tint*inten*(.72+.5*m);',
     ' c=mix(c,min(mod_,1.),on*.7);',
+    ' c+=hot*edge*vec3(.04,.16,.18);', /* the frame under the cursor: wilder and a little brighter at its edge */
     ' c+=texture2D(u_tex2,(p+.5)/u_res).rgb;',
     ' gl_FragColor=vec4(min(c,1.),1.);',
     '}'
@@ -2513,7 +2553,7 @@ var Render = (function () {
       var buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
       var al = gl.getAttribLocation(prog, 'a'); gl.enableVertexAttribArray(al); gl.vertexAttribPointer(al, 2, gl.FLOAT, false, 0, 0);
-      ['u_tex', 'u_tex2', 'u_res', 'u_seed', 'u_time', 'u_amp', 'u_shock'].forEach(function (n) { loc[n] = gl.getUniformLocation(prog, n); });
+      ['u_tex', 'u_tex2', 'u_res', 'u_seed', 'u_time', 'u_amp', 'u_shock', 'u_hot', 'u_seed2', 'u_time2'].forEach(function (n) { loc[n] = gl.getUniformLocation(prog, n); });
       gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
       tex = [gl.createTexture(), gl.createTexture()];
       for (var ti = 0; ti < 2; ti++) {
@@ -2534,17 +2574,23 @@ var Render = (function () {
     };
     /* the outline is drawn once and stays still; it is re-rolled only while the page scrolls. */
     pipe.sh = 0; pipe.lastT = 0; pipe.nt = 0; pipe.seed = 1;
+    /* pipe.hot: a frame under the cursor, {x0, y0, x1, y1} in scene pixels; its outline keeps re-rolling with a seed of its own */
+    pipe.hot = null; pipe.nt2 = 0; pipe.seed2 = 1;
     pipe.shock = function () { pipe.hit = true; };
     pipe.present = function (t, frozen) {
       var dts = Math.max(0, Math.min(0.1, t - pipe.lastT)); pipe.lastT = t;
       /* no tail: the outline re-rolls only on frames where a scroll event arrived */
       if (pipe.hit) { pipe.hit = false; pipe.sh = 1; pipe.nt += dts * 2; if (!frozen) pipe.seed = (Math.floor(t * FPS) % 997) + 1; } else pipe.sh = 0;
+      if (pipe.hot && !frozen) { pipe.nt2 += dts * 2; pipe.seed2 = (Math.floor(t * FPS) % 997) + 1; }
       if (pipe.gl) {
         if (pipe.lost) return;
         pipe.time = t;
         gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, tex[0]); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, scene);
         gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, tex[1]); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, stable);
         gl.uniform1i(loc.u_tex, 0); gl.uniform1i(loc.u_tex2, 1); gl.uniform2f(loc.u_res, scene.width, scene.height);
+        var hh = scene.height, hq = pipe.hot; /* gl y runs upwards */
+        if (hq) gl.uniform4f(loc.u_hot, hq.x0, hh - hq.y1, hq.x1, hh - hq.y0); else gl.uniform4f(loc.u_hot, -9, -9, -8, -8);
+        gl.uniform1f(loc.u_seed2, pipe.seed2); gl.uniform1f(loc.u_time2, pipe.nt2);
         gl.uniform1f(loc.u_seed, pipe.seed); gl.uniform1f(loc.u_time, pipe.nt); gl.uniform1f(loc.u_amp, o.amp || 1.9); gl.uniform1f(loc.u_shock, pipe.sh);
         gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
       } else if (d2) {
@@ -2571,7 +2617,7 @@ var Render = (function () {
   var census = document.getElementById('census');
   var tiles = [];
   var foot = document.getElementById('foot'), soil = document.getElementById('soil');
-  var lang = 'ru';
+  var lang = 'en';
   var world = new Sim.World();
   var ready = false, P = 2, S = 1, vw = 0, vh = 0, cvW = 0, cvH = 0, camY = null, marg = 0, lastW = 0, started = false, lastMainH = 0, lastMainW = 0;
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -2586,33 +2632,39 @@ var Render = (function () {
   var gctx = document.createElement('canvas').getContext('2d');
   var gcache = {};
   function wOf(font, text) { gctx.font = font; return gctx.measureText(text).width; }
-  function wrapWords(font, words, max) {
+  /* extra letter spacing of section titles, em after every character (none: the grotesque is set tight) */
+  var TLS = 0;
+  function wOfLs(font, text, ls) { return wOf(font, text) + (ls || 0) * text.length; }
+  function wrapWords(font, words, max, ls) {
     var lines = [], cur = '';
     words.forEach(function (w) {
       var tryS = cur ? cur + ' ' + w : w;
-      if (cur && wOf(font, tryS) > max) { lines.push(cur); cur = w; } else cur = tryS;
+      if (cur && wOfLs(font, tryS, ls) > max) { lines.push(cur); cur = w; } else cur = tryS;
     });
     if (cur) lines.push(cur);
     return lines;
   }
-  /* the name sets the scale: it fills the width (two lines on a phone); section titles are a fraction of it */
+  /* the name sets the scale: it fills the width, on one line while that line is at least SPLIT px tall (two lines on a phone);
+     section titles are a fraction of it */
+  var SPLIT = 80, CRISP = 72;
   function heroScale(avail, fam, narrow) {
-    var f100 = '900 100px ' + fam, name = 'Arkady Kukin';
-    if (!narrow) return avail / (wOf(f100, name) / 100);
-    var m = Math.max(wOf(f100, 'Arkady'), wOf(f100, 'Kukin'));
-    return avail / (m / 100);
+    var f100 = '900 100px ' + fam, one = avail / (wOf(f100, 'Arkady Kukin') / 100);
+    if (!narrow || one >= SPLIT) return one;
+    return avail / (Math.max(wOf(f100, 'Arkady'), wOf(f100, 'Kukin')) / 100);
   }
   function sizeGlyphs(narrow) {
-    var fam = getComputedStyle(root).getPropertyValue('--sans') || 'Inter, system-ui, sans-serif';
+    var rs = getComputedStyle(root);
+    var fam = rs.getPropertyValue('--display') || 'Inter, system-ui, sans-serif';
     var out = [];
     qsa('.gt').forEach(function (el) {
       if (!el.getClientRects().length) return;
       var cs = getComputedStyle(el), padL = parseFloat(cs.paddingLeft) || 0, padR = parseFloat(cs.paddingRight) || 0;
       var avail = Math.floor(el.clientWidth - padL - padR), kind = el.getAttribute('data-glyph'), text = el.getAttribute('data-' + lang) || el.textContent;
       if (avail < 40) return;
+      /* the name and the section titles are one face; titles are sized against the name */
       var ref = heroScale(avail, fam, narrow), f100 = '900 100px ' + fam, fs, lines, words = text.split(/\s+/);
       if (kind === 'hero') {
-        if (narrow && words.length > 1) {
+        if (narrow && words.length > 1 && avail / (wOf(f100, text) / 100) < SPLIT) {
           var half = Math.ceil(words.length / 2);
           lines = [words.slice(0, half).join(' '), words.slice(half).join(' ')];
           fs = avail / (Math.max(wOf(f100, lines[0]), wOf(f100, lines[1])) / 100);
@@ -2622,30 +2674,16 @@ var Render = (function () {
         fs = Math.min(fs, cap);
       } else {
         fs = ref * 0.5; if (narrow) fs = Math.max(fs, 48);
-        var longest = 0; words.forEach(function (w) { longest = Math.max(longest, wOf(f100, w) / 100); });
+        var longest = 0; words.forEach(function (w) { longest = Math.max(longest, wOf(f100, w) / 100 + TLS * w.length); });
         fs = Math.min(fs, avail / longest);
-        lines = wrapWords('900 ' + fs + 'px ' + fam, words, avail);
+        lines = wrapWords('900 ' + fs + 'px ' + fam, words, avail, TLS * fs);
       }
       fs = Math.floor(fs);
-      var lh = lines.length > 1 ? fs * 0.96 : fs, asc = fs * 0.76, pad = fs * 0.05;
+      var lh = lines.length > 1 ? fs * 0.96 : fs, asc = fs * 0.76, pad = fs * 0.05, ls = kind === 'hero' ? 0 : TLS * fs;
       var h = Math.ceil(pad + asc + (lines.length - 1) * lh + fs * 0.24 + pad);
       el.style.height = h + 'px';
-      var xs = lines.map(function (ln) { return el.hasAttribute('data-center') ? Math.max(0, (avail - wOf('900 ' + fs + 'px ' + fam, ln)) / 2) : 0; });
-      if (kind !== 'hero') { /* section titles are plain black text with a cyan vector outline, the creatures walk on flat platforms over the lines; the main name keeps the engine's shader letters */
-        var ns = 'http://www.w3.org/2000/svg', svg = document.createElementNS(ns, 'svg');
-        svg.setAttribute('class', 'gsvg'); svg.setAttribute('aria-hidden', 'true'); svg.setAttribute('width', avail); svg.setAttribute('height', h);
-        svg.style.left = padL + 'px';
-        lines.forEach(function (ln, i) {
-          var tx = document.createElementNS(ns, 'text');
-          tx.setAttribute('x', xs[i].toFixed(1)); tx.setAttribute('y', (pad + asc + i * lh).toFixed(1));
-          tx.setAttribute('font-size', fs); tx.setAttribute('font-weight', 900); tx.setAttribute('font-family', fam);
-          tx.style.strokeWidth = (2 * Math.max(1.4, fs * 0.022)).toFixed(2) + 'px'; /* doubled: the fill covers the inner half, so the overlapping contours of the variable font never show */
-          tx.textContent = ln; svg.appendChild(tx);
-        });
-        el.setAttribute('aria-label', text);
-        el.textContent = ''; el.appendChild(svg);
-      }
-      out.push({ el: el, xs: xs, padL: padL, avail: avail, h: h, fs: fs, lh: lh, asc: asc, pad: pad, lines: lines, font: '900 ' + fs + 'px ' + fam });
+      var xs = lines.map(function (ln) { return el.hasAttribute('data-center') ? Math.max(0, (avail - wOfLs('900 ' + fs + 'px ' + fam, ln, ls)) / 2) : 0; });
+      out.push({ el: el, xs: xs, padL: padL, avail: avail, h: h, fs: fs, lh: lh, asc: asc, pad: pad, lines: lines, ls: ls, font: '900 ' + fs + 'px ' + fam });
     });
     return out;
   }
@@ -2653,20 +2691,14 @@ var Render = (function () {
     var res = [], rects = [];
     specs.forEach(function (g) {
       var bb = g.el.getBoundingClientRect(), gx = bb.left + sx + g.padL, gy = bb.top + sy;
-      if (g.el.getAttribute('data-glyph') !== 'hero') { /* section title: one flat platform per line */
-        g.lines.forEach(function (ln, i) {
-          var base = gy + g.pad + g.asc + i * g.lh, w = wOf(g.font, ln);
-          rects.push({ x0: gx + g.xs[i], x1: gx + g.xs[i] + w, y0: base - g.fs * 0.74, y1: base + g.fs * 0.2, g: 1, ng: 1, t: 1 });
-        });
-        return;
-      }
-      /* the main name: letters drawn and made solid by the engine, with the shader fuzz */
-      var key = (g.fs < 50 ? "t" : "f") + g.font + '|' + g.lines.join('/') + '|' + g.avail + '|' + g.h + '|' + g.xs.join(',') + '|' + P, built = gcache[key];
+      /* the name and the section titles: letters drawn and made solid by the engine, with the shader fuzz;
+         section titles always (and the name below CRISP px) keep a clean core line under the fuzz, or the fuzz eats the word */
+      var crisp = g.fs < CRISP || g.el.getAttribute('data-glyph') !== 'hero', key = (g.fs < 50 ? "t" : "f") + (crisp ? "c" : "") + g.font + '|' + g.lines.join('/') + '|' + g.avail + '|' + g.h + '|' + g.xs.join(',') + '|' + P, built = gcache[key];
       if (!built) {
-        built = Render.buildGlyph({ w: g.avail, h: g.h, font: g.font, thin: g.fs < 50, lines: g.lines.map(function (t, i) { return { t: t, x: g.xs[i], y: g.pad + g.asc + i * g.lh }; }) }, P);
+        built = Render.buildGlyph({ w: g.avail, h: g.h, font: g.font, thin: g.fs < 50, crisp: crisp, lines: g.lines.map(function (t, i) { return { t: t, x: g.xs[i], y: g.pad + g.asc + i * g.lh }; }) }, P);
         gcache = gcache.__n > 40 ? {} : gcache; gcache.__n = (gcache.__n || 0) + 1; gcache[key] = built;
       }
-      res.push({ x: gx, y: gy, w: g.avail, h: g.h, edge: built.edge, fill: built.fill });
+      res.push({ x: gx, y: gy, w: g.avail, h: g.h, edge: built.edge, edge2: built.edge2, fill: built.fill, crisp: crisp });
       built.rects.forEach(function (r) { rects.push({ x0: gx + r.x0, y0: gy + r.y0, x1: gx + r.x1, y1: gy + r.y1, g: 1 }); });
     });
     return { list: res, rects: rects };
@@ -2677,8 +2709,10 @@ var Render = (function () {
     var cs = getComputedStyle(root), u = parseFloat(cs.getPropertyValue('--u')) || 56, gap = parseFloat(cs.getPropertyValue('--gap')) || 32;
     var els = qsa('[data-fit]').filter(function (el) { return el.getClientRects().length || true; });
     var key = narrow ? '--mrs' : '--rs', dk = narrow ? 'mrs' : 'rs';
-    els.forEach(function (el) { el.style.setProperty(key, el.getAttribute('data-' + dk)); });
-    var need = els.map(function (el) { return el.getClientRects().length ? el.scrollHeight : 0; });
+    qsa('.grid > .tile').forEach(function (el) { if (!el.hasAttribute('data-rs0')) el.setAttribute('data-rs0', el.style.getPropertyValue('--rs').trim() || '1'); });
+    /* text tiles hug their text: measured unstretched, they take exactly the rows it needs, never more */
+    els.forEach(function (el) { el.style.setProperty(key, el.getAttribute('data-' + dk)); el.style.alignSelf = 'start'; });
+    var need = els.map(function (el) { return el.getClientRects().length ? el.offsetHeight : 0; });
     /* pictures are never cropped and never letterboxed: a picture tile takes exactly the shape of its picture, and a carousel frame takes the shape of the slide on show */
     /* a picture tile never gets smaller than MINW x MINH: when the page is narrow it takes more columns (what it then overlaps is moved down by stack) */
     var MINW = 260, MINH = 180, cols = narrow ? 6 : 12;
@@ -2707,8 +2741,7 @@ var Render = (function () {
     qsa('[data-car]').forEach(function (car) { carFrame(car, narrow, key, u, gap); });
     els.forEach(function (el, i) {
       if (!need[i]) return;
-      var rows = Math.ceil((need[i] + 3 + gap) / (u + gap)), base = parseInt(el.getAttribute('data-' + dk), 10);
-      if (rows > base) el.style.setProperty(key, rows);
+      el.style.setProperty(key, Math.max(1, Math.ceil((need[i] + gap) / (u + gap) - 0.001)));
     });
     if (!narrow) qsa('.grid').forEach(stack);
     fitCaps();
@@ -2742,11 +2775,18 @@ var Render = (function () {
     ts.forEach(function (el) { if (!el.hasAttribute('data-r0')) el.setAttribute('data-r0', el.style.getPropertyValue('--r').trim() || '1'); });
     var items = ts.map(function (el) {
       var st = el.style;
-      return { el: el, r0: +el.getAttribute('data-r0'), c: parseInt(st.getPropertyValue('--c'), 10), cs: parseInt(st.getPropertyValue('--cs'), 10), rs: parseInt(st.getPropertyValue('--rs'), 10) };
+      return { el: el, r0: +el.getAttribute('data-r0'), rs0: +el.getAttribute('data-rs0') || 1, c: parseInt(st.getPropertyValue('--c'), 10), cs: parseInt(st.getPropertyValue('--cs'), 10), rs: parseInt(st.getPropertyValue('--rs'), 10) };
     }).sort(function (a, b) { return a.r0 - b.r0 || a.c - b.c; });
     var placed = [];
     items.forEach(function (it) {
-      var r = it.r0, moved = true;
+      /* a tile keeps the gap the layout drew between it and the tiles over it: it follows them up when they shrink, down when they grow */
+      var r = it.r0, moved = true, above = [];
+      for (var col = it.c; col < it.c + it.cs; col++) { /* in each of its columns, the nearest tile over it */
+        var near = null;
+        placed.forEach(function (s) { if (s.c <= col && col < s.c + s.cs && s.r0 < it.r0 && (!near || s.r0 + s.rs0 > near.r0 + near.rs0)) near = s; });
+        if (near && above.indexOf(near) < 0) above.push(near);
+      }
+      if (above.length) { r = 1; above.forEach(function (s) { r = Math.max(r, s.r + s.rs + Math.max(0, it.r0 - (s.r0 + s.rs0))); }); }
       while (moved) {
         moved = false;
         for (var k = 0; k < placed.length; k++) {
@@ -2790,8 +2830,16 @@ var Render = (function () {
     pipe.resize(cvW / P, cvH / P);
     rects.push({ x0: 0, y0: 0, x1: W, y1: padTop + bar.offsetHeight });
     tiles.forEach(function (t) {
-      var b = t.getBoundingClientRect();
-      rects.push({ x0: b.left + sx + ins, y0: b.top + sy + ins, x1: b.right + sx - ins, y1: b.bottom + sy - ins, fz: t.hasAttribute('data-fuzz') });
+      var hd = t.classList.contains('hd'), fr = hd && t.querySelector('.in'), b = (fr || t).getBoundingClientRect();
+      var q = { x0: b.left + sx + ins, y0: b.top + sy + ins, x1: b.right + sx - ins, y1: b.bottom + sy - ins, fz: t.hasAttribute('data-fuzz') };
+      rects.push(q);
+      /* the heading's tab: a box of its own standing on the frame (it reaches 4px into it so there is no seam for the creatures);
+         the frame leaves its top edge open over the tab (tx0..tx1) and the tab draws no bottom edge (tb = the frame's top) */
+      var th = hd && t.querySelector('.th'), a = th && th.getBoundingClientRect();
+      if (a && a.width) {
+        q.tx0 = a.left + sx + ins; q.tx1 = Math.min(a.right + sx - ins, q.x1);
+        rects.push({ x0: q.tx0, y0: a.top + sy + ins, x1: q.tx1, y1: q.y0 + 4, tb: q.y0 });
+      }
     });
     var gl = buildGlyphs(gs, sx, sy);
     gl.rects.forEach(function (r) { rects.push(r); });
@@ -2908,6 +2956,10 @@ var Render = (function () {
     var y = window.pageYOffset;
     world.setZone(y, y + vh, y - vh * 0.75, y + vh * 1.75);
   }
+  /* ---------- any frame under the cursor re-rolls its shader outline (render.js pipe.hot) ---------- */
+  var hotTile = null;
+  document.addEventListener('mouseover', function (e) { var t = e.target.closest && e.target.closest('.tile[data-solid]'); hotTile = t || null; });
+  document.addEventListener('mouseleave', function () { hotTile = null; });
   /* ---------- language ---------- */
   var langBtns = Array.prototype.slice.call(document.querySelectorAll('[data-lang]'));
   function setLang(l, save) {
@@ -2924,7 +2976,7 @@ var Render = (function () {
   (function () {
     var l = null;
     try { l = localStorage.getItem('lang'); } catch (e) {}
-    if (l !== 'ru' && l !== 'en') l = /^ru|^uk|^be/i.test(navigator.language || '') ? 'ru' : 'en';
+    if (l !== 'ru' && l !== 'en') l = 'en';  /* English first; Russian only when the visitor picked it */
     setLang(l, false);
   })();
 
@@ -2949,6 +3001,11 @@ var Render = (function () {
     canvas.style.top = camY + 'px';
     var cam = { x: window.pageXOffset, y: camY, sy: sy, vw: cvW, vh: cvH, cur: cur.on ? { x: cur.x + window.pageXOffset, y: cur.y + sy } : null };
     Render.draw(ctx, pipe.ctx2, world, P, cam, world.t);
+    pipe.hot = null;
+    if (hotTile && hotTile.isConnected) { /* the frame under the cursor: its outline keeps re-rolling, a margin round it takes in the fuzz */
+      var hb = hotTile.getBoundingClientRect(), hm = 10; /* a tab heading is part of the frame, so the whole tile */
+      pipe.hot = { x0: Math.floor(hb.left / P) - hm, y0: Math.floor((hb.top + sy - camY) / P) - hm, x1: Math.ceil(hb.right / P) + hm, y1: Math.ceil((hb.bottom + sy - camY) / P) + hm };
+    }
     pipe.present(world.t, reduce);
     censusT -= dt;
     if (censusT <= 0) {
@@ -3112,7 +3169,7 @@ var Render = (function () {
   if (first.anchor && first.anchor !== 'top') scrollToAnchor(first.anchor, false);
   function afterFonts() { relayout(true); if (first.anchor && first.anchor !== 'top') setTimeout(function () { scrollToAnchor(first.anchor, false); }, 200); }
   if (document.fonts && document.fonts.load) {
-    Promise.all([document.fonts.load('900 64px Inter', 'Arkady Kukin Artist Statement'), document.fonts.load('900 64px Inter', 'Выставки Контакты Дыхание')]).then(afterFonts, afterFonts);
+    Promise.all([document.fonts.load('900 64px Inter', 'Arkady Kukin 404'), document.fonts.load('900 64px Inter', 'Artist Statement'), document.fonts.load('900 64px Inter', 'Выставки Контакты Дыхание')]).then(afterFonts, afterFonts);
   } else if (document.fonts && document.fonts.ready) document.fonts.ready.then(afterFonts);
   requestAnimationFrame(frame);
 })();

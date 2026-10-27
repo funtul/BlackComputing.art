@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru"><head>
+<html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
@@ -126,7 +126,7 @@ h4 { margin: 22px 0 8px; font-size: 12px; text-transform: uppercase; letter-spac
   function t(pair, tag, cls, attrs) {
     tag = tag || 'span';
     var c = cls ? ' class="' + cls + '"' : '', a = attrs ? ' ' + attrs : '';
-    return '<' + tag + c + a + ' data-ru="' + esc(pair[0]) + '" data-en="' + esc(pair[1]) + '">' + esc(pair[0]) + '</' + tag + '>';
+    return '<' + tag + c + a + ' data-ru="' + esc(pair[0]) + '" data-en="' + esc(pair[1]) + '">' + esc(pair[1] || pair[0]) + '</' + tag + '>';
   }
   function U(ru, en) { return [ru, en]; }
 
@@ -196,7 +196,7 @@ h4 { margin: 22px 0 8px; font-size: 12px; text-transform: uppercase; letter-spac
     return C.statement.map(function (x, i) { return { id: 's' + (i + 1), pos: (STM_DEFAULT[i] || [1, 6, 16 + 5 * (i - STM_DEFAULT.length), 4, 6, 4]).slice() }; });
   }
   /* tiles of the home page that are not projects */
-  var BLOCK_IDS = ['cvA', 'cvB', 'cvC', 'portrait', 'hello', 'toc', 'exlist', 'ctile', 'gamelist', 'exp'];
+  var BLOCK_IDS = ['cvA', 'cvB', 'cvC', 'portrait', 'hello', 'toc', 'exlist', 'ctile', 'gamelist', 'exp', 'dlp', 'dlcv', 'dlbio'];
 
   /* C.ui holds the labels the owner changed, {key: [ru, en]}: keys of BASE_UI, or 'link:' + a key of BASE_LINKS */
   function labels(base, ov, pre) {
@@ -223,6 +223,9 @@ h4 { margin: 22px 0 8px; font-size: 12px; text-transform: uppercase; letter-spac
       return { name: name, c: c, cs: cs, r: r, rs: rs,
         html: '<' + tag + ' class="' + k + '" data-solid' + fa + (attrs ? ' ' + attrs : '') + ' style="' + st + '">' + inner + '</' + tag + '>' };
     }
+    /* a tile whose heading stands outside its frame: the engine draws the frame round .in only (tile class 'hd') */
+    function th(pair, tag, cls) { return t(pair, tag || 'h2', 'th' + (cls ? ' ' + cls : '')); }
+    function framed(head, body) { return head + '<div class="in">' + body + '</div>'; }
     function group(name, tiles, cls) {
       problems = problems.concat(checkGroup(name, tiles));
       return '<div class="grid' + (cls ? ' ' + cls : '') + '">' + tiles.map(function (x) { return x.html; }).join('') + '</div>';
@@ -241,7 +244,7 @@ h4 { margin: 22px 0 8px; font-size: 12px; text-transform: uppercase; letter-spac
     function glyph(text, kind, ident, tag) {
       tag = tag || 'h2';
       var idx = ident ? ' id="' + ident + '"' : '';
-      return '<' + tag + idx + ' class="gt" data-glyph="' + kind + '" data-ru="' + esc(text[0]) + '" data-en="' + esc(text[1]) + '">' + esc(text[0]) + '</' + tag + '>';
+      return '<' + tag + idx + ' class="gt" data-glyph="' + kind + '" data-ru="' + esc(text[0]) + '" data-en="' + esc(text[1]) + '">' + esc(text[1] || text[0]) + '</' + tag + '>';
     }
     function ytUrl(v) { return 'https://www.youtube.com/watch?v=' + v[0] + (v[1] ? '&t=' + v[1] + 's' : ''); }
 
@@ -254,21 +257,31 @@ h4 { margin: 22px 0 8px; font-size: 12px; text-transform: uppercase; letter-spac
         return '<div><dt>' + t(label) + '</dt><dd>' + link + '</dd></div>';
       }).join('') + '</dl>';
     }
+    function dlTile(id, kind, key) {
+      return function (pos) {
+        return tile(id, pos, '<button type="button" class="btn" data-dl="' + kind + '">' + t(UI[key]) + '<i aria-hidden="true">PDF ↓</i></button>', 'div', 'dlt', 'data-fuzz');
+      };
+    }
     function exhCount() { return C.exhibitions.years.reduce(function (n, y) { return n + y[1].length; }, 0); }
     var BLOCKS = {
-      cvA: function (pos) { return tile('cvA', pos, t(UI.h_bio, 'h2') + t(B.text, 'p', 'body'), 'section', 'txt cv', '', true); },
-      cvB: function (pos) { return tile('cvB', pos, t(UI.h_edu, 'h2') + dlRows(B.edu), 'section', 'txt cv', '', true); },
-      cvC: function (pos) { return tile('cvC', pos, t(UI.h_now, 'h2') + dlRows(B.now) + contactDl(), 'section', 'txt cv stack', '', true); },
+      cvA: function (pos) { return tile('cvA', pos, framed(th(UI.h_bio), t(B.text, 'p', 'body')), 'section', 'txt cv hd', '', true); },
+      cvB: function (pos) { return tile('cvB', pos, framed(th(UI.h_edu), dlRows(B.edu)), 'section', 'txt cv hd', '', true); },
+      cvC: function (pos) { return tile('cvC', pos, framed(th(UI.h_now), dlRows(B.now) + contactDl()), 'section', 'txt cv stack hd', '', true); },
       portrait: function (pos) {
         return tile('portrait', pos, img('portrait', true, false, 'Arkady Kukin').replace('<img ', '<img data-zoom="img/portrait.jpg" '), 'figure', 'photo', 'data-aspect="' + aspect('portrait') + '"');
       },
       hello: function (pos) {
         var paras = B.general.map(function (p) { return t(p, 'p', 'body'); }).join('');
-        var btns = '<div class="btns"><button type="button" class="btn" data-dl="portfolio">' + t(UI.dl_portfolio) + '</button>'
-          + '<button type="button" class="btn" data-dl="cv">' + t(UI.dl_cv) + '</button>'
-          + '<button type="button" class="btn" data-dl="bio">' + t(UI.dl_bio) + '</button></div>';
-        return tile('hello', pos, t(UI.hello, 'p', 'hello') + paras + btns, 'section', 'txt', '', true);
+        /* the downloads: separate buttons at the bottom of the greeting's frame */
+        var btns = '<div class="btns">' + [['portfolio', 'dl_portfolio'], ['cv', 'dl_cv'], ['bio', 'dl_bio']].map(function (d) {
+          return '<button type="button" class="btn" data-dl="' + d[0] + '">' + t(UI[d[1]]) + '<i aria-hidden="true">PDF ↓</i></button>';
+        }).join('') + '</div>';
+        return tile('hello', pos, framed(th(UI.hello, 'p', 'hello'), paras + btns), 'section', 'txt hi hd', '', true);
       },
+      /* download buttons as tiles of their own (not on the home page now: the greeting carries them) */
+      dlp: dlTile('dlp', 'portfolio', 'dl_portfolio'),
+      dlcv: dlTile('dlcv', 'cv', 'dl_cv'),
+      dlbio: dlTile('dlbio', 'bio', 'dl_bio'),
       toc: function (pos) {
         var rows = [], n = 0;
         C.sections.forEach(function (s) {
@@ -277,7 +290,7 @@ h4 { margin: 22px 0 8px; font-size: 12px; text-transform: uppercase; letter-spac
           cnt = s.id === 'contacts' ? '' : '<span class="ct">' + cnt + '</span>';
           rows.push('<li><a href="#' + s.id + '"><span class="n">' + (n < 10 ? '0' : '') + n + '</span>' + t(s.title, 'span', 'nm') + cnt + '<span class="ar" aria-hidden="true">→</span></a></li>');
         });
-        return tile('toc', pos, t(UI.h_contents, 'h2') + '<ol>' + rows.join('') + '</ol>', 'nav', 'txt toc', 'aria-label="Sections"', true);
+        return tile('toc', pos, framed(th(UI.h_contents), '<ol>' + rows.join('') + '</ol>'), 'nav', 'txt toc hd','aria-label="Sections"', true);
       },
       exlist: function (pos) {
         var rows = [];
@@ -289,8 +302,8 @@ h4 { margin: 22px 0 8px; font-size: 12px; text-transform: uppercase; letter-spac
         return tile('exlist', pos, '<dl class="exl">' + rows.join('') + '</dl>' + pub, 'section', 'txt cv', '', true);
       },
       ctile: function (pos) {
-        var body = t(UI.h_contact, 'h2') + '<p class="lead">' + t(UI.contact_lead) + '</p>' + contactDl();
-        return tile('ctile', pos, body, 'section', 'txt cv', '', true);
+        var body = framed(th(UI.h_contact), '<p class="lead">' + t(UI.contact_lead) + '</p>' + contactDl());
+        return tile('ctile', pos, body, 'section', 'txt cv hd', '', true);
       },
       gamelist: function (pos) { return gameListTile(pos); },
       exp: function (pos) {
@@ -299,7 +312,7 @@ h4 { margin: 22px 0 8px; font-size: 12px; text-transform: uppercase; letter-spac
           var ul = e.bullets && e.bullets.length ? '<ul class="xl">' + e.bullets.map(function (b) { return '<li>' + t(b) + '</li>'; }).join('') + '</ul>' : '';
           return '<div><dt>' + t(e.dates) + '</dt><dd>' + head + ul + '</dd></div>';
         });
-        return tile('exp', pos, t(UI.h_exp, 'h2') + '<dl class="exl xp">' + rows.join('') + '</dl>', 'section', 'txt cv', '', true);
+        return tile('exp', pos, framed(th(UI.h_exp), '<dl class="exl xp">' + rows.join('') + '</dl>'), 'section', 'txt cv hd', '', true);
       }
     };
     function exhItem(pair) {
@@ -330,7 +343,7 @@ h4 { margin: 22px 0 8px; font-size: 12px; text-transform: uppercase; letter-spac
       var rows = C.games.map(function (g) {
         return '<div><dt>' + g.year[0] + '</dt><dd>' + ext(g.url, '<b>' + esc(g.name) + '</b>') + t(g.desc, 'span', 'd') + '</dd></div>';
       });
-      return tile('gamelist', pos, t(UI.h_games, 'h2') + '<dl class="gl">' + rows.join('') + '</dl>', 'section', 'txt cv', '', true);
+      return tile('gamelist', pos, framed(th(UI.h_games), '<dl class="gl">' + rows.join('') + '</dl>'), 'section', 'txt cv hd', '', true);
     }
     /* any tile of the home page, by id (null for an unknown one) */
     function anyTile(id, pos) {
@@ -368,8 +381,8 @@ h4 { margin: 22px 0 8px; font-size: 12px; text-transform: uppercase; letter-spac
       rest.forEach(function (s, k) { slides.push('<figure class="slide">' + img(s, false, !(k === 0 && !p.video)) + '</figure>'); });
       var n = slides.length, ctr = '';
       if (n > 1) {
-        ctr = '<button type="button" class="car-btn prev" data-ru-label="' + esc(UI.prev[0]) + '" data-en-label="' + esc(UI.prev[1]) + '" aria-label="' + esc(UI.prev[0]) + '">' + ARROW_L + '</button>'
-          + '<button type="button" class="car-btn next" data-ru-label="' + esc(UI.nxt[0]) + '" data-en-label="' + esc(UI.nxt[1]) + '" aria-label="' + esc(UI.nxt[0]) + '">' + ARROW_R + '</button>'
+        ctr = '<button type="button" class="car-btn prev" data-ru-label="' + esc(UI.prev[0]) + '" data-en-label="' + esc(UI.prev[1]) + '" aria-label="' + esc(UI.prev[1]) + '">' + ARROW_L + '</button>'
+          + '<button type="button" class="car-btn next" data-ru-label="' + esc(UI.nxt[0]) + '" data-en-label="' + esc(UI.nxt[1]) + '" aria-label="' + esc(UI.nxt[1]) + '">' + ARROW_R + '</button>'
           + '<div class="car-count mono" aria-live="polite"><span class="cur">1</span> / ' + n + '</div>';
       }
       return '<div class="track" tabindex="0">' + slides.join('') + '</div>' + ctr;
@@ -436,7 +449,7 @@ h4 { margin: 22px 0 8px; font-size: 12px; text-transform: uppercase; letter-spac
   function pick(pair, i) { return pair[i] || pair[0]; }
   function abs(C, path) { var d = (C.site.domain || '').replace(/\/+$/, ''); return d ? d + '/' + path.replace(/^\//, '') : path; }
   function meta(C) {
-    var s = C.site, ttl = pick(s.title, 0), dsc = pick(s.description, 0);
+    var s = C.site, ttl = pick(s.title, 1), dsc = pick(s.description, 1);
     var o = ['<title>' + esc(ttl) + '</title>', '<meta name="description" content="' + esc(dsc) + '">',
       '<meta name="theme-color" content="#000000">', '<link rel="icon" href="favicon.svg" type="image/svg+xml">',
       '<meta property="og:type" content="website">', '<meta property="og:title" content="' + esc(ttl) + '">', '<meta property="og:description" content="' + esc(dsc) + '">',
@@ -445,8 +458,8 @@ h4 { margin: 22px 0 8px; font-size: 12px; text-transform: uppercase; letter-spac
     return o.join('\n');
   }
   function stub(C, p) {
-    var ttl = pick(p.title, 0) + ' — Arkady Kukin', dsc = (p.lead && pick(p.lead, 0)) || pick(p.tag, 0), url = abs(C, 'p/' + p.id + '/'), go = '../../#p-' + p.id;
-    return '<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">\n'
+    var ttl = pick(p.title, 1) + ' — Arkady Kukin', dsc = (p.lead && pick(p.lead, 1)) || pick(p.tag, 1), url = abs(C, 'p/' + p.id + '/'), go = '../../#p-' + p.id;
+    return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">\n'
       + '<title>' + esc(ttl) + '</title><meta name="description" content="' + esc(dsc) + '">\n'
       + '<meta property="og:type" content="article"><meta property="og:title" content="' + esc(ttl) + '"><meta property="og:description" content="' + esc(dsc) + '">\n'
       + '<meta property="og:image" content="' + esc(abs(C, 'img/' + p.imgs[0] + '.jpg')) + '"><meta property="og:url" content="' + esc(url) + '"><meta name="twitter:card" content="summary_large_image">\n'
@@ -857,8 +870,8 @@ h4 { margin: 22px 0 8px; font-size: 12px; text-transform: uppercase; letter-spac
   }
 
   /* ---------------------------------------------------------------- names */
-  const NAMES = { cvA: 'Био — коротко', cvB: 'Образование', cvC: 'Сейчас и контакты', portrait: 'Фото', hello: 'Привет и абзацы о себе', toc: 'Содержание', exlist: 'Список выставок', ctile: 'Контакты', gamelist: 'Список игр', exp: 'Опыт (места работы)' };
-  const HOME_OF = { cvA: 'top', cvB: 'top', cvC: 'top', portrait: 'bio', hello: 'bio', toc: 'portfolio', exlist: 'exhibitions', ctile: 'contacts', gamelist: 'games', exp: 'gamedesign' };
+  const NAMES = { cvA: 'Био — коротко', cvB: 'Образование', cvC: 'Сейчас и контакты', portrait: 'Фото', hello: 'Привет и абзацы о себе', toc: 'Содержание', exlist: 'Список выставок', ctile: 'Контакты', gamelist: 'Список игр', exp: 'Опыт (места работы)', dlp: 'Кнопка «Скачать портфолио»', dlcv: 'Кнопка «Скачать CV»', dlbio: 'Кнопка «Скачать био»' };
+  const HOME_OF = { cvA: 'top', cvB: 'top', cvC: 'top', portrait: 'bio', hello: 'bio', toc: 'portfolio', exlist: 'exhibitions', ctile: 'contacts', gamelist: 'games', exp: 'gamedesign', dlp: 'top', dlcv: 'top', dlbio: 'top' };
   const HEADS = { top: 'Шапка с именем', bio: 'Био', portfolio: 'Содержание', statement: 'Artist Statement' };
   /* a paragraph of the Artist Statement page: tile 's3' is C.statement[2] */
   const stm = (id) => { const i = Gen.stmIndex(id); return i >= 0 && i < S.C.statement.length && !proj(id) && !poster(id); };
@@ -1440,9 +1453,10 @@ h4 { margin: 22px 0 8px; font-size: 12px; text-transform: uppercase; letter-spac
     cvB: () => [uiPair('h_edu', 'Заголовок'), twoPairs(S.C.bio.edu, 'Годы', 'Текст')],
     cvC: () => [uiPair('h_now', 'Заголовок'), twoPairs(S.C.bio.now, 'Подпись', 'Текст'), contactFields()],
     portrait: () => imgSlot('img/t/portrait.jpg', f => importImage(f, null, 'portrait'), 'Фото рядом с блоком «Привет». Плитка принимает форму фото. Можно вставить из буфера (Ctrl+V).', true),
-    hello: () => [uiPair('hello', 'Первая строка'), h('h4', { text: 'Абзацы' }), pairList(S.C.bio.general, { multi: true, add: '+ абзац' }),
-      h('h4', { text: 'Кнопки скачивания' }), hint('Файлы PDF лежат в папке files/ (portfolio-ru.pdf, cv-en.pdf…).'),
-      uiPair('dl_portfolio', 'Портфолио'), uiPair('dl_cv', 'CV'), uiPair('dl_bio', 'Био')],
+    hello: () => [uiPair('hello', 'Первая строка'), h('h4', { text: 'Абзацы' }), pairList(S.C.bio.general, { multi: true, add: '+ абзац' })],
+    dlp: () => [uiPair('dl_portfolio', 'Надпись'), hint('Файлы: files/portfolio-ru.pdf и files/portfolio-en.pdf.')],
+    dlcv: () => [uiPair('dl_cv', 'Надпись'), hint('Файлы: files/cv-ru.pdf и files/cv-en.pdf.')],
+    dlbio: () => [uiPair('dl_bio', 'Надпись'), hint('Файлы: files/bio-ru.pdf и files/bio-en.pdf.')],
     toc: () => [uiPair('h_contents', 'Заголовок'), hint('Содержание строится само из разделов и числа проектов. Здесь — названия разделов.'),
       S.C.sections.map(s => fld(s.id, pair(() => s.title, v => { s.title = v; })))],
     exlist: () => {
