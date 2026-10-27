@@ -259,7 +259,7 @@ h4 { margin: 22px 0 8px; font-size: 12px; text-transform: uppercase; letter-spac
     }
     function dlTile(id, kind, key) {
       return function (pos) {
-        return tile(id, pos, '<button type="button" class="btn" data-dl="' + kind + '">' + t(UI[key]) + '<i aria-hidden="true">PDF ↓</i></button>', 'div', 'dlt', 'data-fuzz');
+        return tile(id, pos, '<button type="button" class="btn" data-dl="' + kind + '">' + t(UI[key]) + '<i aria-hidden="true">PDF ↓</i></button>', 'div', 'dlt');
       };
     }
     function exhCount() { return C.exhibitions.years.reduce(function (n, y) { return n + y[1].length; }, 0); }
@@ -272,13 +272,9 @@ h4 { margin: 22px 0 8px; font-size: 12px; text-transform: uppercase; letter-spac
       },
       hello: function (pos) {
         var paras = B.general.map(function (p) { return t(p, 'p', 'body'); }).join('');
-        /* the downloads: separate buttons at the bottom of the greeting's frame */
-        var btns = '<div class="btns">' + [['portfolio', 'dl_portfolio'], ['cv', 'dl_cv'], ['bio', 'dl_bio']].map(function (d) {
-          return '<button type="button" class="btn" data-dl="' + d[0] + '">' + t(UI[d[1]]) + '<i aria-hidden="true">PDF ↓</i></button>';
-        }).join('') + '</div>';
-        return tile('hello', pos, framed(th(UI.hello, 'p', 'hello'), paras + btns), 'section', 'txt hi hd', '', true);
+        return tile('hello', pos, framed(th(UI.hello, 'p', 'hello'), paras), 'section', 'txt hi hd', '', true);
       },
-      /* download buttons as tiles of their own (not on the home page now: the greeting carries them) */
+      /* download buttons: each file in a frame of its own (plain black inside, like every other frame) */
       dlp: dlTile('dlp', 'portfolio', 'dl_portfolio'),
       dlcv: dlTile('dlcv', 'cv', 'dl_cv'),
       dlbio: dlTile('dlbio', 'bio', 'dl_bio'),

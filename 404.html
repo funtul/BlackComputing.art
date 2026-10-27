@@ -135,8 +135,10 @@ main { position: relative; z-index: 1; flex: 1 0 auto; padding-bottom: calc(var(
 .btn:hover, .btn:focus-visible { background: var(--cyan); color: #000; }
 .btn[disabled] { opacity: .5; }
 /* a button that is a whole tile: the frame is the tile's own fuzzy edge, the label left, the file kind right */
-.dlt .btn { position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 20px; border: 0; font-size: 14px; }
-.dlt .btn i { font-style: normal; color: var(--grey); white-space: nowrap; }
+.dlt .btn { position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 22px; border: 0; background: transparent;
+  font: 600 clamp(15px, 1.3vw, 18px)/1.2 var(--display); letter-spacing: -0.01em; color: var(--white); }
+.dlt .btn i { font: 400 13px/1 var(--mono); font-style: normal; color: var(--cyan); white-space: nowrap; }
+.dlt .btn:hover, .dlt .btn:focus-visible { background: var(--cyan); color: #000; }
 .dlt .btn:hover i, .dlt .btn:focus-visible i { color: #000; }
 /* tiles whose heading sits in a tab of the frame: the tile itself is bare; the heading (.th) and .in are two black boxes
    that the engine joins into one shape, so the shader outline steps up round the heading (page.js layout, render.js outlines).
@@ -148,13 +150,12 @@ main { position: relative; z-index: 1; flex: 1 0 auto; padding-bottom: calc(var(
 .tile.hd { padding: 0; gap: 0; }
 .hd > .th { --tp: .42em; align-self: flex-start; max-width: 100%; line-height: 1; background: var(--black);
   padding: calc(var(--tp) - .15em + 4px) calc(var(--tp) + 4px - .06em) calc(var(--tp) - .15em - 3px) calc(var(--tp) + 4px); }
-.hd > .th.hello { --tp: .27em; padding-right: calc(var(--tp) + 2.5px); }
+/* the greeting is big, so its tab gets the frame's own margin: the same space round the words as round the text inside,
+   and the words start where the paragraphs start */
+.hd > .th.hello { --tp: calc(var(--pad) - 4px); padding-right: calc(var(--tp) + 2.5px); }
 .hd > .in { flex: 1 0 auto; display: flex; flex-direction: column; gap: 14px; padding: calc(var(--pad) * .7) var(--pad) var(--pad); }
 .hi > .in { gap: 10px; }
 .hi .body { font-size: clamp(15px, 1.3vw, 19px); line-height: 1.5; color: var(--grey-l); }
-.hi .btns { padding-top: 14px; }
-.btns .btn i { font-style: normal; color: var(--grey); margin-left: 10px; }
-.btns .btn:hover i, .btns .btn:focus-visible i { color: #000; }
 .exl dd .v { display: block; font: 400 12px/1.35 var(--mono); color: var(--grey); }
 .exl dd b, .gl dd b { font: 500 clamp(14px, 1.15vw, 16px)/1.35 var(--body); color: var(--white); }
 .gl dd .d { display: block; color: var(--grey); font: 400 13px/1.4 var(--body); margin-top: 2px; }
@@ -246,6 +247,7 @@ html.px-cursor, html.px-cursor * { cursor: none !important; }
   .cap { padding: 8px 12px 8px 10px; }
   .cap b { font-size: 15px; }
   .cv dl > div, .txt dl > div { grid-template-columns: 84px minmax(0, 1fr); }
+  .grid > .hi { order: -1; } /* on a phone the greeting comes before the downloads */
   .info dl > div { grid-template-columns: 78px minmax(0, 1fr); }
   .toc a { grid-template-columns: 30px minmax(0, 1fr) auto 0; gap: 0 10px; }
   .toc .ar { display: none; }
@@ -350,6 +352,9 @@ var Sim = (function () {
     var c = makeSoft('prey', parts, cons);
     c.center = parts[0]; c.scale = s; c.energy = R(0.3, 0.7); c.R = Rr; c.R0 = Rr; c.v = rnd() < 0.4 ? 1 : 0;
     c.com.x = x; c.com.y = y;
+    /* stamina: walking and jumping spend it, at zero the blob stops to rest. head: the way it is exploring */
+    var ha = R(0, TAU);
+    c.stam = R(0.5, 1); c.endur = R(0.8, 1.25); c.restTo = 1; c.head = { x: Math.cos(ha), y: Math.sin(ha) }; c.state = 'search';
     return c;
   }
 
@@ -722,27 +727,126 @@ var Sim = (function () {
       for (i = 0; i < segs.length; i++) { seg = segs[i]; r -= seg.len; if (r <= 0) break; }
       var s = R(0.85, 1.05);
       var x = R(seg.x0 + 16, seg.x1 - 16), y = seg.y - 12 * this.S * s;
-      if (!silent && tries < 10 && this.inView(y)) continue; /* a newcomer appears out of the viewer's sight when it can */
       if (this.solidAt(x, y - 8 * this.S) || this.solidAt(x - 10 * this.S, y) || this.solidAt(x + 10 * this.S, y)) continue;
       var c = makePrey(this, x, y, s);
+      /* it digs its way up out of the frame it stands on (the first ones of a fresh page one after another) */
+      this.emergeSoft(c, x, seg.y, 0, -1, silent ? R(0, 1.2) : 0);
       this.soft.push(c);
-      if (!silent) this.puff(x, y, 8);
       return c;
     }
     return null;
   };
 
   World.prototype.spawnPred = function (silent) {
-    var z = this.zone, pt, tries;
+    var z = this.zone, S = this.S, ts = this.tiles, H = 20 * S, m = 92 * S * 0.62, ya = z ? z.y0 : 0, yb = z ? z.y1 : this.H, pt, tries, pr;
+    /* a spot on any side of a frame with room for the body and both rows of legs: the spider claws its way out there */
+    for (tries = 0; tries < 40 && ts.length > 1; tries++) {
+      var q = ts[1 + ((rnd() * (ts.length - 1)) | 0)], sd = rnd() < 0.4 ? 0 : (rnd() * 4) | 0, ax, ay, nx = 0, ny = 0;
+      if (sd < 2) { if (q.x1 - q.x0 < m * 2 + 8) continue; ax = R(q.x0 + m + 4, q.x1 - m - 4); ay = sd ? q.y1 : q.y0; ny = sd ? 1 : -1; }
+      else { if (q.y1 - q.y0 < m * 2 + 8) continue; ay = R(q.y0 + m + 4, q.y1 - m - 4); ax = sd === 2 ? q.x0 : q.x1; nx = sd === 2 ? -1 : 1; }
+      if (ay < ya || ay > yb) continue;
+      var tx = -ny, ty = nx;
+      if (this.solidAt(ax + nx * H * 2.2, ay + ny * H * 2.2) || this.solidAt(ax + nx * 4 + tx * m, ay + ny * 4 + ty * m) || this.solidAt(ax + nx * 4 - tx * m, ay + ny * 4 - ty * m) ||
+        this.solidAt(ax + nx * H + tx * m, ay + ny * H + ty * m) || this.solidAt(ax + nx * H - tx * m, ay + ny * H - ty * m)) continue;
+      pr = makePred(this, ax + nx * H, ay + ny * H);
+      this.emergePred(pr, ax, ay, nx, ny, silent ? R(0.4, 1.6) : 0);
+      this.preds.push(pr);
+      return pr;
+    }
     for (tries = 0; tries < 8; tries++) {
-      pt = this.randFreePoint(-1e5, -1e5, z ? z.y0 : 0, z ? z.y1 : this.H);
+      pt = this.randFreePoint(-1e5, -1e5, ya, yb);
       if (silent || !this.inView(pt.y)) break;
     }
-    var pr = makePred(this, pt.x, pt.y);
+    pr = makePred(this, pt.x, pt.y);
     this.initLegs(pr);
     this.preds.push(pr);
     if (!silent) this.puff(pt.x, pt.y, 10);
     return pr;
+  };
+
+  /* ---------- digging out of a frame ---------- */
+  /* (ax,ay) is the point of the frame's surface it comes through, (nx,ny) the way out. Until it is out the body is
+     moved by hand: no physics, nothing can see, catch or grab it. */
+  World.prototype.emergeSoft = function (c, ax, ay, nx, ny, delay) {
+    var ps = c.parts, i, base = [];
+    for (i = 0; i < ps.length; i++) base.push(ps[i].x - c.com.x, ps[i].y - c.com.y);
+    c.emerge = { t: -delay, dur: R(1.4, 1.9), ax: ax, ay: ay, nx: nx, ny: ny, cx: c.com.x, cy: c.com.y, base: base, dig: 0, u: 0 };
+    this.updateEmergeSoft(c, 0);
+  };
+
+  World.prototype.updateEmergeSoft = function (c, dt) {
+    var e = c.emerge, ps = c.parts, nx = e.nx, ny = e.ny, tx = -ny, ty = nx, S = this.S, i, p, was = e.t;
+    e.t += dt;
+    var u = clamp(e.t / e.dur, 0, 1);
+    /* it rises in pushes (the rise stalls three times), wriggles side to side and squeezes through the hole */
+    var k = u - Math.sin(u * TAU * 3) / (TAU * 3), sink = c.R * 2.7 * (1 - k), sx = 0.62 + 0.38 * k, sn = 1.22 - 0.22 * k;
+    var wob = Math.sin(e.t * 26) * 1.6 * S * (1 - k);
+    e.u = u;
+    for (i = 0; i < ps.length; i++) {
+      p = ps[i];
+      var ox = e.base[i * 2], oy = e.base[i * 2 + 1], ot = ox * tx + oy * ty, on = ox * nx + oy * ny;
+      p.x = e.cx + tx * (ot * sx + wob) + nx * (on * sn - sink); p.y = e.cy + ty * (ot * sx + wob) + ny * (on * sn - sink);
+      p.px = p.x; p.py = p.y; p.fl = 0;
+    }
+    c.grounded = 0; c.nx = nx; c.ny = ny; c.gx = -nx; c.gy = -ny; c.gs = 1;
+    if (e.t <= 0) return;
+    if (was <= 0) { this.dirt(e.ax, e.ay, nx, ny, 9, 170); this.spark(e.ax, e.ay, 2); }
+    if (u < 0.9) {
+      e.dig -= dt;
+      while (e.dig <= 0) { e.dig += 0.04; var o = R(-1, 1) * c.R * 0.8 * sx; this.dirt(e.ax + tx * o, e.ay + ty * o, nx, ny, 1, 150); }
+      this.disturb(e.ax, e.ay - 4, c.R * 1.8, dt);
+    }
+    if (u >= 1) { /* out: a last little pop off the rim */
+      c.emerge = null;
+      for (i = 0; i < ps.length; i++) { p = ps[i]; p.px = p.x - nx * 70 * SUB; p.py = p.y - ny * 70 * SUB; }
+      this.dirt(e.ax, e.ay, nx, ny, 6, 110); this.puff(e.ax, e.ay - 3, 5);
+    }
+  };
+
+  World.prototype.emergePred = function (pr, ax, ay, nx, ny, delay) {
+    var tx = -ny, ty = nx, i, l, n = pr.legs.length;
+    pr.emerge = { t: -delay, dur: R(2.1, 2.7), ax: ax, ay: ay, nx: nx, ny: ny, dig: 0, u: 0 };
+    pr.heading = { x: tx, y: ty }; pr.look = { x: nx, y: ny }; pr.ang = Math.atan2(ny, nx) + Math.PI / 2;
+    for (i = 0; i < n; i++) {
+      l = pr.legs[i];
+      /* each foot claws to its own spot on the rim, the front pair first */
+      l.eo = (i % 2 ? 1 : -1) * pr.reach * (0.26 + 0.18 * Math.floor(i / 2));
+      l.es = 0.04 + Math.floor(i / 2) * 0.08 + (i % 2) * 0.035; l.ep = false;
+    }
+    this.updateEmergePred(pr, 0);
+  };
+
+  World.prototype.updateEmergePred = function (pr, dt) {
+    var e = pr.emerge, b = pr.body, S = this.S, nx = e.nx, ny = e.ny, tx = -ny, ty = nx, i, l, was = e.t;
+    e.t += dt;
+    var u = clamp(e.t / e.dur, 0, 1);
+    /* the legs come out first and grip the rim, then the body hauls itself up in two pulls */
+    var v = clamp((u - 0.32) / 0.68, 0, 1), k = v - Math.sin(v * TAU * 2) / (TAU * 2);
+    var dep = -(b.r * 1.7 + 4) + (pr.H + b.r * 1.7 + 4) * k, wob = Math.sin(e.t * 21) * 1.4 * S * (1 - k);
+    e.u = u;
+    b.x = e.ax + nx * dep + tx * wob; b.y = e.ay + ny * dep + ty * wob; b.px = b.x; b.py = b.y;
+    for (i = 0; i < pr.legs.length; i++) {
+      l = pr.legs[i];
+      var lu = clamp((u - l.es) / 0.2, 0, 1), le = lu * lu * (3 - 2 * lu), lift = Math.sin(Math.PI * lu) * 13 * S;
+      var fx0 = e.ax - nx * 8 * S + tx * l.eo * 0.1, fy0 = e.ay - ny * 8 * S + ty * l.eo * 0.1, fx1 = e.ax + tx * l.eo, fy1 = e.ay + ty * l.eo;
+      /* a foot still underground scrabbles at the inside of the hole */
+      var scr = lu > 0 ? 0 : Math.sin(e.t * 30 + i * 1.7) * 3 * S;
+      l.foot.x = lerp(fx0, fx1, le) + nx * lift + tx * scr; l.foot.y = lerp(fy0, fy1, le) + ny * lift + ty * scr;
+      l.n = { x: nx, y: ny }; l.stepping = false; l.strike = null; l.planted = lu >= 1;
+      l.glow = lu > 0 && lu < 1 ? 1 : 0;
+      if (lu >= 1) { l.to = { x: fx1, y: fy1 }; l.toN = l.n; if (!l.ep) { l.ep = true; this.dirt(fx1, fy1, nx, ny, 2, 70); } }
+    }
+    pr.accX = 0; pr.accY = 0; pr.supK = 0; pr.supC = 0; pr.gk = 0; pr.pull = 0;
+    if (e.t <= 0) return;
+    if (was <= 0) { this.dirt(e.ax, e.ay, nx, ny, 12, 190); this.spark(e.ax, e.ay, 3); }
+    if (u < 0.92) {
+      e.dig -= dt;
+      while (e.dig <= 0) { e.dig += u < 0.32 ? 0.06 : 0.03; var o = R(-1, 1) * b.r * 1.3; this.dirt(e.ax + tx * o, e.ay + ty * o, nx, ny, 1, 170); }
+    }
+    if (u >= 1) {
+      pr.emerge = null; pr.state = 'wander'; pr.stateT = 0; pr.target = null; pr.biteCD = 0.5;
+      this.dirt(e.ax, e.ay, nx, ny, 6, 120); this.puff(b.x, b.y, 6);
+    }
   };
 
   World.prototype.initLegs = function (pr) {
@@ -896,6 +1000,14 @@ var Sim = (function () {
       this.fx.push({ kind: 'dust', x: x + R(-5, 5), y: y + R(-5, 5), vx: Math.cos(a) * s, vy: Math.sin(a) * s - 18, life: R(0.4, 0.9), c: 0 });
     }
   };
+  /* bits of the frame thrown out of a hole along (nx,ny); they fall and vanish where they land */
+  World.prototype.dirt = function (x, y, nx, ny, n, spd) {
+    if (this.fx.length > 520) return;
+    for (var i = 0; i < n; i++) {
+      var a = R(-0.95, 0.95), s = R(0.35, 1) * spd, ca = Math.cos(a), sa = Math.sin(a);
+      this.fx.push({ kind: 'dirt', x: x + nx, y: y + ny, vx: (nx * ca - ny * sa) * s, vy: (nx * sa + ny * ca) * s, life: R(0.45, 1.0), c: rnd() < 0.4 ? 1 : 0 });
+    }
+  };
   World.prototype.spark = function (x, y, n) {
     if (this.fx.length > 520) return;
     for (var i = 0; i < n; i++) {
@@ -959,9 +1071,10 @@ var Sim = (function () {
     for (i = 0; i < f.length; i++) {
       q = f[i]; q.life -= dt;
       if (q.life <= 0) continue;
-      if (q.kind === 'gore') q.vy += G * 0.8 * dt;
+      if (q.kind === 'gore' || q.kind === 'dirt') q.vy += G * 0.8 * dt;
       else { var damp = 1 - 2.2 * dt; q.vx *= damp; q.vy *= damp; q.vy += (q.kind === 'dust' ? -14 : 160) * dt; }
       var nx = q.x + q.vx * dt, ny = q.y + q.vy * dt;
+      if (q.kind === 'dirt' && this.solidAt(nx, ny)) continue;
       if (q.kind === 'gore' && this.solidAt(nx, ny)) {
         var s = this.nearestSurface(nx, ny, 40);
         if (s && this.stains.length < 240) {
@@ -1116,7 +1229,7 @@ var Sim = (function () {
     var b = pr.body, best = null, bd = 1e9, bestC = null, bdC = 1e9, i, c, d;
     for (i = 0; i < this.soft.length; i++) {
       c = this.soft[i];
-      if (c.dead || c.frozen || c.parts.length < 3) continue;
+      if (c.dead || c.frozen || c.emerge || c.parts.length < 3) continue;
       d = hyp(c.com.x - b.x, c.com.y - b.y);
       if (c.kind === 'prey') { if (d < bd) { bd = d; best = c; } }
       else if (c.kind === 'chunk' && d < bdC) { bdC = d; bestC = c; }
@@ -1239,20 +1352,35 @@ var Sim = (function () {
     return v.t[clamp(Math.floor(y / v.cs), 0, v.rows - 1) * v.cols + clamp(Math.floor(x / v.cs), 0, v.cols - 1)];
   };
 
-  /* search: of a few random spots go to the one visited longest ago */
+  /* search: keep exploring the way the blob is heading. Of a few random spots go to the one that lies most along
+     the heading (and was visited longest ago); when nothing lies ahead, the heading turns. */
   World.prototype.pickWaypoint = function (c, avoid) {
-    var best = null, bs = -1e9, k, pt, sc, dd;
+    var best = null, bs = -1e9, k, pt, sc, dd, al, ba = -1, h = c.head, com = c.com;
     if (this.bfsLeft <= 0) return false;
-    for (k = 0; k < 7; k++) {
-      pt = this.randFreePoint(c.com.x, c.com.y);
-      sc = Math.min(60, this.t - this.visitAt(pt.x, pt.y)) + rnd() * 6;
-      if (avoid) { dd = hyp(pt.x - avoid.x, pt.y - avoid.y); if (dd < 130) continue; sc += dd * 0.03; }
-      if (sc > bs) { bs = sc; best = pt; }
+    if (avoid) { /* walking away from something: head away from it */
+      var ax = com.x - avoid.x, ay = com.y - avoid.y, aL = hyp(ax, ay);
+      if (aL > 1) { h.x = ax / aL; h.y = ay / aL; }
+    }
+    for (k = 0; k < 10; k++) {
+      pt = this.randFreePoint(com.x, com.y);
+      dd = hyp(pt.x - com.x, pt.y - com.y) || 1;
+      al = ((pt.x - com.x) * h.x + (pt.y - com.y) * h.y) / dd;
+      sc = al * 60 + Math.min(60, this.t - this.visitAt(pt.x, pt.y)) * 0.25 + dd * 0.02 + rnd() * 4;
+      if (avoid && hyp(pt.x - avoid.x, pt.y - avoid.y) < 130) continue;
+      if (sc > bs) { bs = sc; best = pt; ba = al; }
     }
     if (!best) return false;
+    if (ba < 0.3) { /* a dead end that way: turn somewhere new, roughly sideways or back */
+      var ta = Math.atan2(h.y, h.x) + (rnd() < 0.5 ? 1 : -1) * R(1.6, 3.1);
+      h.x = Math.cos(ta); h.y = Math.sin(ta);
+    } else { /* drift the heading slowly toward where it is actually going */
+      var bx = (best.x - com.x), by = (best.y - com.y), bl = hyp(bx, by) || 1;
+      h.x = h.x * 0.75 + bx / bl * 0.25; h.y = h.y * 0.75 + by / bl * 0.25;
+      var hl = hyp(h.x, h.y) || 1; h.x /= hl; h.y /= hl;
+    }
     this.bfsLeft--;
     c.wp = best; c.wpT = 16;
-    c.field = this.flowField(best.x, best.y, c.field, c.com.x, c.com.y);
+    c.field = this.flowField(best.x, best.y, c.field, com.x, com.y);
     return true;
   };
 
@@ -1278,25 +1406,27 @@ var Sim = (function () {
     var i; for (i = 0; i < 5; i++) { var a = R(0, TAU); this.fx.push({ kind: 'seed', x: f.x, y: f.y, vx: Math.cos(a) * R(20, 60), vy: Math.sin(a) * R(20, 60) - 30, life: R(0.4, 0.8), c: 0 }); }
   };
 
-  /* move along the surface the blob clings to, or leap, following a flow field */
-  World.prototype.crawl = function (c, field, speed, v0, hopA, hopB) {
-    var com = c.com, ps = c.parts, nx = c.nx, ny = c.ny, tx = -ny, ty = nx, L = c.R * 1.6, i, p, jump = false, w = null, sq = Math.sqrt(this.S * c.scale);
+  /* move along the surface the blob clings to, following a flow field. It leaps only to travel (the way goes off
+     the surface, or it is stuck against something) or, with escape set, to get away; every leap costs stamina. */
+  World.prototype.crawl = function (c, field, speed, v0, escape) {
+    var com = c.com, ps = c.parts, nx = c.nx, ny = c.ny, tx = -ny, ty = nx, L = c.R * 1.6, i, p, jump = false, w = null;
     if (field) {
       w = this.flowDir(field, com.x, com.y);
       var dp = this.distAt(field, com.x + tx * L, com.y + ty * L), dm = this.distAt(field, com.x - tx * L, com.y - ty * L), dn = this.distAt(field, com.x + nx * L * 1.5, com.y + ny * L * 1.5);
-      if (dn < Math.min(dp, dm) - 1) jump = true;
+      if (dn < Math.min(dp, dm) - 1 || (c.stuckN >= 2 && w)) jump = true;
       else if (dp < dm - 0.5) c.dir = 1; else if (dm < dp - 0.5) c.dir = -1;
     }
     var dtx = tx * c.dir, dty = ty * c.dir;
     if (jump) {
-      if (c.grounded > 0 && c.hopT <= 0) {
+      if (c.grounded > 0 && c.hopT <= 0 && c.stam > 0.1) {
         var jx = nx, jy = ny;
         if (w && w.x * nx + w.y * ny > 0.25) { jx = w.x; jy = w.y; }
-        var jv = v0 * 1.15 * 0.85;
+        else if (w) { jx = nx * 0.75 + w.x * 0.5; jy = ny * 0.75 + w.y * 0.5; }
+        var jv = v0 * 0.98;
         for (i = 0; i < ps.length; i++) { p = ps[i]; p.px = p.x - jx * jv * SUB; p.py = p.y - jy * jv * SUB; }
-        c.hopT = R(hopA, hopB);
+        c.hopT = R(0.6, 0.9); c.stam -= 0.1 / c.endur; c.stuckN = 0;
       }
-      return;
+      if (c.stam > 0.1) return; /* too tired to leap: keep crawling the way it faces instead */
     }
     if (c.grounded > 0) {
       for (i = 0; i < ps.length; i++) {
@@ -1306,13 +1436,13 @@ var Sim = (function () {
         var tv = speed * wave * SUB, cv = (p.x - p.px) * dtx + (p.y - p.py) * dty, dl = (tv - cv) * 0.4;
         p.px -= dtx * dl; p.py -= dty * dl;
       }
-      if (c.hopT <= 0) {
+      if (escape && c.hopT <= 0 && c.stam > 0.08) {
         for (i = 0; i < ps.length; i++) {
           p = ps[i];
           p.px = p.x - (dtx * speed * 1.4 + nx * v0) * SUB;
           p.py = p.y - (dty * speed * 1.4 + ny * v0) * SUB;
         }
-        c.hopT = R(hopA, hopB);
+        c.hopT = R(0.3, 0.5); c.stam -= 0.05 / c.endur;
       }
     }
   };
@@ -1357,7 +1487,7 @@ var Sim = (function () {
     var thr = null, td = 1e9, pr;
     for (i = 0; i < this.preds.length; i++) {
       pr = this.preds[i];
-      if (pr.frozen) continue;
+      if (pr.frozen || (pr.emerge && pr.emerge.t <= 0)) continue;
       var d = hyp(com.x - pr.body.x, com.y - pr.body.y);
       /* a predator sitting in ambush is only noticed from very close; a jump is seen from afar */
       var tr = (pr.state === 'lunge' || pr.alarm > 0) ? Math.max(320, this.W * 0.55 / this.S) : (pr.state === 'ambush' ? 38 : 140);
@@ -1369,14 +1499,26 @@ var Sim = (function () {
       if (c.state === 'sleep') c.yel = Math.max(c.yel, 0.4);
       c.state = 'flee'; c.stateT = 0.5;
       var alarmed = thr && (thr.state === 'lunge' || thr.alarm > 0);
-      this.crawl(c, null, (alarmed ? 130 : 70) * sq, 340 * sq, 0.3, 0.5);
+      /* fear spends stamina fast; an exhausted blob can only drag itself along */
+      c.stam = Math.max(0, c.stam - dt / 9 / c.endur);
+      this.crawl(c, null, (alarmed ? 130 : 70) * sq * (c.stam > 0.08 ? 1 : 0.5), 340 * sq, true);
       return;
     }
     if (c.state === 'flee') { c.state = 'search'; c.wp = null; }
 
     /* --- sleeping: stay put, digest --- */
     if (c.state === 'sleep') {
+      c.stam = Math.min(1, c.stam + dt / 6);
       if (c.stateT <= 0) { c.state = 'search'; c.wp = null; }
+      return;
+    }
+
+    /* --- out of breath: stop and wait until the stamina is back --- */
+    if (c.state !== 'rest' && c.stam <= 0.03) { c.state = 'rest'; c.restTo = R(0.65, 1); }
+    if (c.state === 'rest') {
+      c.stam = Math.min(1, c.stam + dt / 4.5 * c.endur);
+      c.stuckT = 0; c.lx = com.x; c.ly = com.y;
+      if (c.stam >= c.restTo) { c.state = c.target ? 'seek' : 'search'; c.wpT = Math.max(c.wpT, 4); }
       return;
     }
 
@@ -1414,11 +1556,18 @@ var Sim = (function () {
       if (near < c.target.r + 4) { this.eatFruit(c, c.target); return; }
     } else {
       c.state = 'search';
-      if (c.wp && (c.wpT <= 0 || hyp(com.x - c.wp.x, com.y - c.wp.y) < 22)) c.wp = null;
+      if (c.wp && hyp(com.x - c.wp.x, com.y - c.wp.y) < 22) {
+        c.wp = null;
+        /* arrived somewhere: a tired blob sometimes sits a while before going on */
+        if (c.stam < 0.6 && rnd() < 0.45) { c.state = 'rest'; c.restTo = Math.min(1, c.stam + R(0.2, 0.45)); return; }
+      }
+      if (c.wp && c.wpT <= 0) c.wp = null;
       if (!c.wp) this.pickWaypoint(c, null);
       if (c.wp) field = c.field;
+      sp = 48 * sq;
     }
-    this.crawl(c, field, sp, (c.state === 'seek' ? 360 : 320) * sq, 0.45, 0.8);
+    c.stam = Math.max(0, c.stam - dt / (c.state === 'seek' ? 14 : 17) / c.endur);
+    this.crawl(c, field, sp, (c.state === 'seek' ? 360 : 320) * sq, false);
   };
 
   World.prototype.updateChunk = function (c, dt) {
@@ -1462,6 +1611,17 @@ var Sim = (function () {
     }
     if (cut) { c.dirty = true; this.slashes++; this.burst(part.x, part.y, 4 + cut, 130); }
     c.startle = 1; pr.mouth = 0.15;
+  };
+
+  /* the nearest blob the spider can see within rad */
+  World.prototype.nearPrey = function (pr, rad) {
+    var b = pr.body, best = null, bd = rad, i, c, d;
+    for (i = 0; i < this.soft.length; i++) {
+      c = this.soft[i]; if (c.kind !== 'prey' || c.dead || c.frozen || c.emerge || c.parts.length < 5) continue;
+      d = hyp(c.com.x - b.x, c.com.y - b.y);
+      if (d < bd && this.los(b.x, b.y, c.com.x, c.com.y)) { bd = d; best = c; }
+    }
+    return best;
   };
 
   World.prototype.hasPrey = function () {
@@ -1526,7 +1686,7 @@ var Sim = (function () {
     L.t += dt; pr.lookT = L.c && !L.c.dead ? L.c.com : null;
     if (!L.hit) {
       for (i = 0; i < this.soft.length && !L.hit; i++) {
-        c = this.soft[i]; if (c.kind !== 'prey' || c.dead || c.frozen) continue;
+        c = this.soft[i]; if (c.kind !== 'prey' || c.dead || c.frozen || c.emerge) continue;
         for (j = 0; j < c.parts.length; j++) {
           p = c.parts[j]; d = hyp(p.x - b.x, p.y - b.y);
           if (d < pr.reach * 0.8 && this.los(b.x, b.y, p.x, p.y)) {
@@ -1555,11 +1715,18 @@ var Sim = (function () {
     if (!pr.held) {
       pr.foodT -= dt;
       if (pr.foodT <= 0 || !pr.food || pr.food.dead || pr.food.parts.length < 3) { pr.food = this.findFood(pr); pr.foodT = 0.4; }
-      var food = pr.food;
+      var food = pr.food, prox = pr.reach * 2.4;
+      /* a blob close by always wins over waiting: off to ambush or sitting in it, the spider goes for it */
+      if (pr.state === 'go' || pr.state === 'ambush') {
+        var nb = this.nearPrey(pr, prox), pl3 = 0;
+        for (i = 0; i < pr.legs.length; i++) if (pr.legs[i].planted && !pr.legs[i].stepping) pl3++;
+        if (nb && pr.state === 'ambush' && pr.biteCD <= 0 && pl3 >= 2) this.startLunge(pr, nb);
+        else if (nb) { pr.state = 'hunt'; pr.food = food = nb; pr.foodT = 0.6; pr.navT = 0; pr.field = null; pr.spot = null; pr.ambT = R(20, 35); }
+      }
       var special = pr.state === 'lunge' || pr.state === 'ambush' || pr.state === 'go';
       if (!special && pr.state !== 'flee' && pr.ambT <= 0 && this.hasPrey()) {
         var fd = food && food.parts.length ? hyp(food.com.x - b.x, food.com.y - b.y) : 1e9;
-        if (fd > pr.reach * 1.6) {
+        if (fd > prox) {
           var sp2 = this.findAmbushSpot(pr);
           if (sp2) { pr.state = 'go'; pr.spot = sp2; pr.stateT = 30; pr.field = null; pr.navT = 0; special = true; }
           else pr.ambT = 3;
@@ -1584,7 +1751,7 @@ var Sim = (function () {
           var ab = null, abd = 1e9, ac, ad, pl2 = 0, jr = Math.max(pr.reach * 3.2, this.W * 0.5);
           for (i = 0; i < pr.legs.length; i++) if (pr.legs[i].planted && !pr.legs[i].stepping) pl2++;
           for (i = 0; i < this.soft.length; i++) {
-            ac = this.soft[i]; if (ac.kind !== 'prey' || ac.dead || ac.frozen || ac.parts.length < 5) continue;
+            ac = this.soft[i]; if (ac.kind !== 'prey' || ac.dead || ac.frozen || ac.emerge || ac.parts.length < 5) continue;
             ad = hyp(ac.com.x - b.x, ac.com.y - b.y);
             if (ad < abd && ad < jr && this.los(b.x, b.y, ac.com.x, ac.com.y)) { abd = ad; ab = ac; }
           }
@@ -1832,14 +1999,16 @@ var Sim = (function () {
       c = this.soft[i];
       c.frozen = !!z && !c.held && (c.com.y < z.y0 || c.com.y > z.y1);
       if (c.frozen) continue;
-      act.push(c);
       updateBounds(c); c.age += dt;
+      if (c.emerge) { this.updateEmergeSoft(c, dt); continue; } /* still digging out: no physics yet */
+      act.push(c);
       if (c.kind === 'prey') this.updatePrey(c, dt); else if (c.kind === 'fruit') this.updateFruitBody(c, dt); else this.updateChunk(c, dt);
     }
     for (i = 0; i < this.preds.length; i++) {
       pr = this.preds[i];
       pr.frozen = !!z && !pr.held && (pr.body.y < z.y0 || pr.body.y > z.y1);
       if (pr.frozen) continue;
+      if (pr.emerge) { this.updateEmergePred(pr, dt); continue; }
       ap.push(pr); this.updatePred(pr, dt);
     }
     for (i = 0; i < n; i++) this.substep(h);
@@ -1912,13 +2081,14 @@ var Sim = (function () {
   World.prototype.hit = function (x, y) {
     var best = null, bd = 12, i, j, c, p, d;
     for (i = 0; i < this.soft.length; i++) {
-      c = this.soft[i];
+      c = this.soft[i]; if (c.emerge) continue;
       for (j = 0; j < c.parts.length; j++) {
         p = c.parts[j]; d = hyp(p.x - x, p.y - y) - p.r;
         if (d < bd) { bd = d; best = { c: c, p: p }; }
       }
     }
     for (i = 0; i < this.preds.length; i++) {
+      if (this.preds[i].emerge) continue;
       p = this.preds[i].body; d = hyp(p.x - x, p.y - y) - p.r;
       if (d < bd) { bd = d; best = { c: this.preds[i], p: p }; }
     }
@@ -2201,10 +2371,19 @@ var Render = (function () {
       if (c.kind === 'fruit') continue;
       if (c.bb.x1 < x0 - 120 || c.bb.x0 > x1 + 120 || c.bb.y1 < y0 - 120 || c.bb.y0 > y1 + 120) continue;
       var pulse = 1 + (c.startle > 0 ? 0.35 : 0);
+      if (c.emerge) { if (c.emerge.t > 0) addLight(c.com.x, c.com.y, c.R * 4.4 + 26, 1.15 * c.emerge.u, 0.37, 0.96, 1); continue; }
       if (c.kind === 'prey') addLight(c.com.x, c.com.y, c.R * 4.4 + 26, 1.15 * pulse, 0.37, 0.96, 1);
       else addLight(c.com.x, c.com.y, c.R * 2.6 + 14, 0.7, 0.37, 0.96, 1);
     }
     if (cam.cur) addLight(cam.cur.x, cam.cur.y, 100, 0.24, 0.55, 0.75, 0.9);
+    /* a hole being dug glows through the cracked rim and lights whatever climbs out of it */
+    var digs = [];
+    for (i = 0; i < w.soft.length; i++) if (w.soft[i].emerge && w.soft[i].emerge.t > 0) digs.push(w.soft[i].emerge, w.soft[i].R * 1.6);
+    for (i = 0; i < w.preds.length; i++) if (w.preds[i].emerge && w.preds[i].emerge.t > 0) digs.push(w.preds[i].emerge, w.preds[i].body.r * 2.4);
+    for (i = 0; i < digs.length; i += 2) {
+      q = digs[i]; if (q.ax < x0 || q.ax > x1 || q.ay < y0 || q.ay > y1) continue;
+      addLight(q.ax + q.nx * 6, q.ay + q.ny * 6, 70, 0.75 * Math.sin(Math.PI * Math.min(1, q.u * 1.15)), 0.45, 0.95, 1);
+    }
     var nPreyLights = nL;
     for (i = 0; i < w.fruits.length; i++) { q = w.fruits[i]; if (q.grow >= 1) addLight(q.x, q.y, 62, 0.55, 1, 0.8, 0.25); }
 
@@ -2261,7 +2440,15 @@ var Render = (function () {
       c = w.soft[i];
       if (c.kind === 'fruit') continue;
       if (c.bb.x1 < x0 || c.bb.x0 > x1 || c.bb.y1 < y0 || c.bb.y0 > y1) continue;
-      var isPrey = c.kind === 'prey', s1 = c.v ? SP.soft2 : SP.soft, s2 = c.v ? SP.core2 : SP.core;
+      var isPrey = c.kind === 'prey', s1 = c.v ? SP.soft2 : SP.soft, s2 = c.v ? SP.core2 : SP.core, em = c.emerge;
+      if (em) {
+        if (em.t <= 0) continue;
+        var BIG = 400, etx = -em.ny, ety = em.nx;
+        ctx.save(); ctx.beginPath();
+        ctx.moveTo(em.ax - etx * BIG, em.ay - ety * BIG); ctx.lineTo(em.ax + etx * BIG, em.ay + ety * BIG);
+        ctx.lineTo(em.ax + etx * BIG + em.nx * BIG, em.ay + ety * BIG + em.ny * BIG); ctx.lineTo(em.ax - etx * BIG + em.nx * BIG, em.ay - ety * BIG + em.ny * BIG);
+        ctx.closePath(); ctx.clip();
+      }
       var rr = c.parts.length ? c.parts[0].r : 4;
       ctx.globalAlpha = isPrey ? 1 : 0.8;
       for (j = 0; j < c.parts.length; j++) {
@@ -2270,7 +2457,7 @@ var Render = (function () {
       }
       var rad = c.R * (isPrey ? 2.0 : 1.7) + (c.startle > 0 ? c.R * 0.35 : 0);
       var cx0 = c.com.x, cy0 = c.com.y;
-      var breath = c.state === 'sleep' ? 0.62 + 0.18 * Math.sin(t * 1.6 + i) : 1;
+      var breath = c.state === 'sleep' ? 0.62 + 0.18 * Math.sin(t * 1.6 + i) : (c.state === 'rest' ? 0.8 + 0.12 * Math.sin(t * 2.6 + i) : 1);
       ctx.globalAlpha = (isPrey ? 1 : 0.8) * breath;
       ctx.drawImage(s2, cx0 - rad, cy0 - rad, rad * 2, rad * 2);
       if (c.yel > 0) {
@@ -2287,6 +2474,7 @@ var Render = (function () {
         ctx.moveTo(q.a.x, q.a.y); ctx.lineTo(q.b.x, q.b.y);
       }
       ctx.strokeStyle = c.v ? 'rgb(170,200,255)' : 'rgb(150,240,255)'; ctx.lineWidth = P; ctx.stroke();
+      if (em) ctx.restore();
     }
     ctx.globalAlpha = 1;
 
@@ -2323,9 +2511,11 @@ var Render = (function () {
         if (ddx * ddx + ddy * ddy < rs * rs) tmp.push(lk);
       }
       var save = L, saveN = nL; L = tmp; nL = tmp.length;
-      var a = pr.reach * 0.52, bl = pr.reach * 0.56;
+      var a = pr.reach * 0.52, bl = pr.reach * 0.56, pem = pr.emerge;
+      if (pem && pem.t <= 0) { L = save; nL = saveN; continue; }
       I();
       function lit(x, y, base, sz, gl, ghost) {
+        if (pem && (x - pem.ax) * pem.nx + (y - pem.ay) * pem.ny < 0) return;
         var s = lightAt(x, y, 0, nL); gl = gl || 0; ghost = ghost || 0;
         if (s < 0.015 && !ghost) return;
         /* greyer than the light that falls on it; legs show a ~2.5% grey in the dark only while they move */
@@ -2352,7 +2542,8 @@ var Render = (function () {
         var n2 = Math.max(2, Math.ceil(Math.hypot(l.foot.x - kx, l.foot.y - ky) / (P * 0.8)));
         for (k = 1; k <= n2; k++) lit(kx + (l.foot.x - kx) * k / n2, ky + (l.foot.y - ky) * k / n2, 190, 2);
         lit(kx, ky, 230, 1);
-        dots.push(kx + (l.foot.x - kx) * 0.72, ky + (l.foot.y - ky) * 0.72, l.glow || 0);
+        var dkx = kx + (l.foot.x - kx) * 0.72, dky = ky + (l.foot.y - ky) * 0.72;
+        if (!pem || (dkx - pem.ax) * pem.nx + (dky - pem.ay) * pem.ny > 0) dots.push(dkx, dky, l.glow || 0);
       }
       var ca2 = Math.cos(pr.ang), sa2 = Math.sin(pr.ang), ea = bd.r * 1.4, eb = bd.r * 0.82, rp = Math.ceil(ea / P) + 1;
       var bcx = Math.floor((bd.x - cam.x) / P), bcy = Math.floor((bd.y - cam.y) / P);
@@ -2491,7 +2682,20 @@ var Render = (function () {
       if (q.kind === 'gore') px(q.x, q.y, q.c ? 'rgb(235,252,255)' : 'rgb(95,230,255)');
       else if (q.kind === 'spark') px(q.x, q.y, 'rgb(255,85,34)');
       else if (q.kind === 'seed') px(q.x, q.y, 'rgb(255,215,70)');
+      else if (q.kind === 'dirt') { var dl = Math.min(1, q.life * 2.5); px(q.x, q.y, q.c ? rgb(95 * dl, 245 * dl, 255 * dl) : rgb(40 * dl, 110 * dl, 140 * dl)); }
       else px(q.x, q.y, rgb(30 * Math.min(1, q.life * 2.2), 60 * Math.min(1, q.life * 2.2), 110 * Math.min(1, q.life * 2.2)));
+    }
+    /* the rim cracks open where something digs through: a flickering seam along the frame's edge */
+    for (i = 0; i < digs.length; i += 2) {
+      q = digs[i]; if (q.ax < x0 || q.ax > x1 || q.ay < y0 || q.ay > y1) continue;
+      var dk = Math.sin(Math.PI * Math.min(1, q.u * 1.1)), half = digs[i + 1] * (0.45 + 0.55 * Math.min(1, q.u * 4)), dtx = -q.ny, dty = q.nx, ns = Math.ceil(half * 2 / P);
+      for (k = 0; k <= ns; k++) {
+        var o = -half + k * P, fl2 = 0.55 + 0.45 * Math.sin(t * 31 + k * 2.7), edge = 1 - Math.abs(o) / (half + P);
+        var cl = dk * fl2 * edge;
+        if (cl < 0.05) continue;
+        px(q.ax + dtx * o, q.ay + dty * o, rgb(150 * cl, 250 * cl, 255 * cl));
+        if (edge > 0.5 && (k + Math.floor(t * 12)) % 3 === 0) px(q.ax + dtx * o + q.nx * P, q.ay + dty * o + q.ny * P, rgb(60 * cl, 160 * cl, 190 * cl));
+      }
     }
     ctx.globalCompositeOperation = 'source-over';
   }
