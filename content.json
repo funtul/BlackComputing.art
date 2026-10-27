@@ -84,6 +84,48 @@
     "text": "www.linkedin.com/in/arkady-kukin",
     "url": "https://www.linkedin.com/in/arkady-kukin-8273b024a/?isSelfProfile=true"
    }
+  ],
+  "eco": [
+   [
+    "Эта страница живая. в ней есть небольшая симуляция: светящиеся блобы ползают в поисках плодов, а длинноногие пауки охотятся на них. ",
+    "This page is alive. A small simulation runs behind the frames: glowing blobs crawl looking for fruit, and long-legged spiders hunt the blobs. "
+   ],
+   [
+    "Вы тоже часть этой экосистемы:",
+    "You are part of the ecosystem too:"
+   ]
+  ],
+  "ecoRows": [
+   [
+    [
+     "Тащить",
+     "Drag"
+    ],
+    [
+     "Хватайте блоба, паука или плод и несите куда угодно. Будьте аккуратны с блобами — они легко рвутся.",
+     "Grab a blob, a spider or a fruit and carry it anywhere. Be gentle with a blob they tear easily."
+    ]
+   ],
+   [
+    [
+     "Ткнуть",
+     "Poke"
+    ],
+    [
+     "Щелчок пугает блоба, а паука прогоняет.",
+     "A click startles a blob and chases a spider away."
+    ]
+   ],
+   [
+    [
+     "Кормить",
+     "Feed"
+    ],
+    [
+     "Сорвите спелый плод и бросьте рядом с каплей. Наевшись дважды, блоб даёт потомство.",
+     "Pick a ripe fruit and drop it near a blob. A blob that eats twice gives birth."
+    ]
+   ]
   ]
  },
  "exhibitions": {
@@ -2227,17 +2269,6 @@
     ]
    },
    {
-    "id": "hello",
-    "pos": [
-     1,
-     8,
-     2,
-     4,
-     6,
-     4
-    ]
-   },
-   {
     "id": "cvC",
     "pos": [
      9,
@@ -2249,11 +2280,33 @@
     ]
    },
    {
+    "id": "hello",
+    "pos": [
+     1,
+     8,
+     3,
+     1,
+     6,
+     1
+    ]
+   },
+   {
+    "id": "eco",
+    "pos": [
+     1,
+     8,
+     4,
+     1,
+     6,
+     1
+    ]
+   },
+   {
     "id": "cvA",
     "pos": [
      1,
      8,
-     7,
+     5,
      2,
      6,
      2
@@ -2264,7 +2317,7 @@
     "pos": [
      9,
      4,
-     7,
+     6,
      1,
      6,
      1
@@ -2460,12 +2513,12 @@
    {
     "id": "razvidet",
     "pos": [
-     3,
      5,
+     3,
      15,
-     10,
      6,
-     10
+     3,
+     6
     ]
    },
    {
@@ -2482,7 +2535,7 @@
    {
     "id": "urc",
     "pos": [
-     9,
+     10,
      3,
      22,
      4,
@@ -2495,7 +2548,7 @@
     "pos": [
      4,
      5,
-     25,
+     23,
      4,
      6,
      4
@@ -2517,7 +2570,7 @@
     "pos": [
      2,
      4,
-     30,
+     28,
      8,
      6,
      8
@@ -2529,6 +2582,17 @@
      7,
      3,
      31,
+     5,
+     3,
+     5
+    ]
+   },
+   {
+    "id": "spacejunker",
+    "pos": [
+     4,
+     3,
+     36,
      6,
      3,
      6
@@ -2543,17 +2607,6 @@
      4,
      3,
      4
-    ]
-   },
-   {
-    "id": "spacejunker",
-    "pos": [
-     5,
-     3,
-     38,
-     6,
-     3,
-     6
     ]
    },
    {
@@ -2572,7 +2625,7 @@
     "pos": [
      5,
      3,
-     45,
+     42,
      3,
      3,
      3

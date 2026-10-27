@@ -135,7 +135,7 @@ h4 { margin: 22px 0 8px; font-size: 12px; text-transform: uppercase; letter-spac
     bio: U('Био', 'Bio'), portfolio: U('Портфолио', 'Portfolio'), contacts: U('Контакты', 'Contacts'), statement: U('Artist Statement', 'Artist Statement'),
     hello: U('Привет и добро пожаловать в моё портфолио!', 'Hi and welcome to my portfolio!'),
     dl_portfolio: U('Скачать портфолио', 'Download Portfolio'), dl_cv: U('Скачать CV', 'Download CV'), dl_bio: U('Скачать био', 'Download Bio'),
-    h_bio: U('Био', 'Bio'), h_edu: U('Образование', 'Education'), h_now: U('Сейчас', 'Now'), h_contents: U('Содержание', 'Contents'),
+    h_bio: U('Био', 'Bio'), h_edu: U('Образование', 'Education'), h_now: U('Сейчас', 'Now'), h_eco: U('Экосистема сайта', 'Website Ecosystem'), h_contents: U('Содержание', 'Contents'),
     h_pub: U('Публикации', 'Publications'), h_games: U('Видеоигры', 'Videogames'), h_exp: U('Опыт', 'Experience'), h_contact: U('Связь', 'Get in touch'),
     email: U('почта', 'email'), watch: U('Смотреть видео', 'Watch video'), back: U('назад', 'back'),
     type: U('Тип', 'Type'), shown: U('Показ', 'Shown at'), team: U('Команда', 'Team'), links: U('Ссылки', 'Links'),
@@ -196,7 +196,7 @@ h4 { margin: 22px 0 8px; font-size: 12px; text-transform: uppercase; letter-spac
     return C.statement.map(function (x, i) { return { id: 's' + (i + 1), pos: (STM_DEFAULT[i] || [1, 6, 16 + 5 * (i - STM_DEFAULT.length), 4, 6, 4]).slice() }; });
   }
   /* tiles of the home page that are not projects */
-  var BLOCK_IDS = ['cvA', 'cvB', 'cvC', 'portrait', 'hello', 'toc', 'exlist', 'ctile', 'gamelist', 'exp', 'dlp', 'dlcv', 'dlbio'];
+  var BLOCK_IDS = ['cvA', 'cvB', 'cvC', 'portrait', 'hello', 'eco', 'toc', 'exlist', 'ctile', 'gamelist', 'exp', 'dlp', 'dlcv', 'dlbio'];
 
   /* C.ui holds the labels the owner changed, {key: [ru, en]}: keys of BASE_UI, or 'link:' + a key of BASE_LINKS */
   function labels(base, ov, pre) {
@@ -273,6 +273,11 @@ h4 { margin: 22px 0 8px; font-size: 12px; text-transform: uppercase; letter-spac
       hello: function (pos) {
         var paras = B.general.map(function (p) { return t(p, 'p', 'body'); }).join('');
         return tile('hello', pos, framed(th(UI.hello, 'p', 'hello'), paras), 'section', 'txt hi hd', '', true);
+      },
+      /* the living page: what the simulation behind the frames is and what the visitor can do in it */
+      eco: function (pos) {
+        var paras = (B.eco || []).map(function (p) { return t(p, 'p', 'body'); }).join('');
+        return tile('eco', pos, framed(th(UI.h_eco), paras + dlRows(B.ecoRows || [])), 'section', 'txt cv eco hd', '', true);
       },
       /* download buttons: each file in a frame of its own (plain black inside, like every other frame) */
       dlp: dlTile('dlp', 'portfolio', 'dl_portfolio'),
@@ -866,8 +871,8 @@ h4 { margin: 22px 0 8px; font-size: 12px; text-transform: uppercase; letter-spac
   }
 
   /* ---------------------------------------------------------------- names */
-  const NAMES = { cvA: 'Био — коротко', cvB: 'Образование', cvC: 'Сейчас и контакты', portrait: 'Фото', hello: 'Привет и абзацы о себе', toc: 'Содержание', exlist: 'Список выставок', ctile: 'Контакты', gamelist: 'Список игр', exp: 'Опыт (места работы)', dlp: 'Кнопка «Скачать портфолио»', dlcv: 'Кнопка «Скачать CV»', dlbio: 'Кнопка «Скачать био»' };
-  const HOME_OF = { cvA: 'top', cvB: 'top', cvC: 'top', portrait: 'bio', hello: 'bio', toc: 'portfolio', exlist: 'exhibitions', ctile: 'contacts', gamelist: 'games', exp: 'gamedesign', dlp: 'top', dlcv: 'top', dlbio: 'top' };
+  const NAMES = { cvA: 'Био — коротко', cvB: 'Образование', cvC: 'Сейчас и контакты', portrait: 'Фото', hello: 'Привет и абзацы о себе', eco: 'Экосистема сайта', toc: 'Содержание', exlist: 'Список выставок', ctile: 'Контакты', gamelist: 'Список игр', exp: 'Опыт (места работы)', dlp: 'Кнопка «Скачать портфолио»', dlcv: 'Кнопка «Скачать CV»', dlbio: 'Кнопка «Скачать био»' };
+  const HOME_OF = { cvA: 'top', cvB: 'top', cvC: 'top', portrait: 'bio', hello: 'bio', eco: 'top', toc: 'portfolio', exlist: 'exhibitions', ctile: 'contacts', gamelist: 'games', exp: 'gamedesign', dlp: 'top', dlcv: 'top', dlbio: 'top' };
   const HEADS = { top: 'Шапка с именем', bio: 'Био', portfolio: 'Содержание', statement: 'Artist Statement' };
   /* a paragraph of the Artist Statement page: tile 's3' is C.statement[2] */
   const stm = (id) => { const i = Gen.stmIndex(id); return i >= 0 && i < S.C.statement.length && !proj(id) && !poster(id); };
@@ -1450,6 +1455,11 @@ h4 { margin: 22px 0 8px; font-size: 12px; text-transform: uppercase; letter-spac
     cvC: () => [uiPair('h_now', 'Заголовок'), twoPairs(S.C.bio.now, 'Подпись', 'Текст'), contactFields()],
     portrait: () => imgSlot('img/t/portrait.jpg', f => importImage(f, null, 'portrait'), 'Фото рядом с блоком «Привет». Плитка принимает форму фото. Можно вставить из буфера (Ctrl+V).', true),
     hello: () => [uiPair('hello', 'Первая строка'), h('h4', { text: 'Абзацы' }), pairList(S.C.bio.general, { multi: true, add: '+ абзац' })],
+    eco: () => {
+      const B = S.C.bio; B.eco = B.eco || []; B.ecoRows = B.ecoRows || [];
+      return [uiPair('h_eco', 'Заголовок'), h('h4', { text: 'Абзацы' }), pairList(B.eco, { multi: true, add: '+ абзац' }),
+        h('h4', { text: 'Что может посетитель' }), twoPairs(B.ecoRows, 'Действие', 'Что происходит')];
+    },
     dlp: () => [uiPair('dl_portfolio', 'Надпись'), hint('Файлы: files/portfolio-ru.pdf и files/portfolio-en.pdf.')],
     dlcv: () => [uiPair('dl_cv', 'Надпись'), hint('Файлы: files/cv-ru.pdf и files/cv-en.pdf.')],
     dlbio: () => [uiPair('dl_bio', 'Надпись'), hint('Файлы: files/bio-ru.pdf и files/bio-en.pdf.')],
