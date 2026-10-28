@@ -134,6 +134,10 @@
     "2026",
     [
      [
+      "ГЭС-2, Проспект — ЦФЫВ",
+      "GES-2, Prospekt — TsFYV"
+     ],
+     [
       "Галерея Краснохолмская — Завтра и Послезавтра",
       "Redhills Gallery — Tomorrow and the Day After Tomorrow"
      ]
@@ -155,22 +159,26 @@
       "Shtubnits and St. Petersburg Media Art — Digital Rain"
      ],
      [
+      "Дом учёных, Пущино — ИКАК? Игры как наука",
+      "House of Scientists, Pushchino — IKAK? Games as Science"
+     ],
+     [
       "Руководство по полному умиранию",
       "Guide for Complete Dying"
      ],
      [
       "HSE ART AND DESIGN — Game Future",
       "HSE ART AND DESIGN — Game Future"
-     ],
-     [
-      "Яндекс.Музей — Игры и технологии",
-      "Yandex.Museum — Games and Technologies"
      ]
     ]
    ],
    [
     "2024",
     [
+     [
+      "Яндекс.Музей — Игра в технологии",
+      "Yandex.Museum — Game in Technology"
+     ],
      [
       "MMOMA — НИИ Филаретова. Осознанный сон.",
       "MMOMA — NII Filaretova. Lucid Dream."
@@ -221,12 +229,12 @@
    {
     "img": "ex-yandex",
     "title": [
-     "Игры и технологии",
-     "Games and Technologies"
+     "Игра в технологии",
+     "Game in Technology"
     ],
     "place": [
-     "Яндекс Музей, 2025",
-     "Yandex.Museum, 2025"
+     "Яндекс Музей, декабрь 2024",
+     "Yandex.Museum, December 2024"
     ],
     "url": "https://vkvideo.ru/video-226429084_456239048?list=ln-pd4YwRFzRmURPNA3d5"
    }
@@ -369,6 +377,15 @@
     "god-1",
     "god-2",
     "god-3"
+   ],
+   "clips": [
+    {
+     "src": "god-wip",
+     "kind": "video",
+     "w": 400,
+     "h": 400,
+     "round": true
+    }
    ]
   },
   {
@@ -506,7 +523,8 @@
    "imgs": [
     "mid-2",
     "mid-1",
-    "mid-3"
+    "mid-3",
+    "mid-4"
    ]
   },
   {
@@ -747,7 +765,9 @@
    "imgs": [
     "pa-1",
     "pa-2",
-    "pa-3"
+    "pa-3",
+    "pa-4",
+    "pa-5"
    ]
   },
   {
@@ -762,8 +782,8 @@
     "Lecture"
    ],
    "exh": [
-    "Яндекс.Музей — Игры и технологии",
-    "Yandex.Museum — Games and Technologies"
+    "Яндекс.Музей — Игра в технологии, декабрь 2024",
+    "Yandex.Museum — Game in Technology, December 2024"
    ],
    "lead": [
     "Лекция «Генеративное искусство и видеоигры» и первый плейтест The Ordinate.",
@@ -816,7 +836,9 @@
    "imgs": [
     "yq-1",
     "yq-2",
-    "lecture-1"
+    "lecture-1",
+    "yq-3",
+    "yq-4"
    ]
   },
   {
@@ -892,7 +914,8 @@
    "imgs": [
     "b3-2",
     "b3-1",
-    "b3-3"
+    "b3-3",
+    "b3-4"
    ]
   },
   {
@@ -975,7 +998,8 @@
     "ht-1",
     "ht-3",
     "ht-4",
-    "ht-5"
+    "ht-5",
+    "ht-6"
    ]
   },
   {
@@ -1119,7 +1143,16 @@
    "imgs": [
     "mf-1",
     "mf-2",
-    "mf-3"
+    "mf-3",
+    "mf-4"
+   ],
+   "clips": [
+    {
+     "src": "mf-opening",
+     "kind": "loop",
+     "w": 720,
+     "h": 406
+    }
    ]
   },
   {
@@ -1216,6 +1249,21 @@
        ]
       ]
      }
+    ],
+    [
+     [
+      "Лаборатория",
+      "Lab"
+     ],
+     {
+      "p": [
+       [
+        "В 2025 году в лабораторию отобрали 12 участников из 44 заявок. Куратор — Селена Волконская. Маршрут добавляют в приложение New Stage XR. Презентация маршрута — 25–26 сентября 2025.",
+        "In 2025, 12 participants were selected for the lab from 44 applications. Curator: Selena Volkonskaya. The route is being added to the New Stage XR app. Route presentation: 25–26 September 2025."
+       ]
+      ],
+      "ul": []
+     }
     ]
    ],
    "credits": null,
@@ -1230,7 +1278,8 @@
     "sh-1",
     "shtubnits-1",
     "shtubnits-2",
-    "shtubnits-3"
+    "shtubnits-3",
+    "shtubnits-4"
    ]
   },
   {
@@ -1342,7 +1391,8 @@
    "imgs": [
     "bv-1",
     "bv-2",
-    "bv-3"
+    "bv-3",
+    "bv-4"
    ]
   },
   {
@@ -1415,7 +1465,8 @@
     "el-4",
     "el-5",
     "el-6",
-    "el-7"
+    "el-7",
+    "el-8"
    ]
   },
   {
@@ -1429,7 +1480,10 @@
     "Участие в организации + Лекция",
     "Helped organize + Lecture"
    ],
-   "exh": null,
+   "exh": [
+    "ГЭС-2, Проспект — с 12 июня 2026",
+    "GES-2, Prospekt — from 12 June 2026"
+   ],
    "lead": null,
    "blocks": [
     [
@@ -1474,6 +1528,21 @@
        ]
       ]
      }
+    ],
+    [
+     [
+      "Выставка",
+      "Exhibition"
+     ],
+     {
+      "p": [
+       [
+        "Центр аркадных игр «ЦФЫВ» в ГЭС-2 на Проспекте работает с 12 июня 2026. Автоматы с необычными способами управления вместе с профессионалами делали подростки из студии безумных аркад «Жук».",
+        "The TsFYV arcade center at GES-2, on the Prospekt, runs from 12 June 2026. The machines with unusual controls were made by teenagers from the Zhuk studio of crazy arcades, together with professionals."
+       ]
+      ],
+      "ul": []
+     }
     ]
    ],
    "credits": [
@@ -1492,7 +1561,13 @@
     "ar-1",
     "ar-2",
     "ar-3",
-    "ar-4"
+    "ar-4",
+    "ya-4",
+    "ya-5",
+    "ar-7",
+    "ar-9",
+    "ar-5",
+    "ar-6"
    ]
   },
   {
@@ -1559,8 +1634,10 @@
     "ya-1",
     "ya-3",
     "ya-2",
-    "ya-4",
-    "ya-5"
+    "ya-8",
+    "ya-9",
+    "ya-10",
+    "ya-11"
    ]
   },
   {
@@ -1579,7 +1656,27 @@
     "Экспериментальная игра с управлением через дыхание, разрабатываемая как инструмент психологической терапии.",
     "An experimental breath-controlled game, being developed as a tool for psychological therapy."
    ],
-   "blocks": [],
+   "blocks": [
+    [
+     [
+      "Награды",
+      "Awards"
+     ],
+     {
+      "p": [],
+      "ul": [
+       [
+        "Первый приз на конференции «ИКАК? Игры как наука», Пущино, 9–10 августа 2025",
+        "First prize at the conference “IKAK? Games as Science”, Pushchino, 9–10 August 2025"
+       ],
+       [
+        "Специальный приз от спонсора, студии локализации NikiStudio",
+        "Special prize from the sponsor, the localization studio NikiStudio"
+       ]
+      ]
+     }
+    ]
+   ],
    "credits": null,
    "video": [
     "LLOpDqs4Uck",
@@ -1595,7 +1692,9 @@
     "ord-1",
     "ord-2",
     "ord-3",
-    "ord-4"
+    "ord-4",
+    "ord-6",
+    "ord-7"
    ]
   },
   {
@@ -1973,10 +2072,7 @@
    ],
    "blocks": [],
    "credits": null,
-   "video": [
-    "2pwCNGrx-bg",
-    0
-   ],
+   "video": null,
    "links": [
     [
      "itch",
@@ -2060,6 +2156,38 @@
     "grv-4",
     "grv-5",
     "grv-6"
+   ]
+  },
+  {
+   "id": "dance",
+   "sec": "games",
+   "title": [
+    "Танец вечности",
+    "Dance of Eternity"
+   ],
+   "tag": [
+    "Рейв-игра",
+    "Rave game"
+   ],
+   "exh": [
+    "Клуб «Ровесник» — открытая защита ArtTECH НИТУ МИСИС, 13.11.2025",
+    "Rovesnik club — ArtTECH NUST MISIS open defense, 13.11.2025"
+   ],
+   "lead": [
+    "Рейв-игра про танец, эволюцию и связь с вечным.",
+    "A rave game about dance, evolution and connection with the eternal."
+   ],
+   "blocks": [],
+   "credits": null,
+   "video": null,
+   "links": [
+    [
+     "video",
+     "https://kinescope.io/pNfVq3hx2dnpwuKvRwukp3"
+    ]
+   ],
+   "imgs": [
+    "dance-1"
    ]
   }
  ],
@@ -2629,6 +2757,17 @@
      3,
      3,
      3
+    ]
+   },
+   {
+    "id": "dance",
+    "pos": [
+     5,
+     3,
+     46,
+     5,
+     3,
+     5
     ]
    }
   ],
@@ -3440,6 +3579,94 @@
   "lucid-2": {
    "w": 1535,
    "h": 864
+  },
+  "yq-3": {
+   "w": 800,
+   "h": 800
+  },
+  "yq-4": {
+   "w": 800,
+   "h": 350
+  },
+  "ord-6": {
+   "w": 800,
+   "h": 598
+  },
+  "ord-7": {
+   "w": 800,
+   "h": 639
+  },
+  "mf-4": {
+   "w": 800,
+   "h": 533
+  },
+  "shtubnits-4": {
+   "w": 800,
+   "h": 800
+  },
+  "ar-5": {
+   "w": 800,
+   "h": 800
+  },
+  "ar-6": {
+   "w": 800,
+   "h": 800
+  },
+  "ar-7": {
+   "w": 1066,
+   "h": 1600
+  },
+  "ar-9": {
+   "w": 1066,
+   "h": 1600
+  },
+  "ht-6": {
+   "w": 960,
+   "h": 1280
+  },
+  "mid-4": {
+   "w": 556,
+   "h": 800
+  },
+  "el-8": {
+   "w": 1600,
+   "h": 1160
+  },
+  "bv-4": {
+   "w": 1600,
+   "h": 1200
+  },
+  "pa-4": {
+   "w": 940,
+   "h": 756
+  },
+  "pa-5": {
+   "w": 1280,
+   "h": 660
+  },
+  "b3-4": {
+   "w": 1280,
+   "h": 960
+  },
+  "ya-8": {
+   "w": 1280,
+   "h": 727
+  },
+  "ya-9": {
+   "w": 1280,
+   "h": 721
+  },
+  "ya-10": {
+   "w": 1280,
+   "h": 720
+  },
+  "ya-11": {
+   "w": 1280,
+   "h": 720
+  },
+  "dance-1": {
+   "w": 640,
+   "h": 800
   }
  },
  "experience": [
