@@ -373,6 +373,15 @@ h4 { margin: 22px 0 8px; font-size: 12px; text-transform: uppercase; letter-spac
     }
 
     /* ---------------- projects */
+    /* a local clip: kind 'video' is a short mp4 with controls, kind 'loop' a silent webm that plays on its own while on screen. Files: media/<src>.mp4 or .webm, poster media/<src>.jpg.
+       Nothing is downloaded before it is needed: preload=none for mp4, the source of a loop is set by the page script when the slide is in view */
+    function clip(c) {
+      var base = 'media/' + c.src, dim = ' width="' + c.w + '" height="' + c.h + '" poster="' + base + '.jpg"';
+      var v = c.kind === 'loop'
+        ? '<video class="loop" muted loop playsinline preload="none"' + dim + ' data-src="' + base + '.webm" aria-hidden="true"></video>'
+        : '<video controls playsinline preload="none"' + dim + '><source src="' + base + '.mp4" type="video/mp4"></video>';
+      return '<figure class="slide clip' + (c.round ? ' round' : '') + '">' + v + '</figure>';
+    }
     function carousel(p) {
       var slides = [], rest;
       if (p.video) {
@@ -380,6 +389,7 @@ h4 { margin: 22px 0 8px; font-size: 12px; text-transform: uppercase; letter-spac
         rest = p.imgs.slice(1);
       } else rest = p.imgs;
       rest.forEach(function (s, k) { slides.push('<figure class="slide">' + img(s, false, !(k === 0 && !p.video)) + '</figure>'); });
+      (p.clips || []).forEach(function (c) { slides.push(clip(c)); });
       var n = slides.length, ctr = '';
       if (n > 1) {
         ctr = '<button type="button" class="car-btn prev" data-ru-label="' + esc(UI.prev[0]) + '" data-en-label="' + esc(UI.prev[1]) + '" aria-label="' + esc(UI.prev[1]) + '">' + ARROW_L + '</button>'
@@ -479,6 +489,7 @@ h4 { margin: 22px 0 8px; font-size: 12px; text-transform: uppercase; letter-spac
     var o = {}; o['img/t/portrait.jpg'] = 1; o['img/portrait.jpg'] = 1; o['img/og.jpg'] = 1;
     C.projects.forEach(function (p) { p.imgs.forEach(function (s) { o['img/' + s + '.jpg'] = 1; }); o['img/t/' + p.imgs[0] + '.jpg'] = 1; });
     (C.exhibitions.covers || []).forEach(function (e) { o['img/t/' + e.img + '.jpg'] = 1; });
+    C.projects.forEach(function (p) { (p.clips || []).forEach(function (c) { o['media/' + c.src + '.jpg'] = 1; o['media/' + c.src + (c.kind === 'loop' ? '.webm' : '.mp4')] = 1; }); });
     (C.posters || []).forEach(function (p) { if (p.img) { o['img/' + p.img + '.jpg'] = 1; o['img/t/' + p.img + '.jpg'] = 1; } });
     return Object.keys(o);
   }
